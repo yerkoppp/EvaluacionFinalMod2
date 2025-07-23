@@ -5,23 +5,24 @@ package prevencionDeRiesgos;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 /**
  * Clase utilitaria para validaciones
  */
-public class Validacion {
+public final class Validacion {
 	 // Definimos el formateador para el formato "DD/MM/AAAA"
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     // Definimos el formateador para el patrón "HH:MM"
     private static final DateTimeFormatter FORMATTER_HHMM = DateTimeFormatter.ofPattern("HH:mm");
 	
-	/**
-	 * 
-	 */
-	public Validacion() {
-		// TODO Auto-generated constructor stub
+    /**
+     * No deja instanciar la clase -> Ejemplo como cuando usamos la clase Math.round(float a)
+     */
+	private Validacion() {
+		
 	}
 	
 	
@@ -31,7 +32,7 @@ public class Validacion {
 	 * @param fecha
 	 * @return la fecha en tipo LocalDate. Retorna null si el formato no es válido.
 	 */
-	public LocalDate validarFecha(String fecha) {
+	public static LocalDate validarFecha(String fecha) {
 	        try {
 	            return LocalDate.parse(fecha, FORMATTER);
 	        } catch (DateTimeParseException e) {
@@ -45,7 +46,7 @@ public class Validacion {
 	 * @param fecha
 	 * @return la fecha en tipo String. Retorna null si el formato no es válido.
 	 */
-	 public String transformarFechaAstring(LocalDate fecha) {
+	 public static String transformarFechaAstring(LocalDate fecha) {
 	        if (fecha == null) {
 	            return null; // O una cadena vacía, dependiendo de la lógica
 	        }
@@ -58,7 +59,7 @@ public class Validacion {
 	  * @param hora
 	  * @return la hora en tipo LocalTime. Retorna null si el formato no es válido.
 	  */
-	 public LocalTime validarHora(String hora) {
+	 public static LocalTime validarHora(String hora) {
 
 	        try {
 	            return LocalTime.parse(hora, FORMATTER_HHMM);
@@ -74,7 +75,7 @@ public class Validacion {
 	  * @param hora
 	  * @return la hora en tipo String. Retorna null si el formato no es válido.
 	  */
-	 public String transformarHoraAstring(LocalTime hora) {
+	 public static String transformarHoraAstring(LocalTime hora) {
 
 	    	if (hora == null) {
 	            return null; // O una cadena vacía, dependiendo de la lógica
@@ -83,6 +84,34 @@ public class Validacion {
 
 	    }
 	
+	 /**
+	     * Calcula la edad en años a partir de una fecha de nacimiento en formato String (dd/MM/yyyy).
+	     *
+	     * @param fechaNacimientoStr La fecha de nacimiento en formato String (ej. "25/12/1990").
+	     * @return La edad en años. Retorna -1 si el formato de fecha es inválido, si la fecha es nula,
+	     * o si la fecha de nacimiento es en el futuro.
+	     */
+	    public static int calcularEdad(String fechaNacimientoStr) {
+	        LocalDate fechaNacimiento = validarFecha(fechaNacimientoStr); 
+
+	        if (fechaNacimiento == null) {
+	            System.err.println("Error: Formato de fecha de nacimiento inválido o fecha no válida.");
+	            return -1; // O lanza una excepción, según tu estrategia de manejo de errores.
+	        }
+
+	        LocalDate fechaActual = LocalDate.now();
+
+	        if (fechaNacimiento.isAfter(fechaActual)) {
+	            System.err.println("Error: La fecha de nacimiento no puede ser en el futuro.");
+	            return -1;
+	        }
+
+	        // Calcular la diferencia entre las dos fechas
+	        Period periodo = Period.between(fechaNacimiento, fechaActual);
+
+	        // Obtener los años de la diferencia
+	        return periodo.getYears();
+	    }
 	
     /**
      * Valida un RUT chileno (número + dígito verificador).
@@ -149,5 +178,6 @@ public class Validacion {
             return (char) (dv + '0'); // Convierte el int a su caracter ASCII
         }
     }
+    
 
 }
