@@ -71,11 +71,12 @@ public class Usuario implements Asesoria {
 		return "Retorna un mensaje con la edad del usuario (ej. \"El usuario tiene X años\")"; 
 	}
 	@Override
-	public void analizarUsuario() {
-		// TODO Auto-generated method stub
+	public String analizarUsuario() {
+		return String.format("Nombre: %s\nRUT: %s", 
+	        nombre, run);
 
 	}
-
+	
 	@Override
 	public String toString() {
 		return "Usuario [nombre=" + nombre + ", fechaNacimiento=" + fechaNacimiento + ", run=" + run + "]";

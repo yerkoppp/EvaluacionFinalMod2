@@ -4,8 +4,6 @@ public class Cliente extends Usuario{
 
 	// Atributos
 
-	private String rut;
-	private String nombres;
 	private String apellidos;
 	private String telefono;
 	private String afp;
@@ -20,7 +18,7 @@ public class Cliente extends Usuario{
 	}
 
 	/**
-	 * @param rut
+	 * @param run
 	 * @param nombres
 	 * @param apellidos
 	 * @param telefono
@@ -30,11 +28,11 @@ public class Cliente extends Usuario{
 	 * @param comuna
 	 * @param edad
 	 */
-	public Cliente(String rut, String nombres, String apellidos,
+	public Cliente(String run, String nombres, String fechaNacimiento, String apellidos,
 			String telefono, String afp, int sistemaSalud, String direccion,
 			String comuna, int edad) {
 
-		super(rut);
+		super(nombres, fechaNacimiento, Validacion.validarRut(run));
 		setNombres(nombres);
 		setApellidos(apellidos);
 		setTelefono(telefono);
@@ -46,14 +44,6 @@ public class Cliente extends Usuario{
 	}
 
 	// Getter
-
-	public String getRut() {
-		return rut;
-	}
-
-	public String getNombres() {
-		return nombres;
-	}
 
 	public String getApellidos() {
 		return apellidos;
@@ -85,6 +75,12 @@ public class Cliente extends Usuario{
 
 	// Setter
 	
+	// Setter con validación para rut
+	public void setRun(String run) {
+		 //this.rut = Validacion.validarRut(rut);
+		super.setRun(Validacion.validarRut(run));
+	}
+	
 	// Setter con validación para nombre
 	public void setNombres(String nombres) {
 		if (nombres == null || nombres.trim().isEmpty()) {
@@ -94,7 +90,20 @@ public class Cliente extends Usuario{
 			throw new IllegalArgumentException(
 					"⚠️ Nombres deben tener minimo 5 y máximo 30 caracteres.");
 		}
-		this.nombres = nombres;
+		//this.nombres = nombres;
+		super.setNombre(nombres);
+	}
+	
+	// Setter con validación para fecha de nacimiento
+	public void setFechaNacimiento(String fechaNacimiento) {
+		if (fechaNacimiento == null || fechaNacimiento.trim().isEmpty()) {
+			throw new IllegalArgumentException("⚠️ La fecha de nacimiento es obligatoria.");
+		}
+		if (!fechaNacimiento.matches("^\\d{2}/\\d{2}/\\d{4}$")) {
+			throw new IllegalArgumentException(
+					"⚠️ Fecha de nacimiento debe ser en formato DD/MM/AAAA.");
+		}
+		super.setFechaNacimiento(fechaNacimiento);
 	}
 
 	// Setter con validación para apellidos
@@ -179,7 +188,7 @@ public class Cliente extends Usuario{
 	//Métodos especiales
 	
 	public String obtenerNombre() {
-		return String.format("%s %s",nombres,apellidos);
+		return String.format("%s %s",super.getNombre(),apellidos);
 	}
 	
 	public String obtenerSistemaSalud() {
@@ -212,7 +221,7 @@ public class Cliente extends Usuario{
 				+ "Direccion: %s\n"
 				+ "Comuna: %s\n"
 				+ "Edad: %d",
-				rut, nombres, apellidos, telefono, 
+				super.getRun(), super.getNombre(), apellidos, telefono, 
 				afp != null ? afp : "No informado", 
 				(sistemaSalud == 1) ? "Fonasa" : (sistemaSalud == 2) ?"Isapre": "No informado", 
 				direccion != null ? direccion : "No informado", 
