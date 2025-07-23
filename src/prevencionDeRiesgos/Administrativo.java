@@ -55,12 +55,13 @@ public class Administrativo extends Usuario{
 
 	//Otros metodos
 	@Override
-	public void analizarUsuario() {
+	public String analizarUsuario() {
 		/*el cual debe mostrar
 		los datos del método del mismo nombre correspondiente a la clase
 		padre, junto con el área a la que pertenece el administrativo y su
 		experiencia previa
 		 * */
+		return "";
 	}
 
 	@Override
