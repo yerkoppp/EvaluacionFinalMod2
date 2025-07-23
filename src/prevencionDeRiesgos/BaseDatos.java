@@ -6,6 +6,15 @@ public class BaseDatos {
 
 	public static void ingresarDatos(Contenedor contenedor) {
 
+		ingresarCapacitaciones(contenedor);
+		ingresarAdministrativos(contenedor);
+		ingresarClientes(contenedor);
+		ingresarProfesionales(contenedor);
+		System.out.println("Base de datos cargada.");
+
+	}
+
+	public static void ingresarCapacitaciones(Contenedor contenedor) {
 		// Crear capacitaciones
 		Capacitacion capacitacion1 = new Capacitacion(1001, // identificador
 				"18.234.567-5", // rutCliente
@@ -29,12 +38,40 @@ public class BaseDatos {
 		contenedor.almacenarCapacitacion(capacitacion1);
 		// Almacena segunda capacitacion
 		contenedor.almacenarCapacitacion(capacitacion2);
+	}
 
+	public static void ingresarAdministrativos(Contenedor contenedor) {
+		// Creacion de administrativos
+
+		try {
+			Administrativo admin1 = new Administrativo("Luis Torres", // nombre
+					"1980-04-15", // fechaNacimiento
+					"14.256.789-K", // run (válido)
+					"Recursos Humanos", // área
+					"Más de 10 años en selección" // experienciaPrevia
+			);
+
+			contenedor.almacenarAdministrativo(admin1);
+
+			Administrativo admin2 = new Administrativo("Camila Rojas", // nombre
+					"1992-09-30", // fechaNacimiento
+					"16.543.210-K", // run (válido)
+					"Finanzas", // área
+					"Experiencia en contabilidad y gestión presupuestaria");
+
+			contenedor.almacenarAdministrativo(admin2);
+
+		} catch (IllegalArgumentException e) {
+			System.out.println(e.getMessage());
+		}
+	}
+
+	public static void ingresarClientes(Contenedor contenedor) {
 		// Creacion de clientes
 		try {
-			Cliente cliente = new Cliente("16.715.932-K", // run
+			Cliente cliente = new Cliente("2.222.222-8", // run
 					"Juanito", // nombres
-					"1990-05-12", // fechaNacimiento 
+					"1990-05-12", // fechaNacimiento
 					"Pérez González", // apellidos
 					"+56912345678", // teléfono
 					"Cuprum", // afp
@@ -66,29 +103,9 @@ public class BaseDatos {
 			System.out.println(e.getMessage());
 		}
 
-		// Creacion de administrativos
+	}
 
-		try {
-			Administrativo admin1 = new Administrativo("Luis Torres", // nombre
-					"1980-04-15", // fechaNacimiento
-					"14.256.789-K", // run (válido)
-					"Recursos Humanos", // área
-					"Más de 10 años en selección" // experienciaPrevia
-			);
-
-			contenedor.almacenarAdministrativo(admin1);
-
-			Administrativo admin2 = new Administrativo("Camila Rojas", // nombre
-					"1992-09-30", // fechaNacimiento
-					"16.543.210-K", // run (válido)
-					"Finanzas", // área
-					"Experiencia en contabilidad y gestión presupuestaria");
-
-			contenedor.almacenarAdministrativo(admin2);
-
-		} catch (IllegalArgumentException e) {
-			System.out.println(e.getMessage());
-		}
+	public static void ingresarProfesionales(Contenedor contenedor) {
 
 		// Creacion de profesionales
 		try {
@@ -114,8 +131,6 @@ public class BaseDatos {
 			System.out
 					.println("❌ Error al crear profesional: " + e.getMessage());
 		}
-
-		System.out.println("Base de datos cargada.");
-
 	}
+
 }

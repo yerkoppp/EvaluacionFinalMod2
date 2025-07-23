@@ -90,6 +90,12 @@ public class Contenedor {
 			return;
 		}
 
+		if (asesorias == null || asesorias.isEmpty()) {
+			throw new IllegalArgumentException(
+					"⚠️ No hay usuarios agregados a asesorias.");
+		}
+		
+		boolean eliminado = false;
 		for (int i = 0; i < asesorias.size(); i++) {
 			Asesoria asesoria = asesorias.get(i);
 
@@ -98,10 +104,16 @@ public class Contenedor {
 
 				if (usuario.getRun().equalsIgnoreCase(rut)) {
 					asesorias.remove(i);
+					eliminado = true;
 					return;
 				}
 			}
 
+		}
+		
+		if (eliminado == false) {
+			throw new IllegalArgumentException(
+					"⚠️ RUT no existe en usuarios.");
 		}
 
 	}
@@ -113,6 +125,11 @@ public class Contenedor {
 	 * @return Cadena con la información de los usuarios
 	 */
 	public String listarUsuarios() {
+		
+		if (asesorias == null || asesorias.isEmpty()) {
+			throw new IllegalArgumentException(
+					"⚠️ No hay usuarios agregados a asesorias.");
+		}
 
 		StringBuilder resultado = new StringBuilder();
 
@@ -136,6 +153,19 @@ public class Contenedor {
 	 * @return Cadena con la información de los usuarios del tipo indicado
 	 */
 	public String listarUsuariosPorTipo(String tipo) {
+		
+		if (asesorias == null || asesorias.isEmpty()) {
+			throw new IllegalArgumentException(
+					"⚠️ No hay usuarios agregados a asesorias.");
+		}
+		
+		if (!"administrativo".equalsIgnoreCase(tipo) 
+				&& !"cliente".equalsIgnoreCase(tipo) 
+				&& !"profesional".equalsIgnoreCase(tipo)) {
+			throw new IllegalArgumentException(
+					"⚠️ El tipo ingresado es inválido.");
+		}
+		
 		StringBuilder resultado = new StringBuilder();
 
 		for (Asesoria asesoria : asesorias) {
@@ -154,6 +184,21 @@ public class Contenedor {
 			}
 
 		}
+		
+		if (resultado.toString() == null || resultado.toString().isEmpty()) {
+			if ("administrativo".equalsIgnoreCase(tipo)) {
+				throw new IllegalArgumentException(
+						"⚠️ No hay usuarios tipo administrativos.");
+			}
+			if ("cliente".equalsIgnoreCase(tipo)) {
+				throw new IllegalArgumentException(
+						"⚠️ No hay usuarios tipo clientes.");
+			}
+			if ("profesional".equalsIgnoreCase(tipo)) {
+				throw new IllegalArgumentException(
+						"⚠️ No hay usuarios tipo profesionales.");
+			}
+		}
 
 		return resultado.toString();
 	}
@@ -165,6 +210,11 @@ public class Contenedor {
 	 */
 	public String listarCapacitaciones() {
 
+		if (capacitaciones == null || capacitaciones.isEmpty()) {
+			throw new IllegalArgumentException(
+					"⚠️ No hay capacitaciones agregadas.");
+		}
+		
 		StringBuilder resultado = new StringBuilder();
 
 		for (Capacitacion capacitacion : capacitaciones) {
