@@ -61,10 +61,12 @@ public class Profesional extends Usuario{
 	
 	//Otros metodos
 	@Override
-	public void analizarUsuario() {
+	public String analizarUsuario() {
 		//  Sobrescribe el método de la clase padre para desplegar 
 		//el nombre y RUN del usuario, junto con el título y la fecha
 		//de ingreso del profesional
+		
+		return "";
 	}
 
 	@Override
