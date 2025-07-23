@@ -79,7 +79,7 @@ public class Usuario implements Asesoria {
 		System.out.printf("\nNombre: %s. Run %s\n", nombre, run);
 
 	}
-
+	
 	@Override
 	public String toString() {
 		return "Usuario [nombre=" + nombre + ", fechaNacimiento=" + fechaNacimiento + ", run=" + run + "]";
