@@ -5,25 +5,25 @@ package prevencionDeRiesgos;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 /**
  * Clase utilitaria para validaciones
  */
-public class Validacion {
-	// Definimos el formateador para el formato "DD/MM/AAAA"
-	private static final DateTimeFormatter FORMATTER = DateTimeFormatter
-			.ofPattern("dd/MM/yyyy");
-	// Definimos el formateador para el patrón "HH:MM"
-	private static final DateTimeFormatter FORMATTER_HHMM = DateTimeFormatter
-			.ofPattern("HH:mm");
 
-	/**
-	 * 
-	 */
-	public Validacion() {
-		// TODO Auto-generated constructor stub
+public final class Validacion {
+	 // Definimos el formateador para el formato "DD/MM/AAAA"
+    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    // Definimos el formateador para el patrón "HH:MM"
+    private static final DateTimeFormatter FORMATTER_HHMM = DateTimeFormatter.ofPattern("HH:mm");
+	
+    /**
+     * No deja instanciar la clase -> Ejemplo como cuando usamos la clase Math.round(float a)
+     */
+	private Validacion() {
+
 	}
 
 	/**
@@ -34,22 +34,22 @@ public class Validacion {
 	 * @return la fecha en tipo LocalDate. Retorna null si el formato no es
 	 *         válido.
 	 */
-	public LocalDate validarFecha(String fecha) {
-		try {
-			return LocalDate.parse(fecha, FORMATTER);
-		} catch (DateTimeParseException e) {
-			return null; // O lanzar una excepción personalizada, dependiendo de
-							// la lógica de tu aplicación
-		}
-	}
 
+	public static LocalDate validarFecha(String fecha) {
+	        try {
+	            return LocalDate.parse(fecha, FORMATTER);
+	        } catch (DateTimeParseException e) {
+	            return null; // O lanzar una excepción personalizada, dependiendo de la lógica de tu aplicación
+	        }
+	}
+	 
 	/**
 	 * Transforma la fecha LocalDate a String con formato DD/MM/AAAA.
 	 * 
 	 * @param fecha
 	 * @return la fecha en tipo String. Retorna null si el formato no es válido.
 	 */
-	public String transformarFechaAstring(LocalDate fecha) {
+	public static String transformarFechaAstring(LocalDate fecha) {
 		if (fecha == null) {
 			return null; // O una cadena vacía, dependiendo de la lógica
 		}
@@ -64,7 +64,7 @@ public class Validacion {
 	 * @return la hora en tipo LocalTime. Retorna null si el formato no es
 	 *         válido.
 	 */
-	public LocalTime validarHora(String hora) {
+	public static LocalTime validarHora(String hora) {
 
 		try {
 			return LocalTime.parse(hora, FORMATTER_HHMM);
@@ -80,7 +80,7 @@ public class Validacion {
 	 * @param hora
 	 * @return la hora en tipo String. Retorna null si el formato no es válido.
 	 */
-	public String transformarHoraAstring(LocalTime hora) {
+	public static String transformarHoraAstring(LocalTime hora) {
 
 		if (hora == null) {
 			return null; // O una cadena vacía, dependiendo de la lógica

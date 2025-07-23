@@ -48,7 +48,10 @@ public class Usuario implements Asesoria {
 	 * @param fechaNacimiento the fechaNacimiento to set
 	 */
 	public void setFechaNacimiento(String fechaNacimiento) {
-		this.fechaNacimiento = fechaNacimiento;
+		if(Validacion.validarFecha(fechaNacimiento) !=null) {
+			this.fechaNacimiento = fechaNacimiento;			
+		}
+		System.out.println("Fecha o formato incorrecto");
 	}
 
 	/**
@@ -68,12 +71,12 @@ public class Usuario implements Asesoria {
 	//Otros metodos
 	public String mostrarEdad() {
 		//TODO
-		return "Retorna un mensaje con la edad del usuario (ej. \"El usuario tiene X años\")"; 
+		//return "Retorna un mensaje con la edad del usuario (ej. \"El usuario tiene %d años\")"; 
+		return String.format("El usuario tiene %d años", Validacion.calcularEdad(fechaNacimiento)); 
 	}
 	@Override
-	public String analizarUsuario() {
-		return String.format("Nombre: %s\nRUT: %s", 
-	        nombre, run);
+	public void analizarUsuario() {
+		System.out.printf("\nNombre: %s. Run %s\n", nombre, run);
 
 	}
 	
