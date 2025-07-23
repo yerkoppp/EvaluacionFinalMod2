@@ -1,8 +1,10 @@
 package prevencionDeRiesgos;
-
+/**
+ * @author Luis Guevara
+ */
 public class Revision {
 	//Atributos
-	private int identificadorRevision;
+    private int identificadorRevision;
     private int identificadorVisitaEnTerreno;
     private String nombreAlusivoRevision;
     private String detalleParaRevisar;
