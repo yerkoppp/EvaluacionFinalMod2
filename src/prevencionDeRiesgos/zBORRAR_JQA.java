@@ -1,45 +1,23 @@
-/**
- * 
- * @author Yerko Osorio
- * @author Luis Guevara
- * @author Jhoseph Quiroga
- * @author Norma Armijo
- * @version 1.0
- */
 package prevencionDeRiesgos;
 
+import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-public class Principal {
+public class zBORRAR_JQA {
 
 	static Scanner sc = new Scanner(System.in);
-	static Usuario usuario = new Usuario();
+	static ArrayList<Cliente> clientes = new ArrayList<>();
 	static Contenedor contenedor = new Contenedor();
 
 	public static void main(String[] args) {
 
 		BaseDatos.ingresarDatos(contenedor);
 		ingresarCliente();
+		pruebasContenedor();
 
 	}
-
-	/**
-	 * Método estático que solicita los datos necesarios para crear un objeto
-	 * Cliente a través de la entrada estándar (consola).
-	 * 
-	 * Valida cada campo obligatorio mediante estructuras while (true) con
-	 * manejo de excepciones personalizadas, permitiendo reintentar hasta que la
-	 * entrada sea válida.
-	 * 
-	 * Una vez creado y validado, el cliente es mostrado por consola usando
-	 * 
-	 * @throws IllegalArgumentException si algún campo obligatorio no cumple con
-	 *                                  la validación definida en sus
-	 *                                  respectivos setters.
-	 * @throws InputMismatchException   si se ingresan caracteres no numéricos
-	 *                                  donde se espera un número.
-	 */
+	
 	public static void ingresarCliente() {
 
 		Cliente cliente = new Cliente();
@@ -158,14 +136,57 @@ public class Principal {
 			}
 		}
 
-		// Almacena el cliente en el contenedor
+		//Almacena el cliente en el contenedor
 		contenedor.almacenarCliente(cliente);
-
 		// Impresiones de cliente
 		System.out.println("Cliente ingresado con éxito.");
 
 		System.out.println(cliente.toString());
 
+		System.out.println(cliente.analizarUsuario());
+
 	}
+
+	public static void pruebasContenedor() {
+
+
+
+		//Imprime lista de capacitaciones
+		System.out.println("Imprime Lista de capacitaciones");
+		System.out.println(contenedor.listarCapacitaciones());
+
+		// Imprime solo clientes
+		System.out.println("Lista de clientes");
+		System.out.println("-".repeat(25));
+		System.out.println(contenedor.listarUsuariosPorTipo("cliente"));
+
+		// Imprime solo Administrativo
+		System.out.println("Lista de administrativos");
+		System.out.println("-".repeat(25));
+		System.out.println(contenedor.listarUsuariosPorTipo("administrativo"));
+
+		// Imprime solo Profesionales
+		System.out.println("Lista de profesionales");
+		System.out.println("-".repeat(25));
+		System.out.println(contenedor.listarUsuariosPorTipo("profesional"));
+
+		// Lista de todos los usuarios
+		System.out.println("Lista de usuarios");
+		System.out.println("-".repeat(25));
+		System.out.println(contenedor.listarUsuarios());
+		
+		//Eliminar usuario por rut en este caso un cliente
+		contenedor.eliminarUsuario("16.715.932-K");
+		//Eliminar usuario por rut en este caso un administrativo
+		contenedor.eliminarUsuario("14.256.789-K");
+		//Elimimar usuario por rut en este caso un profesional
+		contenedor.eliminarUsuario("17.345.210-1");
+		
+		// Lista de todos los usuarios con las eliminaciones
+		System.out.println("Lista de usuarios sin los eliminados");
+		System.out.println("-".repeat(25));
+		System.out.println(contenedor.listarUsuarios());
+	}
+
 
 }
