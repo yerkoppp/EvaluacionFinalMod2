@@ -135,6 +135,7 @@ public class Usuario implements Asesoria {
 				+ "Nombre: %s\n"
 				+ "Fecha de Nacimiento: %s", 
 		        nombre, run, fechaNacimiento);
+  	}
   
     /**
      * Muestra la edad del usuario calculada a partir de su fecha de nacimiento.
