@@ -1,53 +1,106 @@
+/**
+ * @author Norma Armijo
+ * @version 1.0
+ */
+
 package prevencionDeRiesgos;
 
+/**
+ * Clase que representa a un usuario del sistema.
+ * 
+ * Esta clase almacena la información básica de un usuario y realiza
+ * validaciones para garantizar la integridad de los datos.
+ * 
+ */
 public class Usuario implements Asesoria {
-	//Atributos
-	private String nombre; // Obligatorio, 10-50 caracteres
-	private String fechaNacimiento; //formato DD/MM/AAAA
-	private String run; // Número menor a 99.999.999
+    // ======================= ATRIBUTOS =======================
+    
+    /** Nombre del usuario. Obligatorio, 10-50 caracteres */
+	private String nombre; 
 	
-	//Constructor
+	/** Fecha de nacimiento del usuario. Formato DD/MM/AAAA */
+	private String fechaNacimiento;
+	
+	/** RUN del usuario. Debe ser menor a 99.999.999 */
+	private String run; 
+	
+// ======================= CONSTRUCTORES =======================
+    
+    /**
+     * Constructor por defecto.
+     */
 	public Usuario() {
 		
 	}
 	
 	/**
-	 * @param nombre
-	 * @param fechaNacimiento
-	 * @param run
-	 */
-	public Usuario(String nombre, String fechaNacimiento, String run) {
-		setNombre(nombre);
-		setFechaNacimiento(fechaNacimiento);
-		setRun(run);
-	}
+
+
+     * Constructor con parámetros.
+     * 
+     * @param nombre Nombre del usuario (10-50 caracteres)
+     * @param fechaNacimiento Fecha de nacimiento (formato DD/MM/AAAA)
+     * @param run RUN del usuario (formato chileno válido y menor que 99.999.999)
+     */
+    public Usuario(String nombre, String fechaNacimiento, String run) {
+        setNombre(nombre);
+        setFechaNacimiento(fechaNacimiento);
+        setRun(run);
+    }
 	
-	/**
-	 * @return the nombre
-	 */
-	public String getNombre() {
-		return nombre;
-	}
-
-	/**
-	 * @param nombre the nombre to set
-	 */
-	public void setNombre(String nombre) {
-		if (nombre == null || nombre.trim().isEmpty()) {
-			throw new IllegalArgumentException(
+	// ======================= GETTER =======================
+	
+    /**
+     * Obtiene el nombre del usuario.
+     * 
+     * @return el nombre del usuario
+     */
+    public String getNombre() {
+        return nombre;
+    }
+    
+    /**
+     * Obtiene la fecha de nacimiento del usuario.
+     * 
+     * @return la fecha de nacimiento en formato DD/MM/AAAA
+     */
+    public String getFechaNacimiento() {
+        return fechaNacimiento;
+    }
+    
+    /**
+     * Obtiene el RUN del usuario.
+     * 
+     * @return el RUN del usuario
+     */
+    public String getRun() {
+        return run;
+    }
+	
+	// ======================= SETTER =======================
+	
+    /**
+     * Establece el nombre del usuario.
+     * 
+     * Valida que el nombre tenga entre 10 y 50 caracteres.
+     * 
+     * @param nombre el nombre a establecer
+     * @throws IllegalArgumentException si el nombre es null, vacío o no cumple longitud
+     */
+    public void setNombre(String nombre) {
+        if (nombre == null || nombre.trim().isEmpty()) {
+            throw new IllegalArgumentException(
 					"⚠️ Los nombres son obligatorio.");
-		}
-		this.nombre = Validacion.validarLargoString(nombre, 10, 50);
-	}
+        }
+        try {
+            this.nombre = Validacion.validarLargoString(nombre, 10, 50);
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException("Nombre inválido: " + e.getMessage());
+        }
+    }
 
-	/**
-	 * @return the fechaNacimiento
-	 */
-	public String getFechaNacimiento() {
-		return fechaNacimiento;
-	}
 
-	/**
+  	/**
 	 * Establece la fecha de nacimiento en formato DD/MM/AAAA.
 	 * @param fechaNacimiento Fecha a asignar
 	 */
@@ -64,47 +117,42 @@ public class Usuario implements Asesoria {
 		}
 	}
 
-	/**
-	 * @return the run
-	 */
-	public String getRun() {
-		return run;
-	}
-
-	/**
-	 * @param run the run to set
-	 */
+    /**
+     * Establece el RUN del usuario.
+     * 
+     * Valida que el RUN cumpla con el formato chileno y tenga dígito verificador correcto.
+     * 
+     * @param run el RUN a establecer
+     */
 	public void setRun(String run) {
 		this.run = Validacion.validarRut(run);
 	}
 
-	//Otros metodos
-	public String mostrarEdad() {
-		//TODO
-		//return "Retorna un mensaje con la edad del usuario (ej. \"El usuario tiene %d años\")"; 
-		return String.format("El usuario tiene %d años", Validacion.calcularEdad(fechaNacimiento)); 
-	}
+	// ======================= MÉTODOS ESPECIALES =======================
 	
-	
-	public String mostrarDatos() {
+  	public String mostrarDatos() {
 		return String.format("RUT: %s\n"
 				+ "Nombre: %s\n"
 				+ "Fecha de Nacimiento: %s", 
 		        nombre, run, fechaNacimiento);
-	}
+  
+    /**
+     * Muestra la edad del usuario calculada a partir de su fecha de nacimiento.
+     * 
+     * @return mensaje con la edad del usuario en años
+     */
+    public String mostrarEdad() {
+        return String.format("El usuario tiene %d años", Validacion.calcularEdad(fechaNacimiento)); 
+    }
 	
 	@Override
-
 	public String analizarUsuario() {
-		return String.format("Nombre: %s, RUT: %s", 
-	        nombre, run);
-
+		return String.format("\nNombre: %s. RUT: %s\n", nombre, run);
 	}
 	
 	@Override
 	public String toString() {
 		return "Usuario: " + nombre + ", Fecha Nacimiento: " + fechaNacimiento + ", RUN:" + run;
 	}
-	
 	
 }

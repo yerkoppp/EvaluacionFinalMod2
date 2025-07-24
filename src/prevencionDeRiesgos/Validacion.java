@@ -119,8 +119,17 @@ public final class Validacion {
 		return diaEvaluado.toUpperCase();
 	}
 
-	public static String validarLargoString(String stringEvaluado, int minimo,
-			int maximo) {
+
+    /**
+     * Valida que la longitud de un texto esté dentro del rango especificado.
+     * 
+     * @param stringEvaluado Texto a validar (no puede ser null)
+     * @param min Longitud mínima permitida (inclusive)
+     * @param max Longitud máxima permitida (inclusive)
+     * @return stringEvaluado, corresponde a el texto validado
+     * @throws IllegalArgumentException si el texto es null o su longitud no está en el rango
+     */
+	public static String validarLargoString(String stringEvaluado, int minimo, int maximo) {
 
 		if (stringEvaluado.length() < minimo
 				|| stringEvaluado.length() > maximo) {
@@ -131,6 +140,7 @@ public final class Validacion {
 
 		return stringEvaluado;
 	}
+
 
 	public static String validarLargoString(String stringEvaluado, int maximo) {
 
@@ -187,6 +197,7 @@ public final class Validacion {
 		// Obtener los años de la diferencia
 		return periodo.getYears();
 	}
+
 
 	/**
 	 * Valida que un RUT chileno esté en el formato correcto y que su dígito
