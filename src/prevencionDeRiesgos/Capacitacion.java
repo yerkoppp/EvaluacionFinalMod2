@@ -3,6 +3,7 @@
  */
 package prevencionDeRiesgos;
 
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 
@@ -25,6 +26,9 @@ public class Capacitacion {
 	 */
 	public Capacitacion() {
 		// TODO Auto-generated constructor stub
+		LocalDate fechaHoraActual = LocalDate.now();
+		String momentoActual = fechaHoraActual.toString();
+		this.identificador = momentoActual.hashCode()*5;
 	}
 
 
@@ -42,7 +46,10 @@ public class Capacitacion {
 			String hora, String lugar, String duracion,
 			int cantidadAsistentes) {
 		super();
-		this.identificador = identificador;
+		
+		LocalDate fechaHoraActual = LocalDate.now();
+		String momentoActual = fechaHoraActual.toString();
+		this.identificador = momentoActual.hashCode()*5;
 		this.rutCliente = Validacion.validarRut(rutCliente);
 		this.dia = Validacion.validarDia(dia);
 		this.hora = Validacion.validarHora(hora);
@@ -53,8 +60,7 @@ public class Capacitacion {
 
 	//Métodos
 	/**
-	 * Asigna el identificador.
-	 * Validación: Obligatorio.
+	 * Asigna el identificador. Privado. No puede modificarse el identificador una vez creado el objeto. 
 	 * @param identificador
 	 */
 	private void setIdentificador(int identificador) {
