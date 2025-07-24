@@ -17,10 +17,9 @@ public class Usuario implements Asesoria {
 	 * @param run
 	 */
 	public Usuario(String nombre, String fechaNacimiento, String run) {
-		super();
-		this.nombre = nombre;
-		this.fechaNacimiento = fechaNacimiento;
-		this.run = run;
+		setNombre(nombre);
+		setFechaNacimiento(fechaNacimiento);
+		setRun(run);
 	}
 	
 	/**
@@ -34,7 +33,11 @@ public class Usuario implements Asesoria {
 	 * @param nombre the nombre to set
 	 */
 	public void setNombre(String nombre) {
-		this.nombre = nombre;
+		if (nombre == null || nombre.trim().isEmpty()) {
+			throw new IllegalArgumentException(
+					"⚠️ Los nombres son obligatorio.");
+		}
+		this.nombre = Validacion.validarLargoString(nombre, 10, 50);
 	}
 
 	/**
@@ -45,13 +48,20 @@ public class Usuario implements Asesoria {
 	}
 
 	/**
-	 * @param fechaNacimiento the fechaNacimiento to set
+	 * Establece la fecha de nacimiento en formato DD/MM/AAAA.
+	 * @param fechaNacimiento Fecha a asignar
 	 */
 	public void setFechaNacimiento(String fechaNacimiento) {
+		if (fechaNacimiento == null || fechaNacimiento.trim().isEmpty()) {
+			throw new IllegalArgumentException(
+					"⚠️ La fecha de nacimiento es obligatoria.");
+		}
 		if(Validacion.validarFecha(fechaNacimiento) !=null) {
 			this.fechaNacimiento = fechaNacimiento;			
+		} else {
+			throw new IllegalArgumentException(
+					"⚠️ Fecha o formato incorrecto.");
 		}
-		System.out.println("Fecha o formato incorrecto");
 	}
 
 	/**
@@ -65,7 +75,7 @@ public class Usuario implements Asesoria {
 	 * @param run the run to set
 	 */
 	public void setRun(String run) {
-		this.run = run;
+		this.run = Validacion.validarRut(run);
 	}
 
 	//Otros metodos
@@ -74,6 +84,15 @@ public class Usuario implements Asesoria {
 		//return "Retorna un mensaje con la edad del usuario (ej. \"El usuario tiene %d años\")"; 
 		return String.format("El usuario tiene %d años", Validacion.calcularEdad(fechaNacimiento)); 
 	}
+	
+	
+	public String mostrarDatos() {
+		return String.format("RUT: %s\n"
+				+ "Nombre: %s\n"
+				+ "Fecha de Nacimiento: %s", 
+		        nombre, run, fechaNacimiento);
+	}
+	
 	@Override
 
 	public String analizarUsuario() {

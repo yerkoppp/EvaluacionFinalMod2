@@ -8,7 +8,9 @@
  */
 package prevencionDeRiesgos;
 
+import java.time.DateTimeException;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -50,7 +52,6 @@ public class Principal {
 		System.out.println("(6) Listar usuarios");
 		System.out.println("(7) Listar usuarios por tipo");
 		System.out.println("(8) Listar capacitaciones");
-		System.out.println("(8) Listar capacitaciones");
 		System.out.println("(9) Salir del programa");
 	}
 
@@ -78,13 +79,13 @@ public class Principal {
 			ingresarCliente();
 			break;
 		case 2: // INGRESAR PROFESIONAL
-			//ingresarProfesional();
+			ingresarProfesional();
 			break;
 		case 3: // INGRESAR ADMINISTRATIVO
-			//ingresarAdministrativo;
+			ingresarAdministrativo();
 			break;
 		case 4: // ALMACENAR CAPACITACIÓN
-			//ingresarCapacitacion;
+			// ingresarCapacitacion;
 			break;
 		case 5: // ELIMINAR USUARIO
 			eliminarUsuario();
@@ -111,16 +112,16 @@ public class Principal {
 
 	private static void agregarAccidente() {
 		// TODO Auto-generated method stub
-		
+
 	}
-	
+
 	public static void ingresarCapacitacion() {
 
 		Capacitacion capacitacion = new Capacitacion();
-		
+
 		int cantidadAsistentes;
 		String rutCliente, dia, hora, lugar, duracion;
-		
+
 		LocalDate fechaHoraActual = LocalDate.now();
 		String momentoActual = fechaHoraActual.toString();
 		int identificador = momentoActual.hashCode();
@@ -129,7 +130,8 @@ public class Principal {
 			try {
 				System.out.println("Ingrese el RUT del cliente (obligatorio):");
 				rutCliente = sc.nextLine();
-				capacitacion.setRutCliente(rutCliente);;
+				capacitacion.setRutCliente(rutCliente);
+				;
 				break;
 			} catch (IllegalArgumentException e) {
 				System.out.println(e.getMessage());
@@ -150,7 +152,8 @@ public class Principal {
 		}
 		while (true) {
 			try {
-				System.out.println("Ingrese la hora de la capacitación [formato HH:MM] (obligatorio): ");
+				System.out.println(
+						"Ingrese la hora de la capacitación [formato HH:MM] (obligatorio): ");
 				hora = sc.nextLine();
 				capacitacion.setHora(hora);
 				break;
@@ -161,7 +164,8 @@ public class Principal {
 
 		while (true) {
 			try {
-				System.out.println("Ingrese el lugar de la capacitación (obligatorio): ");
+				System.out.println(
+						"Ingrese el lugar de la capacitación (obligatorio): ");
 				lugar = sc.nextLine();
 				capacitacion.setLugar(lugar);
 				break;
@@ -172,7 +176,8 @@ public class Principal {
 
 		while (true) {
 			try {
-				System.out.println("Ingrese la duración de la capacitación (obligatorio):");
+				System.out.println(
+						"Ingrese la duración de la capacitación (obligatorio):");
 				duracion = sc.nextLine();
 				capacitacion.setDuracion(duracion);
 				break;
@@ -183,7 +188,8 @@ public class Principal {
 
 		while (true) {
 			try {
-				System.out.println("Ingrese la cantidad de asistentes (obligatorio):");
+				System.out.println(
+						"Ingrese la cantidad de asistentes (obligatorio):");
 				cantidadAsistentes = sc.nextInt();
 				sc.nextLine();
 				capacitacion.setCantidadAsistentes(cantidadAsistentes);
@@ -195,10 +201,10 @@ public class Principal {
 				System.out.println(e.getMessage());
 			}
 		}
-		
 
 		// Almacena la capacitación en el contenedor
-		contenedor.almacenarCapacitacion(capacitacion);;
+		contenedor.almacenarCapacitacion(capacitacion);
+		;
 
 		// Impresiones de capacitación
 		System.out.println("Capacitación ingresada con éxito.");
@@ -347,7 +353,144 @@ public class Principal {
 		// Impresiones de cliente
 		System.out.println("Cliente ingresado con éxito.");
 
-		System.out.println(cliente.toString());
+		System.out.println(cliente.mostrarDatos());
+
+	}
+
+	public static void ingresarProfesional() {
+		Profesional profesional = new Profesional();
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+		String rut, nombre, fechaNacimiento, titulo, fechaIngresoString;
+		LocalDate fechaIngreso;
+
+		while (true) {
+			try {
+				System.out.println("Ingrese su RUT (obligatorio):");
+				rut = sc.nextLine();
+				profesional.setRun(rut);
+				break;
+			} catch (IllegalArgumentException e) {
+				System.out.println(e.getMessage());
+			}
+
+		}
+		while (true) {
+			try {
+				System.out.println(
+						"Ingrese su fecha de naciento DD/MM/AAAA (Obligatorio):");
+				fechaNacimiento = sc.nextLine();
+				profesional.setFechaNacimiento(fechaNacimiento);
+				break;
+			} catch (IllegalArgumentException e) {
+				System.out.println(e.getMessage());
+			}
+
+		}
+		while (true) {
+			try {
+				System.out
+						.println("Ingrese su nombre completo (obligatorio): ");
+				nombre = sc.nextLine();
+				profesional.setNombre(nombre);
+				break;
+			} catch (IllegalArgumentException e) {
+				System.out.println(e.getMessage());
+			}
+		}
+		while (true) {
+			try {
+				System.out.println("Ingrese su título (obligatorio): ");
+				titulo = sc.nextLine();
+				profesional.setTitulo(titulo);
+				break;
+			} catch (IllegalArgumentException e) {
+				System.out.println(e.getMessage());
+			}
+		}
+		try {
+			System.out.println("Ingrese su fecha de ingreso DD/MM/AAAA: ");
+			fechaIngresoString = sc.nextLine();
+			fechaIngreso = LocalDate.parse(fechaIngresoString, formatter);
+			profesional.setFechaIngreso(fechaIngreso);
+		} catch (IllegalArgumentException e) {
+			System.out.println(e.getMessage());
+		} catch (DateTimeException e) {
+
+		}
+
+		// Almacena el cliente en el contenedor
+		contenedor.almacenarProfesional(profesional);
+
+		// Impresiones de cliente
+		System.out.println("Profesional ingresado con éxito.");
+
+		System.out.println(profesional.mostrarDatos());
+
+	}
+
+	public static void ingresarAdministrativo() {
+		Administrativo administrativo = new Administrativo();
+		String rut, nombre, fechaNacimiento, area, experienciaPrevia;
+
+		while (true) {
+			try {
+				System.out.println("Ingrese su RUT (obligatorio):");
+				rut = sc.nextLine();
+				administrativo.setRun(rut);
+				break;
+			} catch (IllegalArgumentException e) {
+				System.out.println(e.getMessage());
+			}
+
+		}
+		while (true) {
+			try {
+				System.out.println(
+						"Ingrese su fecha de naciento DD/MM/AAAA (Obligatorio):");
+				fechaNacimiento = sc.nextLine();
+				administrativo.setFechaNacimiento(fechaNacimiento);
+				break;
+			} catch (IllegalArgumentException e) {
+				System.out.println(e.getMessage());
+			}
+
+		}
+		while (true) {
+			try {
+				System.out
+						.println("Ingrese su nombre completo (obligatorio): ");
+				nombre = sc.nextLine();
+				administrativo.setNombre(nombre);
+				break;
+			} catch (IllegalArgumentException e) {
+				System.out.println(e.getMessage());
+			}
+		}
+		while (true) {
+			try {
+				System.out.println("Ingrese su área (obligatorio): ");
+				area = sc.nextLine();
+				administrativo.setArea(area);
+				break;
+			} catch (IllegalArgumentException e) {
+				System.out.println(e.getMessage());
+			}
+		}
+		try {
+			System.out.println("Ingrese su experiencia previa: ");
+			experienciaPrevia = sc.nextLine();
+			administrativo.setExperienciaPrevia(experienciaPrevia);
+		} catch (IllegalArgumentException e) {
+			System.out.println(e.getMessage());
+		}
+
+		// Almacena el cliente en el contenedor
+		contenedor.almacenarAdministrativo(administrativo);
+
+		// Impresiones de cliente
+		System.out.println("Administrativo ingresado con éxito.");
+
+		System.out.println(administrativo.mostrarDatos());
 
 	}
 
@@ -488,8 +631,8 @@ public class Principal {
 	public static void listarCapacitaciones() {
 		try {
 			String lista = contenedor.listarCapacitaciones();
-			System.out.println("\n" + "-".repeat(13) + " LISTA DE CAPACITACIONES "
-					+ "-".repeat(13));
+			System.out.println("\n" + "-".repeat(13)
+					+ " LISTA DE CAPACITACIONES " + "-".repeat(13));
 			System.out.println(lista);
 		} catch (IllegalArgumentException e) {
 			System.out.println(e.getMessage());

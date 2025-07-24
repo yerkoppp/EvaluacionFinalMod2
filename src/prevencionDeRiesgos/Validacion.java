@@ -19,11 +19,13 @@ import java.util.ArrayList;
  */
 public final class Validacion {
 	// Definimos el formateador para el formato "DD/MM/AAAA"
-	private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+	private static final DateTimeFormatter FORMATTER = DateTimeFormatter
+			.ofPattern("dd/MM/yyyy");
 	// Definimos el formateador para el patrón "HH:MM"
-	private static final DateTimeFormatter FORMATTER_HHMM = DateTimeFormatter.ofPattern("HH:mm");
+	private static final DateTimeFormatter FORMATTER_HHMM = DateTimeFormatter
+			.ofPattern("HH:mm");
 
-	//Definimos un array con los días de la semana
+	// Definimos un array con los días de la semana
 	private static ArrayList<String> dias = new ArrayList<String>();
 
 	static {
@@ -45,11 +47,12 @@ public final class Validacion {
 	}
 
 	/**
-	 * Valida el formato y transforma la fecha ingresada en formato DD/MM/AAAA en
-	 * LocalDate.
+	 * Valida el formato y transforma la fecha ingresada en formato DD/MM/AAAA
+	 * en LocalDate.
 	 * 
 	 * @param fecha
-	 * @return la fecha en tipo LocalDate. Retorna null si el formato no es válido.
+	 * @return la fecha en tipo LocalDate. Retorna null si el formato no es
+	 *         válido.
 	 */
 
 	public static LocalDate validarFecha(String fecha) {
@@ -61,7 +64,6 @@ public final class Validacion {
 		}
 	}
 
-	 
 	/**
 	 * Transforma la fecha LocalDate a String con formato DD/MM/AAAA.
 	 * 
@@ -76,11 +78,12 @@ public final class Validacion {
 	}
 
 	/**
-	 * Valida el formato y transforma la fecha ingresada en formato DD/MM/AAAA en
-	 * LocalDate.
+	 * Valida el formato y transforma la fecha ingresada en formato DD/MM/AAAA
+	 * en LocalDate.
 	 * 
 	 * @param hora
-	 * @return la hora en tipo LocalTime. Retorna null si el formato no es válido.
+	 * @return la hora en tipo LocalTime. Retorna null si el formato no es
+	 *         válido.
 	 */
 	public static LocalTime validarHora(String hora) {
 
@@ -91,7 +94,7 @@ public final class Validacion {
 			return null;
 		}
 	}
-	
+
 	/**
 	 * Transforma la hora LocalTime a String con formato HH:MM.
 	 * 
@@ -106,72 +109,84 @@ public final class Validacion {
 		return hora.format(FORMATTER_HHMM);
 	}
 
-
 	public static String validarDia(String diaEvaluado) {
 
 		if (!dias.contains(diaEvaluado.toUpperCase()) || diaEvaluado == null) {
-			throw new IllegalArgumentException("⚠️ El día no es válido. Inténtelo de nuevo");
+			throw new IllegalArgumentException(
+					"⚠️ El día no es válido. Inténtelo de nuevo");
 		}
 
 		return diaEvaluado.toUpperCase();
 	}
 
-	public static String validarLargoString(String stringEvaluado, int minimo, int maximo) {
+	public static String validarLargoString(String stringEvaluado, int minimo,
+			int maximo) {
 
-		if (stringEvaluado.length() < minimo || stringEvaluado.length() > maximo) {
-			throw new IllegalArgumentException("⚠️ El largo no es permitido. Debe estar entre " + minimo
-					+ " y " + maximo + " carácteres");
+		if (stringEvaluado.length() < minimo
+				|| stringEvaluado.length() > maximo) {
+			throw new IllegalArgumentException(
+					"⚠️ El largo no es permitido. Debe estar entre " + minimo
+							+ " y " + maximo + " carácteres");
 		}
 
 		return stringEvaluado;
 	}
-	
+
 	public static String validarLargoString(String stringEvaluado, int maximo) {
 
 		if (stringEvaluado.length() > maximo) {
-			throw new IllegalArgumentException("⚠️ El largo de la frase supera el máximo permitido. Debe ser menor a" + maximo + " carácteres");
+			throw new IllegalArgumentException(
+					"⚠️ El largo de la frase supera el máximo permitido. Debe ser menor a"
+							+ maximo + " carácteres");
 		}
 
 		return stringEvaluado;
 	}
-	
+
 	public static int validarNumeroMaximo(int numeroEvaluado, int maximo) {
 
 		if (numeroEvaluado >= maximo) {
-			throw new IllegalArgumentException("⚠️ El largo de la frase supera el máximo permitido. Debe ser menor a" + maximo + " carácteres");
+			throw new IllegalArgumentException(
+					"⚠️ El largo de la frase supera el máximo permitido. Debe ser menor a"
+							+ maximo + " carácteres");
 		}
 
 		return numeroEvaluado;
 	}
-	
+
 	/**
-     * Calcula la edad en años a partir de una fecha de nacimiento en formato String (dd/MM/yyyy).
-     *
-     * @param fechaNacimientoStr La fecha de nacimiento en formato String (ej. "25/12/1990").
-     * @return La edad en años. Retorna -1 si el formato de fecha es inválido, si la fecha es nula,
-     * o si la fecha de nacimiento es en el futuro.
-     */
-    public static int calcularEdad(String fechaNacimientoStr) {
-        LocalDate fechaNacimiento = validarFecha(fechaNacimientoStr); 
+	 * Calcula la edad en años a partir de una fecha de nacimiento en formato
+	 * String (dd/MM/yyyy).
+	 *
+	 * @param fechaNacimientoStr La fecha de nacimiento en formato String (ej.
+	 *                           "25/12/1990").
+	 * @return La edad en años. Retorna -1 si el formato de fecha es inválido,
+	 *         si la fecha es nula, o si la fecha de nacimiento es en el futuro.
+	 */
+	public static int calcularEdad(String fechaNacimientoStr) {
+		LocalDate fechaNacimiento = validarFecha(fechaNacimientoStr);
 
-        if (fechaNacimiento == null) {
-            System.err.println("Error: Formato de fecha de nacimiento inválido o fecha no válida.");
-            return -1; // O lanza una excepción, según tu estrategia de manejo de errores.
-        }
+		if (fechaNacimiento == null) {
+			System.err.println(
+					"Error: Formato de fecha de nacimiento inválido o fecha no válida.");
+			return -1; // O lanza una excepción, según tu estrategia de manejo
+						// de errores.
+		}
 
-        LocalDate fechaActual = LocalDate.now();
+		LocalDate fechaActual = LocalDate.now();
 
-        if (fechaNacimiento.isAfter(fechaActual)) {
-            System.err.println("Error: La fecha de nacimiento no puede ser en el futuro.");
-            return -1;
-        }
+		if (fechaNacimiento.isAfter(fechaActual)) {
+			System.err.println(
+					"Error: La fecha de nacimiento no puede ser en el futuro.");
+			return -1;
+		}
 
-        // Calcular la diferencia entre las dos fechas
-        Period periodo = Period.between(fechaNacimiento, fechaActual);
+		// Calcular la diferencia entre las dos fechas
+		Period periodo = Period.between(fechaNacimiento, fechaActual);
 
-        // Obtener los años de la diferencia
-        return periodo.getYears();
-    }
+		// Obtener los años de la diferencia
+		return periodo.getYears();
+	}
 
 	/**
 	 * Valida que un RUT chileno esté en el formato correcto y que su dígito
@@ -184,18 +199,20 @@ public final class Validacion {
 	 * @param rutIngresado el RUT ingresado por el usuario (incluyendo puntos y
 	 *                     guión)
 	 * @return el mismo RUT ingresado si es válido
-	 * @throws IllegalArgumentException si el RUT está vacío, no tiene el formato
-	 *                                  correcto, o su dígito verificador es
-	 *                                  incorrecto
+	 * @throws IllegalArgumentException si el RUT está vacío, no tiene el
+	 *                                  formato correcto, o su dígito
+	 *                                  verificador es incorrecto
 	 */
 	public static String validarRut(String rutIngresado) {
 
 		if (rutIngresado == null || rutIngresado.isEmpty()) {
-			throw new IllegalArgumentException("⚠️ El RUT es obligatorio. Ingrese un RUT en formato 99.999.999-9.");
+			throw new IllegalArgumentException(
+					"⚠️ El RUT es obligatorio. Ingrese un RUT en formato 99.999.999-9.");
 		}
 
 		if (!rutIngresado.matches("\\d{1,2}\\.\\d{3}\\.\\d{3}-[0-9Kk]")) {
-			throw new IllegalArgumentException("⚠️ El formato de RUT debe ser 99.999.999-9.");
+			throw new IllegalArgumentException(
+					"⚠️ El formato de RUT debe ser 99.999.999-9.");
 		}
 
 		// Limpia los punto y pasa letra a mayúscula

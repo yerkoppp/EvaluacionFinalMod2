@@ -3,7 +3,7 @@
  */
 package prevencionDeRiesgos;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 /**
  * 
@@ -11,7 +11,7 @@ import java.util.Date;
 public class Profesional extends Usuario{
 	//Atributos
 	private String titulo; //10-50 caracteres
-	private Date fechaIngreso; //o String -> Formato DD/MM/AAAA
+	private LocalDate fechaIngreso; //o String -> Formato DD/MM/AAAA
 	
 	//Constructores
 	public Profesional() {
@@ -23,7 +23,7 @@ public class Profesional extends Usuario{
 	 * @param fechaNacimiento
 	 * @param run
 	 */
-	public Profesional(String nombre, String fechaNacimiento, String run, String titulo, Date fechaIngreso) {
+	public Profesional(String nombre, String fechaNacimiento, String run, String titulo, LocalDate fechaIngreso) {
 		super(nombre, fechaNacimiento, run);
 		this.titulo = titulo;
 		this.fechaIngreso = fechaIngreso;
@@ -48,18 +48,29 @@ public class Profesional extends Usuario{
 	/**
 	 * @return the fechaIngreso
 	 */
-	public Date getFechaIngreso() {
+	public LocalDate getFechaIngreso() {
 		return fechaIngreso;
 	}
 
 	/**
 	 * @param fechaIngreso the fechaIngreso to set
 	 */
-	public void setFechaIngreso(Date fechaIngreso) {
+	public void setFechaIngreso(LocalDate fechaIngreso) {
 		this.fechaIngreso = fechaIngreso;
 	}
 	
 	//Otros metodos
+	@Override
+	public String mostrarDatos() {
+		return String.format("RUT: %s\n"
+				+ "Nombre: %s\n"
+				+ "Fecha de Nacimiento: %s\n"
+				+ "Titulo: %s\n"
+				+ "Fecha de ingreso: %s", 
+		        super.getNombre(), super.getRun(), super.getFechaNacimiento()
+		        , titulo, Validacion.transformarFechaAstring(fechaIngreso));
+	}
+	
 	@Override
 	public String analizarUsuario() {
 		//  Sobrescribe el método de la clase padre para desplegar 

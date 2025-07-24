@@ -55,6 +55,17 @@ public class Administrativo extends Usuario{
 
 	//Otros metodos
 	@Override
+	public String mostrarDatos() {
+		return String.format("RUT: %s\n"
+				+ "Nombre: %s\n"
+				+ "Fecha de Nacimiento: %s\n"
+				+ "Area: %s\n"
+				+ "Experiencia previa: %s", 
+		        super.getNombre(), super.getRun(), super.getFechaNacimiento()
+		        , area, experienciaPrevia != "" ? experienciaPrevia : "No informado");
+	}
+	
+	@Override
 	public String analizarUsuario() {
 		/*el cual debe mostrar
 		los datos del método del mismo nombre correspondiente a la clase
