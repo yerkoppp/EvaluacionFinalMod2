@@ -172,6 +172,29 @@ public final class Validacion {
         // Obtener los años de la diferencia
         return periodo.getYears();
     }
+    
+    /**
+     * Valida que la longitud de un texto esté dentro del rango especificado.
+     * 
+     * @param texto Texto a validar (no puede ser null)
+     * @param min Longitud mínima permitida (inclusive)
+     * @param max Longitud máxima permitida (inclusive)
+     * @return El texto validado
+     * @throws IllegalArgumentException si el texto es null o su longitud no está en el rango
+     */
+    public static String validarLargoString(String texto, int min, int max) throws IllegalArgumentException {
+        if (texto == null) {
+            throw new IllegalArgumentException("El texto no puede ser null");
+        }
+        String textoLimpio = texto.trim();
+        int longitud = textoLimpio.length();
+        if (longitud < min || longitud > max) {
+            throw new IllegalArgumentException(
+                String.format("Longitud inválida: %d. Debe estar entre %d y %d caracteres", 
+                             longitud, min, max));
+        }
+        return texto;
+    }
 
 	/**
 	 * Valida que un RUT chileno esté en el formato correcto y que su dígito
