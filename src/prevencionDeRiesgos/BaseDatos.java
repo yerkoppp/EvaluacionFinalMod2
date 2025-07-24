@@ -1,7 +1,5 @@
 package prevencionDeRiesgos;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 public class BaseDatos {
 
@@ -111,12 +109,6 @@ public class BaseDatos {
 
 	public static void ingresarProfesionales(Contenedor contenedor) {
 
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-		String fechaTexto1 = "15/03/2020"; // formato DD/MM/AAAA
-		String fechaTexto2 = "25/12/2023"; // formato DD/MM/AAAA
-		LocalDate fecha1 = LocalDate.parse(fechaTexto1, formatter);
-		LocalDate fecha2 = LocalDate.parse(fechaTexto2, formatter);
-		
 		// Creacion de profesionales
 		try {
 			
@@ -124,7 +116,7 @@ public class BaseDatos {
 					"20/06/1985", // fechaNacimiento
 					"14.256.780-6", // run (válido)
 					"Ingeniera en Prevención de Riesgos", // título
-					fecha1 // fechaIngreso
+					"15/03/2020" // fechaIngreso
 			);
 			contenedor.almacenarProfesional(prof1);
 
@@ -132,7 +124,7 @@ public class BaseDatos {
 					"10/11/1990", // fechaNacimiento
 					"17.345.210-1", // run (válido)
 					"Psicólogo Laboral", // título
-					fecha2 // fechaIngreso
+					"25/12/2023" // fechaIngreso
 			);
 			contenedor.almacenarProfesional(prof2);
 

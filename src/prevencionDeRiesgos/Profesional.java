@@ -92,7 +92,6 @@ public class Profesional extends Usuario{
         try {
             this.titulo = Validacion.validarLargoString(titulo, 10, 50);
         } catch (IllegalArgumentException e) {
-            System.out.println("Error en titulo: " + e.getMessage());
             throw new IllegalArgumentException("Titulo inválido: " + e.getMessage());
         }
 	}
@@ -105,12 +104,16 @@ public class Profesional extends Usuario{
      * @param fechaIngreso la fecha de ingreso a establecer (formato DD/MM/AAAA)
      */
 	public void setFechaIngreso(String fechaIngreso) {
+		if (fechaIngreso == null || fechaIngreso.trim().isEmpty()) {
+			this.fechaIngreso = null;
+			return;
+		}
         if (Validacion.validarFecha(fechaIngreso) != null) {
         	this.fechaIngreso = fechaIngreso;         
             } else {           
-                System.out.println("Fecha o formato incorrecto");
-            }
-
+            	throw new IllegalArgumentException(
+    					"⚠️ Fecha o formato incorrecto.");
+            }	
 	}
 	
   // ======================= MÉTODOS ESPECIALES =======================
@@ -128,7 +131,8 @@ public class Profesional extends Usuario{
 				+ "Titulo: %s\n"
 				+ "Fecha de ingreso: %s", 
 		        super.getNombre(), super.getRun(), super.getFechaNacimiento()
-		        , titulo, Validacion.transformarFechaAstring(fechaIngreso));
+		        , titulo,
+		        fechaIngreso != null ? fechaIngreso : "No informado");
 	}
 	
 	@Override

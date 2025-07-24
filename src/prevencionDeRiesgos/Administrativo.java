@@ -85,7 +85,6 @@ public class Administrativo extends Usuario{
         try {
             this.area = Validacion.validarLargoString(area, 5, 20);
         } catch (IllegalArgumentException e) {
-        	System.out.println("Error en area: " + e.getMessage());
         	throw new IllegalArgumentException("Area ingresada no es inválido: " + e.getMessage());
         }
     }
@@ -99,9 +98,13 @@ public class Administrativo extends Usuario{
      */
 	public void setExperienciaPrevia(String experienciaPrevia) {
         try {
+    		if (experienciaPrevia == null || experienciaPrevia.trim().isEmpty()) {
+    			this.experienciaPrevia = null;
+    			return;
+    		}
             this.experienciaPrevia = Validacion.validarLargoString(experienciaPrevia, 0, 100);
         } catch (IllegalArgumentException e) {
-            System.out.println("Error en ingreso experiencia previa: " + e.getMessage());
+        	throw new IllegalArgumentException("Error ingresando experiencia previa: " + e.getMessage());
         }
     }
 
@@ -120,7 +123,7 @@ public class Administrativo extends Usuario{
 				+ "Area: %s\n"
 				+ "Experiencia previa: %s", 
 		        super.getNombre(), super.getRun(), super.getFechaNacimiento()
-		        , area, experienciaPrevia != "" ? experienciaPrevia : "No informado");
+		        , area, experienciaPrevia != null ? experienciaPrevia : "No informado");
 	}
 	
 	@Override

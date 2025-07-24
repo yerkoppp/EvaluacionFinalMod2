@@ -65,7 +65,7 @@ public class Principal {
 		} catch (InputMismatchException e) {
 			System.out.println("⚠️ Entrada inválida. Debe ingresar un número.");
 			sc.nextLine();
-			return -1000;
+			return 12749;
 		}
 
 	}
@@ -103,8 +103,10 @@ public class Principal {
 			continuarMain = false;
 			System.out.printf("El programa ha finalizado.\n");
 			break;
+		case 12749: // NO INGRESO UN NÚMERO (YA SALIO EL MENSAJE)
+			break;
 		default: // ÓPCION INGRESADA NO ES DE 1 A 9
-			System.out.printf("Opción no válida, intente nuevamente.\n");
+			System.out.printf("⚠️ Opción no válida, intente nuevamente.\n");
 			break;
 		}
 
@@ -360,8 +362,7 @@ public class Principal {
 	public static void ingresarProfesional() {
 		Profesional profesional = new Profesional();
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-		String rut, nombre, fechaNacimiento, titulo, fechaIngresoString;
-		LocalDate fechaIngreso;
+		String rut, nombre, fechaNacimiento, titulo, fechaIngreso;
 
 		while (true) {
 			try {
@@ -407,15 +408,18 @@ public class Principal {
 				System.out.println(e.getMessage());
 			}
 		}
-		try {
-			System.out.println("Ingrese su fecha de ingreso DD/MM/AAAA: ");
-			fechaIngresoString = sc.nextLine();
-			fechaIngreso = LocalDate.parse(fechaIngresoString, formatter);
-			profesional.setFechaIngreso(fechaIngreso);
-		} catch (IllegalArgumentException e) {
-			System.out.println(e.getMessage());
-		} catch (DateTimeException e) {
-
+		while (true) {
+			try {
+				System.out.println("Ingrese su fecha de ingreso DD/MM/AAAA: ");
+				fechaIngreso = sc.nextLine();
+				if (fechaIngreso == null || fechaIngreso.trim().isEmpty()) {
+					break;
+				}
+				profesional.setFechaIngreso(fechaIngreso);
+				break;
+			} catch (IllegalArgumentException e) {
+				System.out.println(e.getMessage());
+			}
 		}
 
 		// Almacena el cliente en el contenedor
@@ -476,12 +480,18 @@ public class Principal {
 				System.out.println(e.getMessage());
 			}
 		}
-		try {
-			System.out.println("Ingrese su experiencia previa: ");
-			experienciaPrevia = sc.nextLine();
-			administrativo.setExperienciaPrevia(experienciaPrevia);
-		} catch (IllegalArgumentException e) {
-			System.out.println(e.getMessage());
+		while (true) {
+			try {
+				System.out.println("Ingrese su experiencia previa: ");
+				experienciaPrevia = sc.nextLine();
+				if (experienciaPrevia == null || experienciaPrevia.trim().isEmpty()) {
+					break;
+				}
+				administrativo.setExperienciaPrevia(experienciaPrevia);
+				break;
+			} catch (IllegalArgumentException e) {
+				System.out.println(e.getMessage());
+			}
 		}
 
 		// Almacena el cliente en el contenedor
