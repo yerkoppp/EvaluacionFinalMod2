@@ -9,6 +9,7 @@ package prevencionDeRiesgos;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
@@ -40,6 +41,7 @@ public final class Validacion {
 	 */
 	private Validacion() {
 		// TODO Auto-generated constructor stub
+
 	}
 
 	/**
@@ -49,6 +51,7 @@ public final class Validacion {
 	 * @param fecha
 	 * @return la fecha en tipo LocalDate. Retorna null si el formato no es válido.
 	 */
+
 	public static LocalDate validarFecha(String fecha) {
 		try {
 			return LocalDate.parse(fecha, FORMATTER);
@@ -58,6 +61,7 @@ public final class Validacion {
 		}
 	}
 
+	 
 	/**
 	 * Transforma la fecha LocalDate a String con formato DD/MM/AAAA.
 	 * 
@@ -95,6 +99,7 @@ public final class Validacion {
 	 * @return la hora en tipo String. Retorna null si el formato no es válido.
 	 */
 	public static String transformarHoraAstring(LocalTime hora) {
+
 		if (hora == null) {
 			return null; // O una cadena vacía, dependiendo de la lógica
 		}
@@ -138,6 +143,35 @@ public final class Validacion {
 
 		return numeroEvaluado;
 	}
+	
+	/**
+     * Calcula la edad en años a partir de una fecha de nacimiento en formato String (dd/MM/yyyy).
+     *
+     * @param fechaNacimientoStr La fecha de nacimiento en formato String (ej. "25/12/1990").
+     * @return La edad en años. Retorna -1 si el formato de fecha es inválido, si la fecha es nula,
+     * o si la fecha de nacimiento es en el futuro.
+     */
+    public static int calcularEdad(String fechaNacimientoStr) {
+        LocalDate fechaNacimiento = validarFecha(fechaNacimientoStr); 
+
+        if (fechaNacimiento == null) {
+            System.err.println("Error: Formato de fecha de nacimiento inválido o fecha no válida.");
+            return -1; // O lanza una excepción, según tu estrategia de manejo de errores.
+        }
+
+        LocalDate fechaActual = LocalDate.now();
+
+        if (fechaNacimiento.isAfter(fechaActual)) {
+            System.err.println("Error: La fecha de nacimiento no puede ser en el futuro.");
+            return -1;
+        }
+
+        // Calcular la diferencia entre las dos fechas
+        Period periodo = Period.between(fechaNacimiento, fechaActual);
+
+        // Obtener los años de la diferencia
+        return periodo.getYears();
+    }
 
 	/**
 	 * Valida que un RUT chileno esté en el formato correcto y que su dígito

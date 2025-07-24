@@ -1,9 +1,10 @@
 package prevencionDeRiesgos;
-
-
+/**
+ * @author Luis Guevara
+ */
 public class VisitaEnTerreno {
 	//Atributos
-	private int identificadorVisitaEnTerreno;
+    private int identificadorVisitaEnTerreno;
     private int rutCliente;
     private String dia;
     private String hora;
