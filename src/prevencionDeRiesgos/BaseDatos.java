@@ -1,6 +1,7 @@
 package prevencionDeRiesgos;
 
-import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class BaseDatos {
 
@@ -17,7 +18,7 @@ public class BaseDatos {
 	public static void ingresarCapacitaciones(Contenedor contenedor) {
 		// Crear capacitaciones
 		Capacitacion capacitacion1 = new Capacitacion(1001, // identificador
-				"18.234.567-5", // rutCliente
+				"18.234.567-9", // rutCliente
 				"Lunes", // día
 				"10:00", // hora
 				"Sala de reuniones 3", // lugar
@@ -38,6 +39,7 @@ public class BaseDatos {
 		contenedor.almacenarCapacitacion(capacitacion1);
 		// Almacena segunda capacitacion
 		contenedor.almacenarCapacitacion(capacitacion2);
+		
 	}
 
 	public static void ingresarAdministrativos(Contenedor contenedor) {
@@ -45,7 +47,7 @@ public class BaseDatos {
 
 		try {
 			Administrativo admin1 = new Administrativo("Luis Torres", // nombre
-					"1980-04-15", // fechaNacimiento
+					"15/04/1980", // fechaNacimiento
 					"14.256.789-K", // run (válido)
 					"Recursos Humanos", // área
 					"Más de 10 años en selección" // experienciaPrevia
@@ -54,7 +56,7 @@ public class BaseDatos {
 			contenedor.almacenarAdministrativo(admin1);
 
 			Administrativo admin2 = new Administrativo("Camila Rojas", // nombre
-					"1992-09-30", // fechaNacimiento
+					"30/09/1992", // fechaNacimiento
 					"16.543.210-K", // run (válido)
 					"Finanzas", // área
 					"Experiencia en contabilidad y gestión presupuestaria");
@@ -64,6 +66,7 @@ public class BaseDatos {
 		} catch (IllegalArgumentException e) {
 			System.out.println(e.getMessage());
 		}
+		
 	}
 
 	public static void ingresarClientes(Contenedor contenedor) {
@@ -71,7 +74,7 @@ public class BaseDatos {
 		try {
 			Cliente cliente = new Cliente("2.222.222-8", // run
 					"Juanito", // nombres
-					"1990-05-12", // fechaNacimiento
+					"12/05/1990", // fechaNacimiento
 					"Pérez González", // apellidos
 					"+56912345678", // teléfono
 					"Cuprum", // afp
@@ -81,12 +84,13 @@ public class BaseDatos {
 					34 // edad
 			);
 
+
 			// Almacena cliente 1
 			contenedor.almacenarCliente(cliente);
 
 			Cliente cliente2 = new Cliente("18.234.567-9", // run
 					"María Fernanda", // nombres
-					"1985-10-22", // fechaNacimiento
+					"22/10/1985", // fechaNacimiento
 					"López Salinas", // apellidos
 					"+56987654321", // teléfono
 					"Habitat", // afp
@@ -107,23 +111,28 @@ public class BaseDatos {
 
 	public static void ingresarProfesionales(Contenedor contenedor) {
 
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+		String fechaTexto1 = "15/03/2020"; // formato DD/MM/AAAA
+		String fechaTexto2 = "25/12/2023"; // formato DD/MM/AAAA
+		LocalDate fecha1 = LocalDate.parse(fechaTexto1, formatter);
+		LocalDate fecha2 = LocalDate.parse(fechaTexto2, formatter);
+		
 		// Creacion de profesionales
 		try {
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-
+			
 			Profesional prof1 = new Profesional("María José Contreras", // nombre
-					"1985-06-20", // fechaNacimiento
+					"20/06/1985", // fechaNacimiento
 					"14.256.780-6", // run (válido)
 					"Ingeniera en Prevención de Riesgos", // título
-					sdf.parse("2020-03-15") // fechaIngreso
+					fecha1 // fechaIngreso
 			);
 			contenedor.almacenarProfesional(prof1);
 
 			Profesional prof2 = new Profesional("Andrés Salazar", // nombre
-					"1990-11-10", // fechaNacimiento
+					"10/11/1990", // fechaNacimiento
 					"17.345.210-1", // run (válido)
 					"Psicólogo Laboral", // título
-					sdf.parse("2018-07-01") // fechaIngreso
+					fecha2 // fechaIngreso
 			);
 			contenedor.almacenarProfesional(prof2);
 

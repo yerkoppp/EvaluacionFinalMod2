@@ -22,4 +22,5 @@ public interface Asesoria {
      * @return una cadena de texto con el análisis del usuario
      */
 	String analizarUsuario();
+	
 }

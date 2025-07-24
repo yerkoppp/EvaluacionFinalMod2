@@ -6,6 +6,7 @@
 package prevencionDeRiesgos;
 
 
+
 /**
  * Clase que representa a un profesional del sistema.
  * 
@@ -15,6 +16,8 @@ package prevencionDeRiesgos;
  * @see Usuario
  */
 public class Profesional extends Usuario{
+
+
 	
 	// ======================= ATRIBUTOS =======================
 	
@@ -33,6 +36,7 @@ public class Profesional extends Usuario{
 	public Profesional() {
 		
 	}
+
 
     /**
      * Constructor con parámetros.
@@ -69,6 +73,8 @@ public class Profesional extends Usuario{
 		return fechaIngreso;
 	}
 
+
+
     // ======================= SETTERS =======================
 
     /**
@@ -104,6 +110,7 @@ public class Profesional extends Usuario{
             } else {           
                 System.out.println("Fecha o formato incorrecto");
             }
+
 	}
 	
   // ======================= MÉTODOS ESPECIALES =======================
@@ -113,6 +120,17 @@ public class Profesional extends Usuario{
 	* el nombre y RUN del usuario, junto con el título y la fecha
 	* de ingreso del profesional.
   */
+	@Override
+	public String mostrarDatos() {
+		return String.format("RUT: %s\n"
+				+ "Nombre: %s\n"
+				+ "Fecha de Nacimiento: %s\n"
+				+ "Titulo: %s\n"
+				+ "Fecha de ingreso: %s", 
+		        super.getNombre(), super.getRun(), super.getFechaNacimiento()
+		        , titulo, Validacion.transformarFechaAstring(fechaIngreso));
+	}
+	
 	@Override
 	public String analizarUsuario() {
 		return "Tipo Usuario: Profesional, "+super.analizarUsuario()+", "+toString();

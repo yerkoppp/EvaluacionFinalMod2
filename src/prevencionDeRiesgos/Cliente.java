@@ -18,6 +18,8 @@ public class Cliente extends Usuario {
 
 	// ======================= ATRIBUTOS =======================
 
+	/** Nombres del cliente */
+	private String nombres;
 	/** Apellidos del cliente */
 	private String apellidos;
 	/** Teléfono de contacto del cliente */
@@ -60,7 +62,7 @@ public class Cliente extends Usuario {
 			String apellidos, String telefono, String afp, int sistemaSalud,
 			String direccion, String comuna, int edad) {
 
-		super(nombres, fechaNacimiento, Validacion.validarRut(run));
+		super(nombres + " " + apellidos, fechaNacimiento, run);
 		setNombres(nombres);
 		setApellidos(apellidos);
 		setTelefono(telefono);
@@ -73,6 +75,13 @@ public class Cliente extends Usuario {
 
 	// ======================= GETTER =======================
 
+	/**
+	 * @return Nombres del cliente
+	 */
+	public String getNombres() {
+		return nombres;
+	}
+	
 	/**
 	 * @return Apellidos del cliente
 	 */
@@ -124,19 +133,20 @@ public class Cliente extends Usuario {
 
 	// ======================= SETTER =======================
 
-	/**
-	 * Establece y valida el RUT del cliente.
-	 * @param run RUT a validar y asignar
-	 */
-	public void setRun(String run) {
-		// this.rut = Validacion.validarRut(rut);
-		super.setRun(Validacion.validarRut(run));
-	}
+//	/**
+//	 * Establece y valida el RUT del cliente.
+//	 * @param run RUT a validar y asignar
+//	 */
+//	public void setRun(String run) {
+//		// this.rut = Validacion.validarRut(rut);
+//		super.setRun(Validacion.validarRut(run));
+//	}
 
 	/**
 	 * Establece y valida los nombres del cliente.
 	 * @param nombres Nombres a asignar
 	 */
+
 	public void setNombres(String nombres) {
 		if (nombres == null || nombres.trim().isEmpty()) {
 			throw new IllegalArgumentException(
@@ -146,24 +156,7 @@ public class Cliente extends Usuario {
 			throw new IllegalArgumentException(
 					"⚠️ Nombres deben tener minimo 5 y máximo 30 caracteres.");
 		}
-		// this.nombres = nombres;
-		super.setNombre(nombres);
-	}
-
-	/**
-	 * Establece la fecha de nacimiento en formato DD/MM/AAAA.
-	 * @param fechaNacimiento Fecha a asignar
-	 */
-	public void setFechaNacimiento(String fechaNacimiento) {
-		if (fechaNacimiento == null || fechaNacimiento.trim().isEmpty()) {
-			throw new IllegalArgumentException(
-					"⚠️ La fecha de nacimiento es obligatoria.");
-		}
-		if (!fechaNacimiento.matches("^\\d{2}/\\d{2}/\\d{4}$")) {
-			throw new IllegalArgumentException(
-					"⚠️ Fecha de nacimiento debe ser en formato DD/MM/AAAA.");
-		}
-		super.setFechaNacimiento(fechaNacimiento);
+		this.nombres = nombres;
 	}
 
 	/**
@@ -173,13 +166,17 @@ public class Cliente extends Usuario {
 	public void setApellidos(String apellidos) {
 		if (apellidos == null || apellidos.trim().isEmpty()) {
 			throw new IllegalArgumentException(
-					"⚠️ Los apellidos son obligatorio.");
+					"⚠️ Los apellidos son obligatorios.");
 		}
 		if (apellidos.length() < 5 || apellidos.length() > 30) {
 			throw new IllegalArgumentException(
 					"⚠️ Apellidos deben tener minimo 5 y máximo 30 caracteres.");
 		}
 		this.apellidos = apellidos;
+		if (this.nombres != null && this.apellidos != null) {
+	        super.setNombre(this.nombres + " " + this.apellidos);
+	    }
+		
 	}
 
 	/**
@@ -273,9 +270,7 @@ public class Cliente extends Usuario {
 	 * @return Nombre completo
 	 */
 	public String obtenerNombre() {
-		String nombreCompleto = String.format("%s %s", super.getNombre(), apellidos);
-		super.setNombre(nombreCompleto);
-		return nombreCompleto;
+		return String.format("%s %s",nombres,apellidos);
 	}
 
 	/**
@@ -291,14 +286,36 @@ public class Cliente extends Usuario {
 		return null;
 	}
 
+	@Override
+	public String mostrarDatos() {
+		return String.format("RUT: %s\n"
+				+ "Nombres: %s\n"
+				+ "Apellidos: %s\n"
+				+ "Telefono: %s\n"
+				+ "AFP: %s\n"
+				+ "Sistema de salud: %s\n"
+				+ "Direccion: %s\n"
+				+ "Comuna: %s\n"
+				+ "Edad: %d",
+				super.getRun(), nombres, apellidos, telefono, 
+				afp != null ? afp : "No informado", 
+				(sistemaSalud == 1) ? "Fonasa" : (sistemaSalud == 2) ?"Isapre": "No informado", 
+				direccion != null ? direccion : "No informado", 
+				comuna != null ? comuna : "No informado", edad);
+	}
+	
 	/**
 	 * Devuelve un análisis básico del cliente (heredado y extendido).
 	 * @return Análisis de datos del usuario
 	 */
 	@Override
 	public String analizarUsuario() {
-		// Llama al método de la clase padre (Usuario)
-		return "Tipo Usuario: Cliente, "+super.analizarUsuario()+", "+toString();
+	    // Llama al método de la clase padre (Usuario)
+ 
+	    return super.analizarUsuario()
+	    		+ String.format("Dirección: %s, Comuna: %s", 
+	        direccion != null ? direccion : "No informada",
+	        comuna != null ? comuna : "No informada");
 	}
 
 	/**

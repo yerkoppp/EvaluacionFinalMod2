@@ -113,6 +113,17 @@ public class Administrativo extends Usuario{
 	* experiencia previa.
 	*/
 	@Override
+	public String mostrarDatos() {
+		return String.format("RUT: %s\n"
+				+ "Nombre: %s\n"
+				+ "Fecha de Nacimiento: %s\n"
+				+ "Area: %s\n"
+				+ "Experiencia previa: %s", 
+		        super.getNombre(), super.getRun(), super.getFechaNacimiento()
+		        , area, experienciaPrevia != "" ? experienciaPrevia : "No informado");
+	}
+	
+	@Override
 	public String analizarUsuario() {
 		return "Tipo Usuario: Administrativo, "+super.analizarUsuario()+", "+toString();
 	}

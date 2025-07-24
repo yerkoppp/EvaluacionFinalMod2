@@ -34,6 +34,8 @@ public class Usuario implements Asesoria {
 	}
 	
 	/**
+
+
      * Constructor con parámetros.
      * 
      * @param nombre Nombre del usuario (10-50 caracteres)
@@ -87,7 +89,8 @@ public class Usuario implements Asesoria {
      */
     public void setNombre(String nombre) {
         if (nombre == null || nombre.trim().isEmpty()) {
-            throw new IllegalArgumentException("El nombre es obligatorio");
+            throw new IllegalArgumentException(
+					"⚠️ Los nombres son obligatorio.");
         }
         try {
             this.nombre = Validacion.validarLargoString(nombre, 10, 50);
@@ -96,21 +99,23 @@ public class Usuario implements Asesoria {
         }
     }
 
-    /**
-     * Establece la fecha de nacimiento del usuario.
-     * 
-     * Valida que el formato sea DD/MM/AAAA y que la fecha no sea futura.
-     * 
-     * @param fechaNacimiento la fecha de nacimiento a establecer
-     */
-    public void setFechaNacimiento(String fechaNacimiento) {
-        if (Validacion.validarFecha(fechaNacimiento) != null && 
-            Validacion.calcularEdad(fechaNacimiento) >= 0) {
-            this.fechaNacimiento = fechaNacimiento;         
-        } else {           
-            System.out.println("Fecha o formato incorrecto");
-        }
-    }
+
+  	/**
+	 * Establece la fecha de nacimiento en formato DD/MM/AAAA.
+	 * @param fechaNacimiento Fecha a asignar
+	 */
+	public void setFechaNacimiento(String fechaNacimiento) {
+		if (fechaNacimiento == null || fechaNacimiento.trim().isEmpty()) {
+			throw new IllegalArgumentException(
+					"⚠️ La fecha de nacimiento es obligatoria.");
+		}
+		if(Validacion.validarFecha(fechaNacimiento) !=null) {
+			this.fechaNacimiento = fechaNacimiento;			
+		} else {
+			throw new IllegalArgumentException(
+					"⚠️ Fecha o formato incorrecto.");
+		}
+	}
 
     /**
      * Establece el RUN del usuario.
@@ -119,21 +124,18 @@ public class Usuario implements Asesoria {
      * 
      * @param run el RUN a establecer
      */
-    public void setRun(String run) {
-        try {
-            String runValidado = Validacion.validarRut(run);
-            if (runValidado != null && !runValidado.trim().isEmpty()) {
-                this.run = run;
-            } else {
-                System.out.println("RUN ingresado no cumple con el formato.");
-            }
-        } catch (IllegalArgumentException e) {
-            System.out.println("RUN inválido: " + e.getMessage());
-        }
-    }
+	public void setRun(String run) {
+		this.run = Validacion.validarRut(run);
+	}
 
 	// ======================= MÉTODOS ESPECIALES =======================
 	
+  	public String mostrarDatos() {
+		return String.format("RUT: %s\n"
+				+ "Nombre: %s\n"
+				+ "Fecha de Nacimiento: %s", 
+		        nombre, run, fechaNacimiento);
+  
     /**
      * Muestra la edad del usuario calculada a partir de su fecha de nacimiento.
      * 

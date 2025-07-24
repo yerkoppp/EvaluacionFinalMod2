@@ -10,14 +10,19 @@ public class zBORRAR_JQA {
 	static ArrayList<Cliente> clientes = new ArrayList<>();
 	static Contenedor contenedor = new Contenedor();
 
+
 	public static void main(String[] args) {
 
+		
 		BaseDatos.ingresarDatos(contenedor);
-		ingresarCliente();
-		pruebasContenedor();
+		//ingresarCliente();
 
+//		pruebasContenedor();
+		
+
+		//Principal.ingresarCapacitacion();
 	}
-	
+
 	public static void ingresarCliente() {
 
 		Cliente cliente = new Cliente();
@@ -136,22 +141,22 @@ public class zBORRAR_JQA {
 			}
 		}
 
-		//Almacena el cliente en el contenedor
+		// Almacena el cliente en el contenedor
 		contenedor.almacenarCliente(cliente);
 		// Impresiones de cliente
 		System.out.println("Cliente ingresado con éxito.");
 
-		System.out.println(cliente.toString());
-
+		System.out.println(cliente.mostrarDatos());
+		
 		System.out.println(cliente.analizarUsuario());
+		
+
 
 	}
 
 	public static void pruebasContenedor() {
 
-
-
-		//Imprime lista de capacitaciones
+		// Imprime lista de capacitaciones
 		System.out.println("Imprime Lista de capacitaciones");
 		System.out.println(contenedor.listarCapacitaciones());
 
@@ -174,14 +179,14 @@ public class zBORRAR_JQA {
 		System.out.println("Lista de usuarios");
 		System.out.println("-".repeat(25));
 		System.out.println(contenedor.listarUsuarios());
-		
-		//Eliminar usuario por rut en este caso un cliente
+
+		// Eliminar usuario por rut en este caso un cliente
 		contenedor.eliminarUsuario("16.715.932-K");
-		//Eliminar usuario por rut en este caso un administrativo
+		// Eliminar usuario por rut en este caso un administrativo
 		contenedor.eliminarUsuario("14.256.789-K");
-		//Elimimar usuario por rut en este caso un profesional
+		// Elimimar usuario por rut en este caso un profesional
 		contenedor.eliminarUsuario("17.345.210-1");
-		
+
 		// Lista de todos los usuarios con las eliminaciones
 		System.out.println("Lista de usuarios sin los eliminados");
 		System.out.println("-".repeat(25));
