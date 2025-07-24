@@ -145,12 +145,12 @@ public class Usuario implements Asesoria {
 	
 	@Override
 	public String analizarUsuario() {
-		return String.format("\nNombre: %s. Run %s\n", nombre, run);
+		return String.format("\nNombre: %s. RUT: %s\n", nombre, run);
 	}
 	
 	@Override
 	public String toString() {
-		return "Usuario [nombre=" + nombre + ", fechaNacimiento=" + fechaNacimiento + ", run=" + run + "]";
+		return "Usuario: " + nombre + ", Fecha Nacimiento: " + fechaNacimiento + ", RUN:" + run;
 	}
 	
 }

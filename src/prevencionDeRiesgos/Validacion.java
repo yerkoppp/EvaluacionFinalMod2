@@ -1,5 +1,9 @@
 /**
  * @author Yerko Osorio
+ * @author Luis Guevara
+ * @author Jhoseph Quiroga
+ * @author Norma Armijo
+ * @version 1.0
  */
 package prevencionDeRiesgos;
 
@@ -8,40 +12,55 @@ import java.time.LocalTime;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 
 /**
  * Clase utilitaria para validaciones
  */
-
 public final class Validacion {
-	 // Definimos el formateador para el formato "DD/MM/AAAA"
-    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-    // Definimos el formateador para el patrón "HH:MM"
-    private static final DateTimeFormatter FORMATTER_HHMM = DateTimeFormatter.ofPattern("HH:mm");
-	
-    /**
-     * No deja instanciar la clase -> Ejemplo como cuando usamos la clase Math.round(float a)
-     */
+	// Definimos el formateador para el formato "DD/MM/AAAA"
+	private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+	// Definimos el formateador para el patrón "HH:MM"
+	private static final DateTimeFormatter FORMATTER_HHMM = DateTimeFormatter.ofPattern("HH:mm");
+
+	//Definimos un array con los días de la semana
+	private static ArrayList<String> dias = new ArrayList<String>();
+
+	static {
+		dias.add("LUNES");
+		dias.add("MARTES");
+		dias.add("MIÉRCOLES");
+		dias.add("JUEVES");
+		dias.add("VIERNES");
+		dias.add("SÁBADO");
+		dias.add("DOMINGO");
+	}
+
+	/**
+	 * 
+	 */
 	private Validacion() {
+		// TODO Auto-generated constructor stub
 
 	}
 
 	/**
-	 * Valida el formato y transforma la fecha ingresada en formato DD/MM/AAAA
-	 * en LocalDate.
+	 * Valida el formato y transforma la fecha ingresada en formato DD/MM/AAAA en
+	 * LocalDate.
 	 * 
 	 * @param fecha
-	 * @return la fecha en tipo LocalDate. Retorna null si el formato no es
-	 *         válido.
+	 * @return la fecha en tipo LocalDate. Retorna null si el formato no es válido.
 	 */
 
 	public static LocalDate validarFecha(String fecha) {
-	        try {
-	            return LocalDate.parse(fecha, FORMATTER);
-	        } catch (DateTimeParseException e) {
-	            return null; // O lanzar una excepción personalizada, dependiendo de la lógica de tu aplicación
-	        }
+		try {
+			return LocalDate.parse(fecha, FORMATTER);
+		} catch (DateTimeParseException e) {
+			return null; // O lanzar una excepción personalizada, dependiendo de
+							// la lógica de tu aplicación
+		}
 	}
+
 	 
 	/**
 	 * Transforma la fecha LocalDate a String con formato DD/MM/AAAA.
@@ -57,12 +76,11 @@ public final class Validacion {
 	}
 
 	/**
-	 * Valida el formato y transforma la fecha ingresada en formato DD/MM/AAAA
-	 * en LocalDate.
+	 * Valida el formato y transforma la fecha ingresada en formato DD/MM/AAAA en
+	 * LocalDate.
 	 * 
 	 * @param hora
-	 * @return la hora en tipo LocalTime. Retorna null si el formato no es
-	 *         válido.
+	 * @return la hora en tipo LocalTime. Retorna null si el formato no es válido.
 	 */
 	public static LocalTime validarHora(String hora) {
 
@@ -73,7 +91,7 @@ public final class Validacion {
 			return null;
 		}
 	}
-
+	
 	/**
 	 * Transforma la hora LocalTime a String con formato HH:MM.
 	 * 
@@ -86,7 +104,44 @@ public final class Validacion {
 			return null; // O una cadena vacía, dependiendo de la lógica
 		}
 		return hora.format(FORMATTER_HHMM);
+	}
 
+
+	public static String validarDia(String diaEvaluado) {
+
+		if (!dias.contains(diaEvaluado.toUpperCase()) || diaEvaluado == null) {
+			throw new IllegalArgumentException("⚠️ El día no es válido. Inténtelo de nuevo");
+		}
+
+		return diaEvaluado.toUpperCase();
+	}
+
+	public static String validarLargoString(String stringEvaluado, int minimo, int maximo) {
+
+		if (stringEvaluado.length() < minimo || stringEvaluado.length() > maximo) {
+			throw new IllegalArgumentException("⚠️ El largo no es permitido. Debe estar entre " + minimo
+					+ " y " + maximo + " carácteres");
+		}
+
+		return stringEvaluado;
+	}
+	
+	public static String validarLargoString(String stringEvaluado, int maximo) {
+
+		if (stringEvaluado.length() > maximo) {
+			throw new IllegalArgumentException("⚠️ El largo de la frase supera el máximo permitido. Debe ser menor a" + maximo + " carácteres");
+		}
+
+		return stringEvaluado;
+	}
+	
+	public static int validarNumeroMaximo(int numeroEvaluado, int maximo) {
+
+		if (numeroEvaluado >= maximo) {
+			throw new IllegalArgumentException("⚠️ El largo de la frase supera el máximo permitido. Debe ser menor a" + maximo + " carácteres");
+		}
+
+		return numeroEvaluado;
 	}
 	
 	/**
@@ -152,20 +207,18 @@ public final class Validacion {
 	 * @param rutIngresado el RUT ingresado por el usuario (incluyendo puntos y
 	 *                     guión)
 	 * @return el mismo RUT ingresado si es válido
-	 * @throws IllegalArgumentException si el RUT está vacío, no tiene el
-	 *                                  formato correcto, o su dígito
-	 *                                  verificador es incorrecto
+	 * @throws IllegalArgumentException si el RUT está vacío, no tiene el formato
+	 *                                  correcto, o su dígito verificador es
+	 *                                  incorrecto
 	 */
 	public static String validarRut(String rutIngresado) {
 
 		if (rutIngresado == null || rutIngresado.isEmpty()) {
-			throw new IllegalArgumentException(
-					"⚠️ El RUT es obligatorio. Ingrese un RUT en formato 99.999.999-9.");
+			throw new IllegalArgumentException("⚠️ El RUT es obligatorio. Ingrese un RUT en formato 99.999.999-9.");
 		}
 
 		if (!rutIngresado.matches("\\d{1,2}\\.\\d{3}\\.\\d{3}-[0-9Kk]")) {
-			throw new IllegalArgumentException(
-					"⚠️ El formato de RUT debe ser 99.999.999-9.");
+			throw new IllegalArgumentException("⚠️ El formato de RUT debe ser 99.999.999-9.");
 		}
 
 		// Limpia los punto y pasa letra a mayúscula

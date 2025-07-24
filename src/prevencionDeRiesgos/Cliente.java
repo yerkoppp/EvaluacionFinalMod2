@@ -33,7 +33,7 @@ public class Cliente extends Usuario {
 	/** Edad del cliente */
 	private int edad;
 
-	// ======================= CONSTRUCTOTES =======================
+	// ======================= CONSTRUCTORES =======================
 
 	/**
 	 * Constructor vacío de Cliente
@@ -273,7 +273,9 @@ public class Cliente extends Usuario {
 	 * @return Nombre completo
 	 */
 	public String obtenerNombre() {
-		return String.format("%s %s", super.getNombre(), apellidos);
+		String nombreCompleto = String.format("%s %s", super.getNombre(), apellidos);
+		super.setNombre(nombreCompleto);
+		return nombreCompleto;
 	}
 
 	/**
@@ -296,11 +298,7 @@ public class Cliente extends Usuario {
 	@Override
 	public String analizarUsuario() {
 		// Llama al método de la clase padre (Usuario)
-
-		return super.analizarUsuario() + "\n"
-				+ String.format("Dirección: %s\nComuna: %s",
-						direccion != null ? direccion : "No informada",
-						comuna != null ? comuna : "No informada");
+		return "Tipo Usuario: Cliente, "+super.analizarUsuario()+", "+toString();
 	}
 
 	/**
@@ -310,11 +308,10 @@ public class Cliente extends Usuario {
 	@Override
 	public String toString() {
 		return String.format(
-				"RUT: %s, " + "Nombres: %s, " + "Apellidos: %s, "
-						+ "Fecha de nacimiento: %s, " + "Telefono: %s, "
+				"%s, Fecha de nacimiento: %s, " + "Telefono: %s, "
 						+ "AFP: %s, " + "Sistema de salud: %s, "
 						+ "Direccion: %s, " + "Comuna: %s, " + "Edad: %d",
-				super.getRun(), super.getNombre(), apellidos,
+				obtenerNombre(),
 				getFechaNacimiento(), telefono,
 				afp != null ? afp : "No informado",
 				(sistemaSalud == 1) ? "Fonasa"
@@ -323,5 +320,6 @@ public class Cliente extends Usuario {
 				comuna != null ? comuna : "No informado", edad);
 
 	}
+	
 
 }

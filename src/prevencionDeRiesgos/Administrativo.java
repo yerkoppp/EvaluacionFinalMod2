@@ -107,16 +107,19 @@ public class Administrativo extends Usuario{
 
 	// ======================= MÉTODOS ESPECIALES =======================
 	
+  /**
+  * Muestra los datos del método del mismo nombre correspondiente a la clase
+	* padre, junto con el área a la que pertenece el administrativo y su
+	* experiencia previa.
+	*/
 	@Override
 	public String analizarUsuario() {
-		return String.format(
-				"\nNombre: %s. Run: %s. Area: %s. Experiencia previa: %s\n",
-				getNombre(), getRun(),area,experienciaPrevia);
+		return "Tipo Usuario: Administrativo, "+super.analizarUsuario()+", "+toString();
 	}
 
 	@Override
 	public String toString() {
-		return "Administrativo [area=" + area + ", experienciaPrevia=" + experienciaPrevia + "]";
+		return "Área:" + area + ", Experiencia Previa: " + experienciaPrevia;
 	}
 	
 }

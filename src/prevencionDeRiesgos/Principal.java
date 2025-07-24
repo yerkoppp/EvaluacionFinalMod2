@@ -8,6 +8,7 @@
  */
 package prevencionDeRiesgos;
 
+import java.time.LocalDate;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -48,6 +49,7 @@ public class Principal {
 		System.out.println("(5) Eliminar usuario");
 		System.out.println("(6) Listar usuarios");
 		System.out.println("(7) Listar usuarios por tipo");
+		System.out.println("(8) Listar capacitaciones");
 		System.out.println("(8) Listar capacitaciones");
 		System.out.println("(9) Salir del programa");
 	}
@@ -104,6 +106,104 @@ public class Principal {
 			System.out.printf("Opción no válida, intente nuevamente.\n");
 			break;
 		}
+
+	}
+
+	private static void agregarAccidente() {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	public static void ingresarCapacitacion() {
+
+		Capacitacion capacitacion = new Capacitacion();
+		
+		int cantidadAsistentes;
+		String rutCliente, dia, hora, lugar, duracion;
+		
+		LocalDate fechaHoraActual = LocalDate.now();
+		String momentoActual = fechaHoraActual.toString();
+		int identificador = momentoActual.hashCode();
+
+		while (true) {
+			try {
+				System.out.println("Ingrese el RUT del cliente (obligatorio):");
+				rutCliente = sc.nextLine();
+				capacitacion.setRutCliente(rutCliente);;
+				break;
+			} catch (IllegalArgumentException e) {
+				System.out.println(e.getMessage());
+			}
+
+		}
+		while (true) {
+			try {
+				System.out.println(
+						"Ingrese el día de la semana que se realizará la capacitación (obligatorio):");
+				dia = sc.nextLine();
+				capacitacion.setDia(dia);
+				break;
+			} catch (IllegalArgumentException e) {
+				System.out.println(e.getMessage());
+			}
+
+		}
+		while (true) {
+			try {
+				System.out.println("Ingrese la hora de la capacitación [formato HH:MM] (obligatorio): ");
+				hora = sc.nextLine();
+				capacitacion.setHora(hora);
+				break;
+			} catch (IllegalArgumentException e) {
+				System.out.println(e.getMessage());
+			}
+		}
+
+		while (true) {
+			try {
+				System.out.println("Ingrese el lugar de la capacitación (obligatorio): ");
+				lugar = sc.nextLine();
+				capacitacion.setLugar(lugar);
+				break;
+			} catch (IllegalArgumentException e) {
+				System.out.println(e.getMessage());
+			}
+		}
+
+		while (true) {
+			try {
+				System.out.println("Ingrese la duración de la capacitación (obligatorio):");
+				duracion = sc.nextLine();
+				capacitacion.setDuracion(duracion);
+				break;
+			} catch (IllegalArgumentException e) {
+				System.out.println(e.getMessage());
+			}
+		}
+
+		while (true) {
+			try {
+				System.out.println("Ingrese la cantidad de asistentes (obligatorio):");
+				cantidadAsistentes = sc.nextInt();
+				sc.nextLine();
+				capacitacion.setCantidadAsistentes(cantidadAsistentes);
+				break;
+			} catch (InputMismatchException e) {
+				System.out.println("⚠️ Ingrese un número válido.");
+				sc.nextLine();
+			} catch (IllegalArgumentException e) {
+				System.out.println(e.getMessage());
+			}
+		}
+		
+
+		// Almacena la capacitación en el contenedor
+		contenedor.almacenarCapacitacion(capacitacion);;
+
+		// Impresiones de capacitación
+		System.out.println("Capacitación ingresada con éxito.");
+
+		System.out.println(capacitacion.mostrarDetalle());
 
 	}
 
@@ -178,7 +278,7 @@ public class Principal {
 
 		while (true) {
 			try {
-				System.out.println("Ingese su teléfono (obligatorio):");
+				System.out.println("Ingrese su teléfono (obligatorio):");
 				telefono = sc.nextLine();
 				cliente.setTelefono(telefono);
 				break;
@@ -386,7 +486,6 @@ public class Principal {
 	}
 
 	public static void listarCapacitaciones() {
-
 		try {
 			String lista = contenedor.listarCapacitaciones();
 			System.out.println("\n" + "-".repeat(13) + " LISTA DE CAPACITACIONES "
@@ -395,6 +494,5 @@ public class Principal {
 		} catch (IllegalArgumentException e) {
 			System.out.println(e.getMessage());
 		}
-
 	}
 }

@@ -106,18 +106,21 @@ public class Profesional extends Usuario{
             }
 	}
 	
-    // ======================= MÉTODOS ESPECIALES =======================
-	
+  // ======================= MÉTODOS ESPECIALES =======================
+  
+	/**
+  * Sobrescribe el método de la clase padre para desplegar 
+	* el nombre y RUN del usuario, junto con el título y la fecha
+	* de ingreso del profesional.
+  */
 	@Override
 	public String analizarUsuario() {
-		return String.format(
-				"\nNombre: %s. Run: %s. Titulo: %s. Fecha de ingreso: %s \n",
-				getNombre(), getRun(), titulo, fechaIngreso);
+		return "Tipo Usuario: Profesional, "+super.analizarUsuario()+", "+toString();
 	}
 
 	@Override
 	public String toString() {
-		return "Profesional [titulo=" + titulo + ", fechaIngreso=" + fechaIngreso + "]";
+		return "Título: " + titulo + ", Fecha Ingreso: " + fechaIngreso;
 	}
 	
 	

@@ -3,6 +3,9 @@
  */
 package prevencionDeRiesgos;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+
 /**
  * Representa un accidente registrado.
  */
@@ -11,7 +14,7 @@ public class Accidente {
 	private int identificadorAccidente;
 	private String rutCliente;
 	private String dia; //para manejar el formato DD/MM/AAAA.
-	private String hora;
+	private LocalTime hora;
 	private String lugar;
 	private String origen;
 	private String consecuencias;
@@ -21,6 +24,9 @@ public class Accidente {
 	 */
 	public Accidente() {
 		// TODO Auto-generated constructor stub
+		LocalDate fechaHoraActual = LocalDate.now();
+		String momentoActual = fechaHoraActual.toString();
+		this.identificadorAccidente = momentoActual.hashCode();
 	}
 	
 	/**
@@ -33,21 +39,22 @@ public class Accidente {
 	 * @param origen
 	 * @param consecuencias
 	 */
-	public Accidente(int identificadorAccidente, String rutCliente, String dia,
+	public Accidente(String rutCliente, String dia,
 			String hora, String lugar, String origen,
 			String consecuencias) {
 		super();
-		this.identificadorAccidente = identificadorAccidente;
-		this.rutCliente = rutCliente;
-		this.dia = dia;
-		this.hora = hora;
-		this.lugar = lugar;
-		this.origen = origen;
-		this.consecuencias = consecuencias;
+		LocalDate fechaHoraActual = LocalDate.now();
+		String momentoActual = fechaHoraActual.toString();
+		this.identificadorAccidente = momentoActual.hashCode();
+		this.rutCliente = Validacion.validarRut(rutCliente);
+		this.dia = Validacion.validarDia(dia);
+		this.hora = Validacion.validarHora(hora);
+		this.lugar = Validacion.validarLargoString(lugar, 10, 50);
+		this.origen = Validacion.validarLargoString(origen, 100);
+		this.consecuencias = Validacion.validarLargoString(consecuencias, 1000);
 	}
 	
 	
-
 	//Métodos:
 	/**
 	 * @return Retorna el identificador del accidente.
@@ -57,12 +64,14 @@ public class Accidente {
 	}
 	
 	/**
-	 * Asigna el identificador.
-	 * Validación: Obligatorio.
-	 * @param identificadorAccidente
+	 * Asigna el identificador. Privado. No puede modificarse el identificador una vez creado el objeto. 
+	 * @param identificador
 	 */
-	public void setIdentificadorAccidente(int identificadorAccidente) {}
-
+	private void setIdentificadorAccidente(int identificador) {
+		this.identificadorAccidente = identificador;
+	}
+	
+	
 
 	/**
 	 * @return Retorna el RUT del cliente accidentado.
@@ -76,7 +85,9 @@ public class Accidente {
 	 * Validación: Obligatorio.
 	 * @param rutCliente
 	 */
-	public void setRutCliente(int rutCliente) {}
+	public void setRutCliente(String rutCliente) {
+		this.rutCliente = Validacion.validarRut(rutCliente);
+	}
 
 
 	/**
@@ -91,7 +102,9 @@ public class Accidente {
 	 * Validación: Se debe asegurar que al ser desplegado esté en formato DD/MM/AAAA.
 	 * @param dia
 	 */
-	public void setDia(String dia) {}
+	public void setDia(String dia) {
+		this.dia = Validacion.validarDia(dia);
+	}
 
 
 
@@ -99,7 +112,7 @@ public class Accidente {
 	 * @return Returna la hora del accidente.
 	 */
 	public String getHora() {
-		return hora;
+		return Validacion.transformarHoraAstring(hora);
 	}
 	
 	/**
@@ -107,7 +120,10 @@ public class Accidente {
 	 * Validación: Debe ser una hora válida del día, en formato HH:MM (hora desde 0 a 23, minutos entre 0 y 59).
 	 * @param hora
 	 */
-	public void setHora(String hora) {} 
+	public void setHora(String hora) {
+		
+		this.hora = Validacion.validarHora(hora);
+	} 
 
 
 	/**
@@ -122,7 +138,9 @@ public class Accidente {
 	 * Validación: Obligatorio, mínimo 10 caracteres, máximo 50.
 	 * @param lugar
 	 */
-	public void setLugar(String lugar) {}
+	public void setLugar(String lugar) {
+		this.lugar = Validacion.validarLargoString(lugar, 10, 50);
+	}
 
 
 	/**
@@ -134,10 +152,12 @@ public class Accidente {
 
 	/**
 	 * Asigna el origen. 
-	 * Validación: Máximo 100 caracteres61.
+	 * Validación: Máximo 100 caracteres.
 	 * @param origen
 	 */
-	public void setOrigen(String origen){}
+	public void setOrigen(String origen){
+		this.origen = Validacion.validarLargoString(origen, 100);
+	}
 	
 	
 	/**
@@ -153,6 +173,7 @@ public class Accidente {
 	 * @param consecuencias
 	 */
 	public void setConsecuencias(String consecuencias) {
+		this.consecuencias = Validacion.validarLargoString(consecuencias, 1000);
 	}
 	
 	/**
@@ -164,11 +185,5 @@ public class Accidente {
 				+ "Lugar: %s, Origen: %s, Consecuencias: %s ]",
 				identificadorAccidente, rutCliente, dia, hora, lugar, origen, consecuencias);
 	} 
-
-	
-	
-	
-	
-	
 
 }
