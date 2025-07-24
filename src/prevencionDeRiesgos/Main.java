@@ -12,15 +12,14 @@ public class Main {
 		LocalDate fechaHoraActual = LocalDate.now();
 		String momentoActual = fechaHoraActual.toString();
 		
-		int identificadorAccidente = momentoActual.hashCode();
+		
 		String rutCliente = "16715932-K";
 		String dia = "Lunes";
 		String hora = "13:54";
 		String lugar = "Avenida Accidente";
 		String origen = "Por tonto";
 		String consecuencias = "Se murió";
-		
-		Accidente accidente = new Accidente(identificadorAccidente, rutCliente, dia, 
+		Accidente accidente = new Accidente(rutCliente, dia, 
 				hora, lugar, origen, consecuencias);
 		
 		System.out.println(accidente.toString());

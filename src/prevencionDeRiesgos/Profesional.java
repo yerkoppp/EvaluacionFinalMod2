@@ -66,12 +66,12 @@ public class Profesional extends Usuario{
 		//el nombre y RUN del usuario, junto con el título y la fecha
 		//de ingreso del profesional
 		
-		return "";
+		return "Tipo Usuario: Profesional, "+super.analizarUsuario()+", "+toString();
 	}
 
 	@Override
 	public String toString() {
-		return "Profesional [titulo=" + titulo + ", fechaIngreso=" + fechaIngreso + "]";
+		return "Título: " + titulo + ", Fecha Ingreso: " + fechaIngreso;
 	}
 	
 	

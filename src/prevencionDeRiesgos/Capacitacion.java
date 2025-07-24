@@ -3,6 +3,9 @@
  */
 package prevencionDeRiesgos;
 
+import java.time.LocalTime;
+import java.util.ArrayList;
+
 /**
  * Representa una capacitación realizada por la compañía.
  */
@@ -12,7 +15,7 @@ public class Capacitacion {
 	private int identificador;
 	private String rutCliente;
 	private String dia;
-	private String hora;
+	private LocalTime hora;
 	private String lugar;
 	private String duracion;
 	private int cantidadAsistentes;
@@ -40,12 +43,12 @@ public class Capacitacion {
 			int cantidadAsistentes) {
 		super();
 		this.identificador = identificador;
-		this.rutCliente = rutCliente;
-		this.dia = dia;
-		this.hora = hora;
-		this.lugar = lugar;
-		this.duracion = duracion;
-		this.cantidadAsistentes = cantidadAsistentes;
+		this.rutCliente = Validacion.validarRut(rutCliente);
+		this.dia = Validacion.validarDia(dia);
+		this.hora = Validacion.validarHora(hora);
+		this.lugar = Validacion.validarLargoString(lugar, 10, 50);
+		this.duracion = Validacion.validarLargoString(duracion, 70);
+		this.cantidadAsistentes = Validacion.validarNumeroMaximo(cantidadAsistentes, 1000);
 	}
 
 	//Métodos
@@ -54,7 +57,9 @@ public class Capacitacion {
 	 * Validación: Obligatorio.
 	 * @param identificador
 	 */
-	public void setIdentificador(int identificador) {}
+	private void setIdentificador(int identificador) {
+		this.identificador = identificador;
+	}
 	
 
 	/**
@@ -67,10 +72,13 @@ public class Capacitacion {
 	
 	/**
 	 * Asigna el RUT del cliente asociado.
-	 * Validación: Obligatorio46.
+	 * Validación: Obligatorio.
 	 * @param rutCliente
 	 */
-	public void setRutCliente(int rutCliente) {}
+	public void setRutCliente(String rutCliente) {
+		this.rutCliente = Validacion.validarRut(rutCliente);
+		
+	}
 	
 	/**
 	 * Retorna el RUT del cliente.
@@ -82,10 +90,13 @@ public class Capacitacion {
 	
 	/**
 	 * Asigna el día de la semana.
-	 * Validación: Debe ser un valor permitido entre "lunes" y "Domingo" (en ese formato).
+	 * Validación: Debe ser un valor permitido entre "lunes" y "domingo" (en ese formato).
 	 * @param dia
 	 */
-	public void setDia(String dia) {}
+	public void setDia(String dia) {
+	
+		this.dia = Validacion.validarDia(dia);
+	}
 	
 	/**
 	 * Retorna el día.
@@ -99,14 +110,17 @@ public class Capacitacion {
 	 * Validación: Debe ser una hora válida del día, en formato HH:MM (hora desde 0 a 23, minutos entre 0 y 59).
 	 * @param hora
 	 */
-	public void setHora(String hora) {}
+	public void setHora(String hora) {
+		this.hora = Validacion.validarHora(hora);
+	}
 	
 	/**
 	 * 
 	 * @return Retorna la hora de la capacitación.
 	 */
 	public String getHora() {
-		return hora;
+		
+		return Validacion.transformarHoraAstring(hora);
 	}
 	
 	/**
@@ -114,7 +128,9 @@ public class Capacitacion {
 	 * Validación: Obligatorio, mínimo 10 caracteres, máximo 50.
 	 * @param lugar
 	 */
-	public void setLugar(String lugar) {}
+	public void setLugar(String lugar) {
+		this.lugar = Validacion.validarLargoString(lugar, 10, 50);
+	}
 	
 	/**
 	 * 
@@ -129,7 +145,9 @@ public class Capacitacion {
 	 * Validación: Máximo 70 caracteres.
 	 * @param duracion
 	 */
-	public void setDuracion(String duracion) {}
+	public void setDuracion(String duracion) {
+		this.duracion = Validacion.validarLargoString(duracion, 70);
+	}
 	
 	
 	/**
@@ -145,7 +163,9 @@ public class Capacitacion {
 	 * Validación: Obligatorio, número entero menor que 1000.
 	 * @param cantidadAsistentes
 	 */
-	public void setCantidadAsistentes(int cantidadAsistentes) {}
+	public void setCantidadAsistentes(int cantidadAsistentes) {
+		this.cantidadAsistentes = Validacion.validarNumeroMaximo(cantidadAsistentes, 1000);
+	}
 
 	/**
 	 * @return Retorna la cantidad de asistentes.

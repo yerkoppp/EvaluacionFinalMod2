@@ -61,12 +61,13 @@ public class Administrativo extends Usuario{
 		padre, junto con el área a la que pertenece el administrativo y su
 		experiencia previa
 		 * */
-		return "";
+		
+		return "Tipo Usuario: Administrativo, "+super.analizarUsuario()+", "+toString();
 	}
 
 	@Override
 	public String toString() {
-		return "Administrativo [area=" + area + ", experienciaPrevia=" + experienciaPrevia + "]";
+		return "Área:" + area + ", Experiencia Previa: " + experienciaPrevia;
 	}
 	
 	
