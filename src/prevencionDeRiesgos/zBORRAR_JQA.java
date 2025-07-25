@@ -14,7 +14,7 @@ public class zBORRAR_JQA {
 	public static void main(String[] args) {
 
 		
-		BaseDatos.ingresarDatos(contenedor);
+		//BaseDatos.ingresarDatos(contenedor);
 		//ingresarCliente();
 
 //		pruebasContenedor();
@@ -22,7 +22,6 @@ public class zBORRAR_JQA {
 
 		//Principal.ingresarCapacitacion();
 	}
-
 	public static void ingresarCliente() {
 
 		Cliente cliente = new Cliente();

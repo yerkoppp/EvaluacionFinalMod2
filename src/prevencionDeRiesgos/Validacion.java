@@ -47,20 +47,29 @@ public final class Validacion {
 	}
 
 	/**
-	 * Valida el formato y transforma la fecha ingresada en formato DD/MM/AAAA
-	 * en LocalDate.
-	 * 
-	 * @param fecha
-	 * @return la fecha en tipo LocalDate. Retorna null si el formato no es
-	 *         válido.
+	 * Valida el formato de la fecha ingresada (DD/MM/AAAA) y la transforma en
+	 * LocalDate.
+	 *
+	 * @param fecha La fecha en formato String "DD/MM/AAAA".
+	 * @return La fecha en tipo LocalDate.
+	 * @throws IllegalArgumentException si la fecha es nula o si el formato de
+	 *                                  la fecha no es válido.
 	 */
-
 	public static LocalDate validarFecha(String fecha) {
+		// Primero, valida si la fecha es nula o vacía
+		if (fecha == null || fecha.trim().isEmpty()) {
+			throw new IllegalArgumentException(
+					"⚠️ La fecha no puede ser nula o vacía. Utilice DD/MM/AAAA.");
+		}
+
+		// Luego, intenta parsear la fecha
 		try {
 			return LocalDate.parse(fecha, FORMATTER);
 		} catch (DateTimeParseException e) {
-			return null; // O lanzar una excepción personalizada, dependiendo de
-							// la lógica de tu aplicación
+			// Si el formato no es correcto, lanza una excepción
+			throw new IllegalArgumentException(
+					"⚠️ El formato de la fecha no es válido. Utilice DD/MM/AAAA.",
+					e);
 		}
 	}
 
@@ -77,21 +86,26 @@ public final class Validacion {
 		return fecha.format(FORMATTER);
 	}
 
-	/**
-	 * Valida el formato y transforma la fecha ingresada en formato DD/MM/AAAA
-	 * en LocalDate.
-	 * 
-	 * @param hora
-	 * @return la hora en tipo LocalTime. Retorna null si el formato no es
-	 *         válido.
-	 */
-	public static LocalTime validarHora(String hora) {
 
+	/**
+     * Valida el formato de la hora ingresada (HH:MM) y la transforma en LocalTime.
+     *
+     * @param hora La hora en formato String "HH:MM".
+     * @return La hora en tipo LocalTime.
+     * @throws IllegalArgumentException si el formato de la hora no es válido.
+     */
+	public static LocalTime validarHora(String hora) {
+		// Primero, valida si la fecha es nula o vacía
+		if (hora == null || hora.trim().isEmpty()) {
+			throw new IllegalArgumentException(
+					"⚠️ La hora no puede ser nula o vacía. Utilice HH:MM.");
+		}
+		// Luego, intenta parsear la fecha
 		try {
 			return LocalTime.parse(hora, FORMATTER_HHMM);
-
 		} catch (DateTimeParseException e) {
-			return null;
+			throw new IllegalArgumentException(
+					"⚠️ El formato de la hora no es válido. Utilice HH:MM.", e);
 		}
 	}
 
@@ -119,17 +133,18 @@ public final class Validacion {
 		return diaEvaluado.toUpperCase();
 	}
 
-
-    /**
-     * Valida que la longitud de un texto esté dentro del rango especificado.
-     * 
-     * @param stringEvaluado Texto a validar (no puede ser null)
-     * @param min Longitud mínima permitida (inclusive)
-     * @param max Longitud máxima permitida (inclusive)
-     * @return stringEvaluado, corresponde a el texto validado
-     * @throws IllegalArgumentException si el texto es null o su longitud no está en el rango
-     */
-	public static String validarLargoString(String stringEvaluado, int minimo, int maximo) {
+	/**
+	 * Valida que la longitud de un texto esté dentro del rango especificado.
+	 * 
+	 * @param stringEvaluado Texto a validar (no puede ser null)
+	 * @param min            Longitud mínima permitida (inclusive)
+	 * @param max            Longitud máxima permitida (inclusive)
+	 * @return stringEvaluado, corresponde a el texto validado
+	 * @throws IllegalArgumentException si el texto es null o su longitud no
+	 *                                  está en el rango
+	 */
+	public static String validarLargoString(String stringEvaluado, int minimo,
+			int maximo) {
 
 		if (stringEvaluado.length() < minimo
 				|| stringEvaluado.length() > maximo) {
@@ -140,7 +155,6 @@ public final class Validacion {
 
 		return stringEvaluado;
 	}
-
 
 	public static String validarLargoString(String stringEvaluado, int maximo) {
 
@@ -177,18 +191,16 @@ public final class Validacion {
 		LocalDate fechaNacimiento = validarFecha(fechaNacimientoStr);
 
 		if (fechaNacimiento == null) {
-			System.err.println(
+			throw new IllegalArgumentException(
 					"Error: Formato de fecha de nacimiento inválido o fecha no válida.");
-			return -1; // O lanza una excepción, según tu estrategia de manejo
-						// de errores.
+
 		}
 
 		LocalDate fechaActual = LocalDate.now();
 
 		if (fechaNacimiento.isAfter(fechaActual)) {
-			System.err.println(
+			throw new IllegalArgumentException(
 					"Error: La fecha de nacimiento no puede ser en el futuro.");
-			return -1;
 		}
 
 		// Calcular la diferencia entre las dos fechas
@@ -197,7 +209,6 @@ public final class Validacion {
 		// Obtener los años de la diferencia
 		return periodo.getYears();
 	}
-
 
 	/**
 	 * Valida que un RUT chileno esté en el formato correcto y que su dígito

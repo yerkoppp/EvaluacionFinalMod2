@@ -110,11 +110,14 @@ public class Administrativo extends Usuario{
 
 	// ======================= MÉTODOS ESPECIALES =======================
 	
-  /**
-  * Muestra los datos del método del mismo nombre correspondiente a la clase
-	* padre, junto con el área a la que pertenece el administrativo y su
-	* experiencia previa.
-	*/
+	/**
+	 * Retorna una representación formateada con los datos del administrativo.
+	 * Incluye información heredada como nombre, RUT y fecha de nacimiento,
+	 * además del área de trabajo y su experiencia previa. Si la experiencia
+	 * previa no está disponible, se muestra como "No informado".
+	 *
+	 * @return Cadena de texto con los datos completos del administrativo.
+	 */
 	@Override
 	public String mostrarDatos() {
 		return String.format("RUT: %s\n"
