@@ -83,12 +83,9 @@ public class Contenedor {
 	 */
 	public void eliminarUsuario(String rut) {
 
-		try {
+		
 			rut = Validacion.validarRut(rut);
-		} catch (IllegalArgumentException e) {
-			System.out.println(e.getMessage());
-			return;
-		}
+		
 
 		if (asesorias == null || asesorias.isEmpty()) {
 			throw new IllegalArgumentException(

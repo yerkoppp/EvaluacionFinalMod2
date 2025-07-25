@@ -8,9 +8,6 @@
  */
 package prevencionDeRiesgos;
 
-import java.time.DateTimeException;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -85,7 +82,7 @@ public class Principal {
 			ingresarAdministrativo();
 			break;
 		case 4: // ALMACENAR CAPACITACIÓN
-			// ingresarCapacitacion;
+			ingresarCapacitacion();
 			break;
 		case 5: // ELIMINAR USUARIO
 			eliminarUsuario();
@@ -112,21 +109,12 @@ public class Principal {
 
 	}
 
-	private static void agregarAccidente() {
-		// TODO Auto-generated method stub
-
-	}
-
 	public static void ingresarCapacitacion() {
 
 		Capacitacion capacitacion = new Capacitacion();
 
 		int cantidadAsistentes;
 		String rutCliente, dia, hora, lugar, duracion;
-
-		LocalDate fechaHoraActual = LocalDate.now();
-		String momentoActual = fechaHoraActual.toString();
-		int identificador = momentoActual.hashCode();
 
 		while (true) {
 			try {
@@ -253,7 +241,7 @@ public class Principal {
 		while (true) {
 			try {
 				System.out.println(
-						"Ingrese su fecha de naciento DD/MM/AAAA (Obligatorio):");
+						"Ingrese su fecha de nacimiento DD/MM/AAAA (Obligatorio):");
 				fechaNacimiento = sc.nextLine();
 				cliente.setFechaNacimiento(fechaNacimiento);
 				break;
@@ -319,7 +307,7 @@ public class Principal {
 			}
 		}
 		try {
-			System.out.println("Ingrese su direccion: ");
+			System.out.println("Ingrese su dirección: ");
 			direccion = sc.nextLine();
 			cliente.setDireccion(direccion);
 		} catch (IllegalArgumentException e) {
@@ -361,7 +349,6 @@ public class Principal {
 
 	public static void ingresarProfesional() {
 		Profesional profesional = new Profesional();
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 		String rut, nombre, fechaNacimiento, titulo, fechaIngreso;
 
 		while (true) {
@@ -378,7 +365,7 @@ public class Principal {
 		while (true) {
 			try {
 				System.out.println(
-						"Ingrese su fecha de naciento DD/MM/AAAA (Obligatorio):");
+						"Ingrese su fecha de nacimiento DD/MM/AAAA (obligatorio):");
 				fechaNacimiento = sc.nextLine();
 				profesional.setFechaNacimiento(fechaNacimiento);
 				break;
@@ -450,7 +437,7 @@ public class Principal {
 		while (true) {
 			try {
 				System.out.println(
-						"Ingrese su fecha de naciento DD/MM/AAAA (Obligatorio):");
+						"Ingrese su fecha de nacimiento DD/MM/AAAA (obligatorio):");
 				fechaNacimiento = sc.nextLine();
 				administrativo.setFechaNacimiento(fechaNacimiento);
 				break;
@@ -512,14 +499,17 @@ public class Principal {
 		while (true) {
 			try {
 				System.out.println(
-						"Ingrese el RUT (99.999.999-9) del usuario a eliminar o menu:");
+						"Ingrese el RUT (99.999.999-9) del usuario a eliminar o menú:");
 				rut = sc.nextLine();
 				if (rut.equalsIgnoreCase("menu")) {
 					return;
 				}
 				// usuario.setRun(rut);
 				cliente.setRun(rut);
+				
 				contenedor.eliminarUsuario(rut);
+
+				
 				System.out.println("Usuario RUT: " + rut + " => ELIMINADO");
 				break;
 			} catch (IllegalArgumentException e) {
@@ -548,42 +538,6 @@ public class Principal {
 		System.out.println("\n" + "-".repeat(11) + " LISTA DE USUARIOS POR TIPO"
 				+ "-".repeat(11));
 
-//		while (true) {
-//			try {
-//				String tipo;
-//				System.out.println("Escriba el tipo de usuario o Menu");
-//				System.out.println("- Administrativo");
-//				System.out.println("- Cliente");
-//				System.out.println("- Profesional");
-//				System.out.println("- Menu");
-//				tipo = sc.nextLine();
-//				if(tipo.equalsIgnoreCase("menu")){
-//					return;
-//				}
-//				
-//				lista = contenedor.listarUsuariosPorTipo(tipo);
-//				
-//				//IMPRIME EL TITULO SEGÚN EL TIPO
-//				if(tipo.equalsIgnoreCase("administrativo")) {
-//					System.out.println("\n" + "-".repeat(13) + " LISTA DE "
-//							+ tipo.toUpperCase() + "S" + "-".repeat(13));
-//				} else if (tipo.equalsIgnoreCase("cliente")) {
-//					System.out.println("\n" + "-".repeat(16) + " LISTA DE "
-//							+ tipo.toUpperCase() + "S" + "-".repeat(16));
-//				} else if (tipo.equalsIgnoreCase("profesional")) {
-//					System.out.println("\n" + "-".repeat(14) + " LISTA DE "
-//							+ tipo.toUpperCase() + "ES" + "-".repeat(14));
-//				}
-//				
-//				//IMPRIME LA LISTA
-//				System.out.println(lista);
-//				break;
-//			} catch (IllegalArgumentException e) {
-//				System.out.println(e.getMessage());
-//			}
-//
-//		}
-
 		while (true) {
 			try {
 				int tipoInt;
@@ -592,9 +546,9 @@ public class Principal {
 				System.out.println("(1) Administrativos");
 				System.out.println("(2) Clientes");
 				System.out.println("(3) Profesionales");
-				System.out.println("(4) Menu");
+				System.out.println("(4) <-- Volver al Menú Principal");
 				System.out.println(
-						"Elija una ópcion de tipos de usuario o Menu: ");
+						"Elija una ópcion de tipos de usuario o Menú: ");
 				tipoInt = sc.nextInt();
 				sc.hasNextLine();
 
@@ -608,7 +562,7 @@ public class Principal {
 								: tipoInt == 3 ? "profesional" : null;
 				if (tipoString == null) {
 					throw new IllegalArgumentException(
-							"⚠️ Debe ingresar un número valido.");
+							"⚠️ Debe ingresar un número válido.");
 				}
 
 				lista = contenedor.listarUsuariosPorTipo(tipoString);
