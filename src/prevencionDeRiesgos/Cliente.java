@@ -81,7 +81,7 @@ public class Cliente extends Usuario {
 	public String getNombres() {
 		return nombres;
 	}
-	
+
 	/**
 	 * @return Apellidos del cliente
 	 */
@@ -96,37 +96,37 @@ public class Cliente extends Usuario {
 		return telefono;
 	}
 
-	/** 
-     * @return AFP del cliente 
-     */
+	/**
+	 * @return AFP del cliente
+	 */
 	public String getAfp() {
 		return afp;
 	}
 
-	/** 
-     * @return Sistema de salud (1 o 2) 
-     */
+	/**
+	 * @return Sistema de salud (1 o 2)
+	 */
 	public int getSistemaSalud() {
 		return sistemaSalud;
 	}
 
-	 /** 
-     * @return Dirección del cliente 
-     */
+	/**
+	 * @return Dirección del cliente
+	 */
 	public String getDireccion() {
 		return direccion;
 	}
 
-	/** 
-     * @return Comuna del cliente 
-     */
+	/**
+	 * @return Comuna del cliente
+	 */
 	public String getComuna() {
 		return comuna;
 	}
 
-	/** 
-     * @return Edad del cliente 
-     */
+	/**
+	 * @return Edad del cliente
+	 */
 	public int getEdad() {
 		return edad;
 	}
@@ -144,6 +144,7 @@ public class Cliente extends Usuario {
 
 	/**
 	 * Establece y valida los nombres del cliente.
+	 * 
 	 * @param nombres Nombres a asignar
 	 */
 
@@ -161,6 +162,7 @@ public class Cliente extends Usuario {
 
 	/**
 	 * Establece los apellidos del cliente con validación.
+	 * 
 	 * @param apellidos Apellidos a asignar
 	 */
 	public void setApellidos(String apellidos) {
@@ -174,13 +176,14 @@ public class Cliente extends Usuario {
 		}
 		this.apellidos = apellidos;
 		if (this.nombres != null && this.apellidos != null) {
-	        super.setNombre(this.nombres + " " + this.apellidos);
-	    }
-		
+			super.setNombre(this.nombres + " " + this.apellidos);
+		}
+
 	}
 
 	/**
 	 * Establece el teléfono del cliente.
+	 * 
 	 * @param telefono Número telefónico
 	 */
 	public void setTelefono(String telefono) {
@@ -194,6 +197,7 @@ public class Cliente extends Usuario {
 
 	/**
 	 * Establece la AFP del cliente (opcional).
+	 * 
 	 * @param afp Nombre de la AFP
 	 */
 	public void setAfp(String afp) {
@@ -210,6 +214,7 @@ public class Cliente extends Usuario {
 
 	/**
 	 * Establece el sistema de salud.
+	 * 
 	 * @param sistemaSalud 1 para Fonasa, 2 para Isapre
 	 */
 	public void setSistemaSalud(int sistemaSalud) {
@@ -221,6 +226,7 @@ public class Cliente extends Usuario {
 
 	/**
 	 * Establece la dirección (opcional).
+	 * 
 	 * @param direccion Dirección del cliente
 	 */
 	public void setDireccion(String direccion) {
@@ -237,6 +243,7 @@ public class Cliente extends Usuario {
 
 	/**
 	 * Establece la comuna (opcional).
+	 * 
 	 * @param comuna Comuna del cliente
 	 */
 	public void setComuna(String comuna) {
@@ -253,6 +260,7 @@ public class Cliente extends Usuario {
 
 	/**
 	 * Establece la edad del cliente.
+	 * 
 	 * @param edad Edad entre 0 y 150
 	 */
 	public void setEdad(int edad) {
@@ -267,14 +275,16 @@ public class Cliente extends Usuario {
 
 	/**
 	 * Obtiene el nombre completo del cliente (nombre + apellidos).
+	 * 
 	 * @return Nombre completo
 	 */
 	public String obtenerNombre() {
-		return String.format("%s %s",nombres,apellidos);
+		return String.format("%s %s", nombres, apellidos);
 	}
 
 	/**
 	 * Devuelve el sistema de salud como texto legible.
+	 * 
 	 * @return "Fonasa", "Isapre" o null si no está definido
 	 */
 	public String obtenerSistemaSalud() {
@@ -286,50 +296,56 @@ public class Cliente extends Usuario {
 		return null;
 	}
 
+	/**
+	 * Devuelve una representación formateada en varias líneas con todos los
+	 * datos del cliente. Incluye RUT, nombres, apellidos, teléfono, AFP,
+	 * sistema de salud, dirección, comuna y edad. Si algunos campos opcionales
+	 * como AFP, dirección o comuna no están informados, se indica con un
+	 * mensaje.
+	 *
+	 * @return Cadena de texto con los datos completos del cliente en formato
+	 *         legible.
+	 */
 	@Override
 	public String mostrarDatos() {
-		return String.format("RUT: %s\n"
-				+ "Nombres: %s\n"
-				+ "Apellidos: %s\n"
-				+ "Telefono: %s\n"
-				+ "AFP: %s\n"
-				+ "Sistema de salud: %s\n"
-				+ "Direccion: %s\n"
-				+ "Comuna: %s\n"
-				+ "Edad: %d",
-				super.getRun(), nombres, apellidos, telefono, 
-				afp != null ? afp : "No informado", 
-				(sistemaSalud == 1) ? "Fonasa" : (sistemaSalud == 2) ?"Isapre": "No informado", 
-				direccion != null ? direccion : "No informado", 
+		return String.format("RUT: %s\n" + "Nombres: %s\n" + "Apellidos: %s\n"
+				+ "Telefono: %s\n" + "AFP: %s\n" + "Sistema de salud: %s\n"
+				+ "Direccion: %s\n" + "Comuna: %s\n" + "Edad: %d",
+				super.getRun(), nombres, apellidos, telefono,
+				afp != null ? afp : "No informado",
+				(sistemaSalud == 1) ? "Fonasa"
+						: (sistemaSalud == 2) ? "Isapre" : "No informado",
+				direccion != null ? direccion : "No informado",
 				comuna != null ? comuna : "No informado", edad);
 	}
-	
+
 	/**
 	 * Devuelve un análisis básico del cliente (heredado y extendido).
+	 * 
 	 * @return Análisis de datos del usuario
 	 */
 	@Override
 	public String analizarUsuario() {
-	    // Llama al método de la clase padre (Usuario)
- 
-	    return super.analizarUsuario()
-	    		+ String.format("Dirección: %s, Comuna: %s", 
-	        direccion != null ? direccion : "No informada",
-	        comuna != null ? comuna : "No informada");
+		// Llama al método de la clase padre (Usuario)
+
+		return super.analizarUsuario()
+				+ String.format("Dirección: %s, Comuna: %s",
+						direccion != null ? direccion : "No informada",
+						comuna != null ? comuna : "No informada");
 	}
 
 	/**
 	 * Retorna los datos del cliente en un formato legible.
+	 * 
 	 * @return Representación textual del cliente
 	 */
 	@Override
 	public String toString() {
 		return String.format(
-				"%s, Fecha de nacimiento: %s, " + "Telefono: %s, "
-						+ "AFP: %s, " + "Sistema de salud: %s, "
-						+ "Direccion: %s, " + "Comuna: %s, " + "Edad: %d",
-				obtenerNombre(),
-				getFechaNacimiento(), telefono,
+				"%s, Fecha de nacimiento: %s, " + "Telefono: %s, " + "AFP: %s, "
+						+ "Sistema de salud: %s, " + "Direccion: %s, "
+						+ "Comuna: %s, " + "Edad: %d",
+				obtenerNombre(), getFechaNacimiento(), telefono,
 				afp != null ? afp : "No informado",
 				(sistemaSalud == 1) ? "Fonasa"
 						: (sistemaSalud == 2) ? "Isapre" : "No informado",
@@ -337,6 +353,5 @@ public class Cliente extends Usuario {
 				comuna != null ? comuna : "No informado", edad);
 
 	}
-	
 
 }
