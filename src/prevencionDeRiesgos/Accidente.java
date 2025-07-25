@@ -5,13 +5,14 @@ package prevencionDeRiesgos;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.UUID;
 
 /**
  * Representa un accidente registrado.
  */
 public class Accidente {
 	
-	private int identificadorAccidente;
+	private String identificadorAccidente;
 	private String rutCliente;
 	private String dia; //para manejar el formato DD/MM/AAAA.
 	private LocalTime hora;
@@ -24,9 +25,8 @@ public class Accidente {
 	 */
 	public Accidente() {
 		// TODO Auto-generated constructor stub
-		LocalDate fechaHoraActual = LocalDate.now();
-		String momentoActual = fechaHoraActual.toString();
-		this.identificadorAccidente = momentoActual.hashCode();
+		
+		this.identificadorAccidente = "AC" + UUID.randomUUID().toString();
 	}
 	
 	/**
@@ -43,9 +43,8 @@ public class Accidente {
 			String hora, String lugar, String origen,
 			String consecuencias) {
 		super();
-		LocalDate fechaHoraActual = LocalDate.now();
-		String momentoActual = fechaHoraActual.toString();
-		this.identificadorAccidente = momentoActual.hashCode();
+
+		this.identificadorAccidente = "AC" + UUID.randomUUID().toString();
 		this.rutCliente = Validacion.validarRut(rutCliente);
 		this.dia = Validacion.validarDia(dia);
 		this.hora = Validacion.validarHora(hora);
@@ -59,20 +58,10 @@ public class Accidente {
 	/**
 	 * @return Retorna el identificador del accidente.
 	 */
-	public int getIdentificadorAccidente() {
+	public String getIdentificadorAccidente() {
 		return identificadorAccidente;
 	}
 	
-	/**
-	 * Asigna el identificador. Privado. No puede modificarse el identificador una vez creado el objeto. 
-	 * @param identificador
-	 */
-	private void setIdentificadorAccidente(int identificador) {
-		this.identificadorAccidente = identificador;
-	}
-	
-	
-
 	/**
 	 * @return Retorna el RUT del cliente accidentado.
 	 */

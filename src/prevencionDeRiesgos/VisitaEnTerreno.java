@@ -1,11 +1,14 @@
 package prevencionDeRiesgos;
+
+import java.util.UUID;
+
 /**
  * @author Luis Guevara
  */
 public class VisitaEnTerreno {
 	//Atributos
-    private int identificadorVisitaEnTerreno;
-    private int rutCliente;
+    private String identificadorVisitaEnTerreno;
+    private String rutCliente;
     private String dia;
     private String hora;
     private String lugar;
@@ -14,7 +17,9 @@ public class VisitaEnTerreno {
     /**
 	 * Constructor vacío.
 	 */
-    public VisitaEnTerreno() {}
+    public VisitaEnTerreno() {
+    	this.identificadorVisitaEnTerreno = "VT" + UUID.randomUUID().toString();
+    }
     
     /**
      * Constructor
@@ -25,10 +30,11 @@ public class VisitaEnTerreno {
      * @param lugar
      * @param comentarios
      */
-    public VisitaEnTerreno(int identificadorVisitaEnTerreno, int rutCliente, String dia,
+    public VisitaEnTerreno(String rutCliente, String dia,
                            String hora, String lugar, String comentarios) {
-        this.identificadorVisitaEnTerreno = identificadorVisitaEnTerreno;
-        this.rutCliente = rutCliente;
+        
+    	this.identificadorVisitaEnTerreno = "VT" + UUID.randomUUID().toString();
+        this.rutCliente = Validacion.validarRut(rutCliente);
         this.dia = dia;
         this.hora = hora;
         this.lugar = lugar;
@@ -41,23 +47,16 @@ public class VisitaEnTerreno {
      * Obtiene el ID de la visita.
      * @return ID de la visita.
      */
-    public int getIdentificadorVisitaEnTerreno() {
+    public String getIdentificadorVisitaEnTerreno() {
         return identificadorVisitaEnTerreno;
     }
 
-    /**
-     * Asigna el ID de la visita.
-     * @param id Nuevo ID.
-     */
-    public void setIdentificadorVisitaEnTerreno(int id) {
-        this.identificadorVisitaEnTerreno = id;
-    }
 
     /**
      * Obtiene el RUT del cliente.
      * @return RUT del cliente.
      */
-    public int getRutCliente() {
+    public String getRutCliente() {
         return rutCliente;
     }
 
@@ -65,8 +64,8 @@ public class VisitaEnTerreno {
      * Asigna el RUT del cliente.
      * @param rutCliente Nuevo RUT.
      */
-    public void setRutCliente(int rutCliente) {
-        this.rutCliente = rutCliente;
+    public void setRutCliente(String rutCliente) {
+        this.rutCliente = Validacion.validarRut(rutCliente);
     }
 
     /**
