@@ -6,6 +6,7 @@ package prevencionDeRiesgos;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.UUID;
 
 /**
  * Representa una capacitación realizada por la compañía.
@@ -13,7 +14,7 @@ import java.util.ArrayList;
 public class Capacitacion {
 
 	//Atributos
-	private int identificador;
+	private String identificador;
 	private String rutCliente;
 	private String dia;
 	private LocalTime hora;
@@ -26,9 +27,7 @@ public class Capacitacion {
 	 */
 	public Capacitacion() {
 		// TODO Auto-generated constructor stub
-		LocalDate fechaHoraActual = LocalDate.now();
-		String momentoActual = fechaHoraActual.toString();
-		this.identificador = momentoActual.hashCode()*5;
+		this.identificador = "CP" + UUID.randomUUID().toString();
 	}
 
 
@@ -47,9 +46,7 @@ public class Capacitacion {
 			int cantidadAsistentes) {
 		super();
 		
-		LocalDate fechaHoraActual = LocalDate.now();
-		String momentoActual = fechaHoraActual.toString();
-		this.identificador = momentoActual.hashCode()*5;
+		this.identificador = "CP" + UUID.randomUUID().toString();
 		this.rutCliente = Validacion.validarRut(rutCliente);
 		this.dia = Validacion.validarDia(dia);
 		this.hora = Validacion.validarHora(hora);
@@ -63,7 +60,7 @@ public class Capacitacion {
 	 * Asigna el identificador. Privado. No puede modificarse el identificador una vez creado el objeto. 
 	 * @param identificador
 	 */
-	private void setIdentificador(int identificador) {
+	private void setIdentificador(String identificador) {
 		this.identificador = identificador;
 	}
 	
@@ -72,7 +69,7 @@ public class Capacitacion {
 	 * Retorna el identificador.
 	 * @return
 	 */
-	public int getIdentificador() {
+	public String getIdentificador() {
 		return identificador;
 	}
 	
