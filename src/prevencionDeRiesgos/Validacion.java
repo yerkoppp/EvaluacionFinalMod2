@@ -123,14 +123,39 @@ public final class Validacion {
 		return hora.format(FORMATTER_HHMM);
 	}
 
+	/**
+	 * Valida que la cadena de texto de un día de la semana sea válida
+	 * (es decir, que sea uno de los siete días de la semana en español,
+	 * insensible a mayúsculas/minúsculas) y la retorna en mayúsculas.
+	 *
+	 * Este método es insensible a mayúsculas y minúsculas para la entrada,
+	 * pero siempre retornará el día en mayúsculas (ej: "LUNES").
+	 *
+	 * @param diaEvaluado La cadena de texto que representa el día a validar (ej: "Lunes", "MARTES").
+	 * @return La cadena del día validado y convertida a mayúsculas.
+	 * @throws IllegalArgumentException si {@code diaEvaluado} es {@code null}, está vacío
+	 * (incluyendo solo espacios en blanco), o no corresponde
+	 * a un día de la semana válido en español.
+	 */
 	public static String validarDia(String diaEvaluado) {
+	    // Primero, verifica si la entrada es nula o vacía (o solo espacios en blanco).
+	    // Esto previene un NullPointerException al intentar llamar a toUpperCase()
+	    // en una cadena nula, y también trata las cadenas vacías o con solo espacios
+	    // como inválidas.
+	    if (diaEvaluado == null || diaEvaluado.trim().isEmpty()) {
+	        throw new IllegalArgumentException(
+	                "⚠️ El día no es válido. Inténtelo de nuevo");
+	    }
 
-		if (!dias.contains(diaEvaluado.toUpperCase()) || diaEvaluado == null) {
-			throw new IllegalArgumentException(
-					"⚠️ El día no es válido. Inténtelo de nuevo");
-		}
+	    // Luego, verifica si el día (convertido a mayúsculas para ser insensible a mayúsculas/minúsculas)
+	    // está contenido en la lista predefinida de días válidos.
+	    if (!dias.contains(diaEvaluado.toUpperCase())) {
+	        throw new IllegalArgumentException(
+	                "⚠️ El día no es válido. Inténtelo de nuevo");
+	    }
 
-		return diaEvaluado.toUpperCase();
+	    // Si todas las validaciones pasan, retorna el día en mayúsculas.
+	    return diaEvaluado.toUpperCase();
 	}
 
 	/**
@@ -227,7 +252,7 @@ public final class Validacion {
 	 */
 	public static String validarRut(String rutIngresado) {
 
-		if (rutIngresado == null || rutIngresado.isEmpty()) {
+		if (rutIngresado == null || rutIngresado.trim().isEmpty()) {
 			throw new IllegalArgumentException(
 					"⚠️ El RUT es obligatorio. Ingrese un RUT en formato 99.999.999-9.");
 		}

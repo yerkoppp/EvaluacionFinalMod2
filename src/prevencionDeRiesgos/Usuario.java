@@ -5,6 +5,8 @@
 
 package prevencionDeRiesgos;
 
+import java.time.LocalDate;
+
 /**
  * Clase que representa a un usuario del sistema.
  * 
@@ -107,17 +109,25 @@ public class Usuario implements Asesoria {
 	 * 
 	 * @param fechaNacimiento Fecha a asignar
 	 */
+	/**
+	 * Establece la fecha de nacimiento en formato DD/MM/AAAA.
+	 *
+	 * @param fechaNacimiento Fecha a asignar
+	 * @throws IllegalArgumentException si la fecha es null, vacía, tiene un formato incorrecto o es en el futuro.
+	 */
 	public void setFechaNacimiento(String fechaNacimiento) {
-		if (fechaNacimiento == null || fechaNacimiento.trim().isEmpty()) {
-			throw new IllegalArgumentException(
-					"⚠️ La fecha de nacimiento es obligatoria.");
-		}
-		if (Validacion.validarFecha(fechaNacimiento) != null) {
-			this.fechaNacimiento = fechaNacimiento;
-		} else {
-			throw new IllegalArgumentException(
-					"⚠️ Fecha o formato incorrecto.");
-		}
+	    // 1. Validar que la fecha no sea nula o vacía directamente en Usuario.
+	    // Esto asegura que el mensaje de "obligatoria" provenga de Usuario.
+	    if (fechaNacimiento == null || fechaNacimiento.trim().isEmpty()) {
+	        throw new IllegalArgumentException(
+	                "⚠️ La fecha de nacimiento es obligatoria.");
+	    }
+	    // 2. Delegar la validación completa (formato y no futuro) a Validacion.calcularEdad.
+	    // Validacion.calcularEdad ya llama a Validacion.validarFecha internamente.
+	    // Si la fecha tiene formato inválido o es futura, Validacion.calcularEdad lanzará una excepción.
+	    Validacion.calcularEdad(fechaNacimiento);
+
+	    this.fechaNacimiento = fechaNacimiento;
 	}
 
 	/**
