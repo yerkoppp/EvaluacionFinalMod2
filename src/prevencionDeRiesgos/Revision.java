@@ -1,13 +1,23 @@
+/**
+ * @author Luis Guevara
+ */
+
 package prevencionDeRiesgos;
 
 import java.util.UUID; // Necesario para generar IDs únicos
 
 /**
- * @author Luis Guevara
+ * 
  */
 public class Revision {
     // Atributos
+	/**
+	 * 
+	 */
     private String identificadorRevision;
+    /**
+     * 
+     */
     private int identificadorVisitaEnTerreno;
     private String nombreAlusivoRevision;
     private String detalleParaRevisar;
@@ -57,39 +67,12 @@ public class Revision {
         return identificadorRevision;
     }
 
-    /*
-     * Se elimina el setter para identificadorRevision.
-     * Si el ID siempre se genera con UUID, no debería ser modificable externamente
-     * para mantener su unicidad y lógica de generación.
-     */
-    // public void setIdentificadorRevision(String id) {
-    //     this.identificadorRevision = id;
-    // }
-
     /**
      * Obtiene el ID de la visita en terreno asociada.
      * @return ID de la visita en terreno.
      */
     public int getIdentificadorVisitaEnTerreno() {
         return identificadorVisitaEnTerreno;
-    }
-
-    /**
-     * Asigna el ID de la visita en terreno asociada.
-     *
-     * Según el enunciado: "obligatorio, número de la visita a la que se asóciala revisión."
-     * Asumo que un ID válido debe ser un número positivo.
-     *
-     * @param id Nuevo ID de la visita en terreno.
-     * @throws IllegalArgumentException si el ID no es un número positivo.
-     */
-    public void setIdentificadorVisitaEnTerreno(int id) {
-        // Podrías crear Validacion.esNumeroPositivo(int) si lo usas en varios lugares.
-        // Por ahora, una simple verificación es suficiente.
-        if (id <= 0) {
-            throw new IllegalArgumentException("El identificador de visita en terreno es obligatorio y debe ser un número positivo.");
-        }
-        this.identificadorVisitaEnTerreno = id;
     }
 
     /**
@@ -102,9 +85,6 @@ public class Revision {
 
     /**
      * Asigna el nombre alusivo de la revisión.
-     *
-     * Según el enunciado: "obligatorio, mínimo 10 caracteres, máximo 50"
-     *
      * @param nombre Nuevo nombre.
      * @throws IllegalArgumentException si el nombre no cumple los requisitos de longitud o es nulo/vacío.
      */
@@ -160,9 +140,6 @@ public class Revision {
     /**
      * Asigna el estado de la revisión.
      * Válido: 1 (sin problemas), 2 (con observaciones), 3 (no aprueba).
-     *
-     * Según el enunciado: "solo se pueden ingresar los valores antes indicados."
-     *
      * @param estado Nuevo estado.
      * @throws IllegalArgumentException si el estado no es 1, 2 o 3.
      */

@@ -1,12 +1,13 @@
+/**
+ * @author Luis Guevara
+ */
+
 package prevencionDeRiesgos;
 
 import java.time.LocalDate; // Necesario para almacenar fechas validadas
 import java.time.LocalTime; // Necesario para almacenar horas validadas
 import java.util.UUID;
 
-/**
- * @author Luis Guevara
- */
 public class VisitaEnTerreno {
     // Atributos
     private String identificadorVisitaEnTerreno;
@@ -41,11 +42,11 @@ public class VisitaEnTerreno {
 
         // Aplicamos las validaciones llamando a los setters. Esto asegura que toda la lógica de validación se reutilice.
         try {
-            this.setRutCliente(rutClienteString);
-            this.setDia(diaString);
-            this.setHora(horaString);
-            this.setLugar(lugar);
-            this.setComentarios(comentarios);
+            setRutCliente(rutClienteString);
+            setDia(diaString);
+            setHora(horaString);
+            setLugar(lugar);
+            setComentarios(comentarios);
         } catch (IllegalArgumentException e) {
             // Relanzamos la excepción con un mensaje más específico para fallos en el constructor
             throw new IllegalArgumentException("Error al crear VisitaEnTerreno: " + e.getMessage(), e);
@@ -61,16 +62,6 @@ public class VisitaEnTerreno {
     public String getIdentificadorVisitaEnTerreno() {
         return identificadorVisitaEnTerreno;
     }
-
-    /*
-     * Se elimina el setter para identificadorVisitaEnTerreno.
-     * Si el ID siempre se genera con UUID, no debería ser modificable externamente
-     * para mantener su unicidad y lógica de generación.
-     * Si, por alguna razón, necesitas reasignar un ID manualmente, considera las implicaciones.
-     */
-    // public void setIdentificadorVisitaEnTerreno(String id) {
-    //     this.identificadorVisitaEnTerreno = id;
-    // }
 
     /**
      * Obtiene el RUT del cliente.
