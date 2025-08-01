@@ -1,9 +1,5 @@
 /**
- * 
- * @author Yerko Osorio
- * @author Luis Guevara
  * @author Jhoseph Quiroga
- * @author Norma Armijo
  * @version 1.0
  */
 package prevencionDeRiesgos;
