@@ -172,7 +172,7 @@ public class Capacitacion {
 	 */
 	public String toString() {
 		
-		return String.format("Capacitación [ ID: %d, RUT Cliente: %s, Día: %s, Hora: %s,"
+		return String.format("Capacitación [ ID: %s, RUT Cliente: %s, Día: %s, Hora: %s,"
 				+ " Lugar: %s, Duración: %s, Cantidad Asistentes: %d ]", 
 				identificador, rutCliente, dia, hora, lugar, duracion, cantidadAsistentes);
 	} 
