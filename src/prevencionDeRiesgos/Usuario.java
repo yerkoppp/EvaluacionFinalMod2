@@ -171,7 +171,7 @@ public class Usuario implements Asesoria {
 
 	@Override
 	public String analizarUsuario() {
-		return String.format("\nNombre: %s. RUT: %s\n", nombre, run);
+		return String.format("Nombre: %s. RUT: %s", nombre, run);
 	}
 
 	@Override

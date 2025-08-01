@@ -328,7 +328,7 @@ public class Cliente extends Usuario {
 	public String analizarUsuario() {
 		// Llama al método de la clase padre (Usuario)
 
-		return super.analizarUsuario()
+		return "Tipo Usuario: Cliente, " + super.analizarUsuario()
 				+ String.format("Dirección: %s, Comuna: %s",
 						direccion != null ? direccion : "No informada",
 						comuna != null ? comuna : "No informada");
@@ -342,10 +342,10 @@ public class Cliente extends Usuario {
 	@Override
 	public String toString() {
 		return String.format(
-				"%s, Fecha de nacimiento: %s, " + "Telefono: %s, " + "AFP: %s, "
+				"Nombre: %s, RUT: %s, Fecha de nacimiento: %s, " + "Telefono: %s, " + "AFP: %s, "
 						+ "Sistema de salud: %s, " + "Direccion: %s, "
 						+ "Comuna: %s, " + "Edad: %d",
-				obtenerNombre(), getFechaNacimiento(), telefono,
+				obtenerNombre(),getRun(), getFechaNacimiento(), telefono,
 				afp != null ? afp : "No informado",
 				(sistemaSalud == 1) ? "Fonasa"
 						: (sistemaSalud == 2) ? "Isapre" : "No informado",

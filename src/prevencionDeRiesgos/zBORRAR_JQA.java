@@ -13,7 +13,8 @@ public class zBORRAR_JQA {
 
 	public static void main(String[] args) {
 
-		
+		listarCapacitacion();
+		//pruebaDeTest();
 		//BaseDatos.ingresarDatos(contenedor);
 		//ingresarCliente();
 
@@ -22,6 +23,25 @@ public class zBORRAR_JQA {
 
 		//Principal.ingresarCapacitacion();
 	}
+	public static void pruebaDeTest() {
+		contenedor.listarUsuariosPorTipo("jefe");
+	}
+	
+	public static void listarCapacitacion() {
+        // Capacitacion de prueba
+       Capacitacion capacitacion = new Capacitacion(1001, // identificador
+                "18.234.567-9", // rutCliente
+                "Lunes", // día
+                "10:00", // hora
+                "Sala de reuniones 3", // lugar
+                "90 minutos", // duración
+                25 // cantidad de asistentes
+        );
+       
+      String resultadoString =  capacitacion.toString();
+      System.out.println(resultadoString);
+	}
+	
 	public static void ingresarCliente() {
 
 		Cliente cliente = new Cliente();

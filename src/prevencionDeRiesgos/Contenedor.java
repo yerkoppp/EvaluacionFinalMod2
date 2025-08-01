@@ -36,8 +36,28 @@ public class Contenedor {
 	 */
 	public Contenedor() {
 	}
+	
+	// =========================== GETTER ===========================
+	
+	/**
+	 * @return the asesorias
+	 */
+	public ArrayList<Asesoria> getAsesorias() {
+		return asesorias;
+	}
 
+
+
+	/**
+	 * @return the capacitaciones
+	 */
+	public ArrayList<Capacitacion> getCapacitaciones() {
+		return capacitaciones;
+	}
+	
+	
 	// ======================= MÉTODOS ESPECIALES =======================
+
 
 	/**
 	 * Almacena un objeto de tipo Cliente en la lista de asesorías.
@@ -45,6 +65,9 @@ public class Contenedor {
 	 * @param cliente Cliente a almacenar
 	 */
 	public void almacenarCliente(Cliente cliente) {
+		if (cliente == null) {
+	        throw new IllegalArgumentException("⚠️ Cliente no puede ser nulo");
+	    }
 		asesorias.add(cliente);
 	}
 
@@ -54,6 +77,9 @@ public class Contenedor {
 	 * @param profesional Profesional a almacenar
 	 */
 	public void almacenarProfesional(Profesional profesional) {
+		if (profesional == null) {
+	        throw new IllegalArgumentException("⚠️ Profesional no puede ser nulo");
+	    }
 		asesorias.add(profesional);
 	}
 
@@ -63,6 +89,9 @@ public class Contenedor {
 	 * @param administrativo Administrativo a almacenar
 	 */
 	public void almacenarAdministrativo(Administrativo administrativo) {
+		if (administrativo == null) {
+	        throw new IllegalArgumentException("⚠️ Administrativo no puede ser nulo");
+	    }
 		asesorias.add(administrativo);
 	}
 
@@ -72,6 +101,9 @@ public class Contenedor {
 	 * @param capacitacion Capacitacion a almacenar
 	 */
 	public void almacenarCapacitacion(Capacitacion capacitacion) {
+		if (capacitacion == null) {
+	        throw new IllegalArgumentException("⚠️ Capacitacion no puede ser nulo");
+	    }
 		capacitaciones.add(capacitacion);
 	}
 
@@ -133,7 +165,7 @@ public class Contenedor {
 		for (Asesoria asesoria : asesorias) {
 			if (asesoria instanceof Usuario) {
 				Usuario usuario = (Usuario) asesoria;
-				resultado.append(usuario.toString()).append("\n");
+				resultado.append(usuario.analizarUsuario()).append("\n");
 			}
 
 		}
@@ -169,15 +201,15 @@ public class Contenedor {
 			if ("administrativo".equalsIgnoreCase(tipo)
 					&& asesoria instanceof Administrativo) {
 				Administrativo administrativo = (Administrativo) asesoria;
-				resultado.append(administrativo.toString()).append("\n");
+				resultado.append(administrativo.analizarUsuario()).append("\n");
 			} else if ("cliente".equalsIgnoreCase(tipo)
 					&& asesoria instanceof Cliente) {
 				Cliente cliente = (Cliente) asesoria;
-				resultado.append(cliente.toString()).append("\n");
+				resultado.append(cliente.analizarUsuario()).append("\n");
 			} else if ("profesional".equalsIgnoreCase(tipo)
 					&& asesoria instanceof Profesional) {
 				Profesional profesional = (Profesional) asesoria;
-				resultado.append(profesional.toString()).append("\n");
+				resultado.append(profesional.analizarUsuario()).append("\n");
 			}
 
 		}
