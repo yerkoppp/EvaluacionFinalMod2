@@ -18,16 +18,25 @@ import java.util.ArrayList;
  * Clase utilitaria para validaciones
  */
 public final class Validacion {
-	// Definimos el formateador para el formato "DD/MM/AAAA"
+	/**
+	 * Definimos el formateador para el formato "DD/MM/AAAA"
+	 */
 	private static final DateTimeFormatter FORMATTER = DateTimeFormatter
 			.ofPattern("dd/MM/yyyy");
-	// Definimos el formateador para el patrón "HH:MM"
+	/**
+	 * Definimos el formateador para el patrón "HH:MM"
+	 */
 	private static final DateTimeFormatter FORMATTER_HHMM = DateTimeFormatter
 			.ofPattern("HH:mm");
 
-	// Definimos un array con los días de la semana
+	/**
+	 * Definimos un array con los días de la semana.
+	 */
 	private static ArrayList<String> dias = new ArrayList<String>();
 
+	/**
+	 * Inicialización del ArrayList dias.
+	 */
 	static {
 		dias.add("LUNES");
 		dias.add("MARTES");
@@ -39,10 +48,10 @@ public final class Validacion {
 	}
 
 	/**
-	 * 
+	 * Constructor privado para evitar la instanciación de la clase utilitaria.
 	 */
 	private Validacion() {
-		// TODO Auto-generated constructor stub
+		// Constructor vacío para prevenir instanciación
 
 	}
 
@@ -76,12 +85,12 @@ public final class Validacion {
 	/**
 	 * Transforma la fecha LocalDate a String con formato DD/MM/AAAA.
 	 * 
-	 * @param fecha
+	 * @param fecha La fecha en formato LocalDate.
 	 * @return la fecha en tipo String. Retorna null si el formato no es válido.
 	 */
 	public static String transformarFechaAstring(LocalDate fecha) {
 		if (fecha == null) {
-			return null; // O una cadena vacía, dependiendo de la lógica
+			return null;
 		}
 		return fecha.format(FORMATTER);
 	}
@@ -112,7 +121,7 @@ public final class Validacion {
 	/**
 	 * Transforma la hora LocalTime a String con formato HH:MM.
 	 * 
-	 * @param hora
+	 * @param hora La hora en formato LocalTime.
 	 * @return la hora en tipo String. Retorna null si el formato no es válido.
 	 */
 	public static String transformarHoraAstring(LocalTime hora) {
@@ -166,38 +175,64 @@ public final class Validacion {
 	 * @param max            Longitud máxima permitida (inclusive)
 	 * @return stringEvaluado, corresponde a el texto validado
 	 * @throws IllegalArgumentException si el texto es null o su longitud no
-	 *                                  está en el rango
+	 *                                  está en el rango.
 	 */
 	public static String validarLargoString(String stringEvaluado, int minimo,
 			int maximo) {
 
+		if(stringEvaluado == null || stringEvaluado.isEmpty()) {
+			throw new IllegalArgumentException(
+					"⚠️ El texto no puede ser nulo o vacío.");
+		}
+		
 		if (stringEvaluado.length() < minimo
 				|| stringEvaluado.length() > maximo) {
 			throw new IllegalArgumentException(
-					"⚠️ El largo no es permitido. Debe estar entre " + minimo
+					"⚠️ El largo del texto no es permitido. Debe estar entre " + minimo
 							+ " y " + maximo + " carácteres");
 		}
 
 		return stringEvaluado;
 	}
 
+	/**
+	 * Valida que la longitud de un texto no exceda un máximo especificado.
+	 *
+	 * @param stringEvaluado Texto a validar.
+	 * @param maximo         Longitud máxima permitida (inclusive).
+	 * @return El texto validado.
+	 * @throws IllegalArgumentException si el texto es null o su longitud supera el máximo.
+	 */
 	public static String validarLargoString(String stringEvaluado, int maximo) {
 
+		if(stringEvaluado == null || stringEvaluado.isEmpty()) {
+			throw new IllegalArgumentException(
+					"⚠️ El texto no puede ser nulo o vacío.");
+		}
+		
 		if (stringEvaluado.length() > maximo) {
 			throw new IllegalArgumentException(
-					"⚠️ El largo de la frase supera el máximo permitido. Debe ser menor a"
+					"⚠️ El largo del texto no debe superar los "
 							+ maximo + " carácteres");
 		}
 
 		return stringEvaluado;
 	}
 
+	/**
+	 * Valida que un número entero no exceda un máximo especificado (no inclusivo).
+	 *
+	 * @param numeroEvaluado Número a validar.
+	 * @param maximo         Valor máximo permitido (no inclusivo).
+	 * @return El número validado.
+	 * @throws IllegalArgumentException si el número es mayor o igual al máximo.
+	 */
 	public static int validarNumeroMaximo(int numeroEvaluado, int maximo) {
 
 		if (numeroEvaluado >= maximo) {
 			throw new IllegalArgumentException(
-					"⚠️ El largo de la frase supera el máximo permitido. Debe ser menor a"
-							+ maximo + " carácteres");
+					"⚠️ El número ingresado supera el máximo permitido. "
+					+ "Debe ser menor a" + maximo + " carácteres");
 		}
 
 		return numeroEvaluado;
@@ -209,8 +244,9 @@ public final class Validacion {
 	 *
 	 * @param fechaNacimientoStr La fecha de nacimiento en formato String (ej.
 	 *                           "25/12/1990").
-	 * @return La edad en años. Retorna -1 si el formato de fecha es inválido,
-	 *         si la fecha es nula, o si la fecha de nacimiento es en el futuro.
+	 * @return La edad en años.
+	 * @throws IllegalArgumentException si el formato de fecha es inválido,
+	 * la fecha es nula, o si la fecha de nacimiento es en el futuro.
 	 */
 	public static int calcularEdad(String fechaNacimientoStr) {
 		LocalDate fechaNacimiento = validarFecha(fechaNacimientoStr);

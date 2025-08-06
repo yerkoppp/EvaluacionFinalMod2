@@ -7,21 +7,49 @@ import java.time.LocalTime;
 import java.util.UUID;
 
 /**
- * Representa una capacitación realizada por la compañía.
+ * Representa una capacitación realizada por la compañía a uno de sus clientes.
  */
 public class Capacitacion {
 
 	//Atributos
+	
+	/**
+	 * Identificador único para cada capacitación.
+	 */
 	private String identificador;
+	
+	/**
+	 * RUT del cliente asociado a la capacitación.
+	 */
 	private String rutCliente;
+	
+	/**
+	 * Día de la semana de la capacitación (ej. "LUNES").
+	 */
 	private String dia;
+	
+	/**
+	 * Hora de la capacitación en formato HH:MM.
+	 */
 	private LocalTime hora;
+	
+	/**
+	 * Lugar donde se realizará la capacitación.
+	 */
 	private String lugar;
+	
+	/**
+	 * Duración de la capacitación como texto (ej. "60 minutos").
+	 */
 	private String duracion;
+	
+	/**
+	 * Cantidad de asistentes esperados, debe ser menor a 1000.
+	 */
 	private int cantidadAsistentes;
 	
 	/**
-	 * Constructor vacío.
+	 * Constructor vacío que genera un identificador único.
 	 */
 	public Capacitacion() {
 		// TODO Auto-generated constructor stub
@@ -30,16 +58,16 @@ public class Capacitacion {
 
 
 	/**
-	 * Constructor con todos los atributos.
-	 * @param identificador
-	 * @param rutCliente
-	 * @param dia
-	 * @param hora
-	 * @param lugar
-	 * @param duracion
-	 * @param cantidadAsistentes
+	 * Constructor con todos los atributos, excluyendo el identificador, que se
+	 * genera automáticamente.
+	 * @param rutCliente       RUT del cliente asociado a la capacitación.
+	 * @param dia              Día de la semana de la capacitación.
+	 * @param hora             Hora de la capacitación.
+	 * @param lugar            Lugar donde se realizará la capacitación.
+	 * @param duracion         Duración de la capacitación.
+	 * @param cantidadAsistentes Cantidad de asistentes esperados.
 	 */
-	public Capacitacion(int identificador, String rutCliente, String dia,
+	public Capacitacion(String rutCliente, String dia,
 			String hora, String lugar, String duracion,
 			int cantidadAsistentes) {
 		super();
@@ -56,17 +84,16 @@ public class Capacitacion {
 	//Métodos
 
 	/**
-	 * Retorna el identificador.
-	 * @return
+	 * Retorna el identificador único de la capacitación.
+	 * @return El identificador de la capacitación.
 	 */
 	public String getIdentificador() {
 		return identificador;
 	}
 	
 	/**
-	 * Asigna el RUT del cliente asociado.
-	 * Validación: Obligatorio.
-	 * @param rutCliente
+	 * Asigna el RUT del cliente asociado a la capacitación.
+	 * @param rutCliente El RUT del cliente a asignar.
 	 */
 	public void setRutCliente(String rutCliente) {
 		this.rutCliente = Validacion.validarRut(rutCliente);
@@ -74,8 +101,8 @@ public class Capacitacion {
 	}
 	
 	/**
-	 * Retorna el RUT del cliente.
-	 * @return
+	 * Retorna el RUT del cliente asociado.
+	 * @return El RUT del cliente.
 	 */
 	public String getRutCliente() {
 		return rutCliente;
@@ -83,8 +110,7 @@ public class Capacitacion {
 	
 	/**
 	 * Asigna el día de la semana.
-	 * Validación: Debe ser un valor permitido entre "lunes" y "domingo" (en ese formato).
-	 * @param dia
+	 * @param dia El día de la semana a asignar.
 	 */
 	public void setDia(String dia) {
 	
@@ -92,24 +118,24 @@ public class Capacitacion {
 	}
 	
 	/**
-	 * Retorna el día.
+	 * Retorna el día de la semana de la capacitación.
+	 * @return El día de la capacitación.
 	 */
 	public String getDia() {
 		return dia;
 	}
 	
 	/**
-	 * Asigna la hora.
-	 * Validación: Debe ser una hora válida del día, en formato HH:MM (hora desde 0 a 23, minutos entre 0 y 59).
-	 * @param hora
+	 * Asigna la hora de la capacitación.
+	 * @param hora La hora a asignar en formato HH:MM.
 	 */
 	public void setHora(String hora) {
 		this.hora = Validacion.validarHora(hora);
 	}
 	
 	/**
-	 * 
-	 * @return Retorna la hora de la capacitación.
+	 * Retorna la hora de la capacitación en formato de texto.
+	 * @return La hora de la capacitación como String.
 	 */
 	public String getHora() {
 		
@@ -117,26 +143,24 @@ public class Capacitacion {
 	}
 	
 	/**
-	 * Asigna el lugar.
-	 * Validación: Obligatorio, mínimo 10 caracteres, máximo 50.
-	 * @param lugar
+	 * Asigna el lugar de la capacitación.
+	 * @param lugar El lugar a asignar.
 	 */
 	public void setLugar(String lugar) {
 		this.lugar = Validacion.validarLargoString(lugar, 10, 50);
 	}
 	
 	/**
-	 * 
-	 * @return Retorna el lugar.
+	 * Retorna el lugar de la capacitación.
+	 * @return El lugar de la capacitación.
 	 */
 	public String getLugar() {
 		return lugar;
 	}
 	
 	/**
-	 * Asigna la duración.
-	 * Validación: Máximo 70 caracteres.
-	 * @param duracion
+	 * Asigna la duración de la capacitación.
+	 * @param duracion La duración a asignar.
 	 */
 	public void setDuracion(String duracion) {
 		this.duracion = Validacion.validarLargoString(duracion, 70);
@@ -144,31 +168,32 @@ public class Capacitacion {
 	
 	
 	/**
-	 * 
-	 * @return Retorna la duración.
+	 * Retorna la duración de la capacitación.
+	 * @return La duración de la capacitación.
 	 */
 	public String getDuracion(){
 		return duracion;
 	}
 	
 	/**
-	 * Asigna la cantidad de asistentes.
-	 * Validación: Obligatorio, número entero menor que 1000.
-	 * @param cantidadAsistentes
+	 * Asigna la cantidad de asistentes a la capacitación.
+	 * @param cantidadAsistentes La cantidad de asistentes a asignar.
 	 */
 	public void setCantidadAsistentes(int cantidadAsistentes) {
 		this.cantidadAsistentes = Validacion.validarNumeroMaximo(cantidadAsistentes, 1000);
 	}
 
 	/**
-	 * @return Retorna la cantidad de asistentes.
+	 * Retorna la cantidad de asistentes de la capacitación.
+	 * @return La cantidad de asistentes.
 	 */
 	public int getCantidadAsistentes() {
 		return cantidadAsistentes;
 	} 
 	
 	/**
-	 * 	Retorna una representación en String del objeto Capacitacion.
+	 * Retorna una representación en String del objeto Capacitacion.
+	 * @return Una cadena con los detalles de la capacitación.
 	 */
 	public String toString() {
 		
@@ -178,7 +203,8 @@ public class Capacitacion {
 	} 
 
 	/**
-	 * Retorna un String con el texto.
+	 * Muestra los detalles de la capacitación en un formato específico.
+	 * @return Una cadena con el detalle de la capacitación.
 	 */
 	public String mostrarDetalle(){
 		return String.format("La capacitación será en %s a las %s del día %s,"
