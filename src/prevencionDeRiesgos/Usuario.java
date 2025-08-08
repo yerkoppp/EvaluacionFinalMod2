@@ -21,7 +21,7 @@ public class Usuario implements Asesoria {
 	private String nombre;
 
 	/** Fecha de nacimiento del usuario. Formato DD/MM/AAAA */
-	private String fechaNacimiento;
+	private LocalDate fechaNacimiento;
 
 	/** RUN del usuario. Debe ser menor a 99.999.999 */
 	private String run;
@@ -68,7 +68,7 @@ public class Usuario implements Asesoria {
 	 * @return la fecha de nacimiento en formato DD/MM/AAAA
 	 */
 	public String getFechaNacimiento() {
-		return fechaNacimiento;
+		return Validacion.transformarFechaAstring(fechaNacimiento);
 	}
 
 	/**
@@ -88,20 +88,14 @@ public class Usuario implements Asesoria {
 	 * Valida que el nombre tenga entre 10 y 50 caracteres.
 	 * 
 	 * @param nombre el nombre a establecer
-	 * @throws IllegalArgumentException si el nombre es null, vacío o no cumple
-	 *                                  longitud
+	 * @throws IllegalArgumentException si el nombre es null o vacío
 	 */
 	public void setNombre(String nombre) {
 		if (nombre == null || nombre.trim().isEmpty()) {
 			throw new IllegalArgumentException(
 					"⚠️ Los nombres son obligatorio.");
 		}
-		try {
-			this.nombre = Validacion.validarLargoString(nombre, 10, 50);
-		} catch (IllegalArgumentException e) {
-			throw new IllegalArgumentException(
-					"Nombre inválido: " + e.getMessage());
-		}
+		this.nombre = Validacion.validarLargoString(nombre, 10, 50);
 	}
 
 	/**
@@ -116,18 +110,11 @@ public class Usuario implements Asesoria {
 	 * @throws IllegalArgumentException si la fecha es null, vacía, tiene un formato incorrecto o es en el futuro.
 	 */
 	public void setFechaNacimiento(String fechaNacimiento) {
-	    // 1. Validar que la fecha no sea nula o vacía directamente en Usuario.
-	    // Esto asegura que el mensaje de "obligatoria" provenga de Usuario.
-	    if (fechaNacimiento == null || fechaNacimiento.trim().isEmpty()) {
-	        throw new IllegalArgumentException(
-	                "⚠️ La fecha de nacimiento es obligatoria.");
-	    }
-	    // 2. Delegar la validación completa (formato y no futuro) a Validacion.calcularEdad.
-	    // Validacion.calcularEdad ya llama a Validacion.validarFecha internamente.
-	    // Si la fecha tiene formato inválido o es futura, Validacion.calcularEdad lanzará una excepción.
-	    Validacion.calcularEdad(fechaNacimiento);
+		if(fechaNacimiento == null || fechaNacimiento.isEmpty()) {
+			throw new IllegalArgumentException("⚠️ La fecha de nacimiento es obligatoria.");
+		}
 
-	    this.fechaNacimiento = fechaNacimiento;
+	    this.fechaNacimiento = Validacion.validarFechaPasada(Validacion.validarFecha(fechaNacimiento));
 	}
 
 	/**
@@ -156,7 +143,7 @@ public class Usuario implements Asesoria {
 	public String mostrarDatos() {
 		return String.format(
 				"RUT: %s\n" + "Nombre: %s\n" + "Fecha de Nacimiento: %s",
-				nombre, run, fechaNacimiento);
+				run, nombre, getFechaNacimiento());
 	}
 
 	/**
@@ -171,12 +158,12 @@ public class Usuario implements Asesoria {
 
 	@Override
 	public String analizarUsuario() {
-		return String.format("Nombre: %s. RUT: %s", nombre, run);
+		return String.format("Nombre: %s. RUT: %s\n", nombre, run);
 	}
 
 	@Override
 	public String toString() {
-		return "Usuario: " + nombre + ", Fecha Nacimiento: " + fechaNacimiento
+		return "Usuario: " + nombre + ", Fecha Nacimiento: " + getFechaNacimiento()
 				+ ", RUN:" + run;
 	}
 

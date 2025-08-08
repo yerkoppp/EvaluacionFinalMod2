@@ -10,11 +10,36 @@ import java.util.UUID;
 
 public class VisitaEnTerreno {
     // Atributos
+	
+	/** 
+	 * Identificador único de la visita, generado automáticamente.
+	 * 
+	 */
     private String identificadorVisitaEnTerreno;
-    private String rutCliente; // Ahora un String para coincidir con Validacion.validarRut()
-    private LocalDate dia; // Cambiado a LocalDate para almacenar el objeto de fecha parseado
-    private LocalTime hora; // Cambiado a LocalTime para almacenar el objeto de hora parseado
+    
+    /**
+     *  RUT del cliente en formato chileno, validado.
+     */
+    private String rutCliente;
+    
+    /**
+     * Día de la visita, almacenado como un objeto LocalDate.
+     */
+    private LocalDate dia;
+    
+    /**
+     * Hora de la visita, almacenada como un objeto LocalTime.
+     */
+    private LocalTime hora; 
+    
+    /**
+     * Lugar o dirección de la visita.
+     */
     private String lugar;
+    
+    /**
+     * Comentarios adicionales sobre la visita, con un largo máximo.
+     */
     private String comentarios;
 
     /**
@@ -28,29 +53,29 @@ public class VisitaEnTerreno {
      * Constructor con atributos relevantes, aplicando validaciones.
      * El identificador de visita se genera automáticamente.
      *
-     * @param rutClienteString RUT del cliente (ej. "12.345.678-9").
-     * @param diaString Día de la visita en formato "DD/MM/AAAA".
-     * @param horaString Hora de la visita en formato "HH:MM".
+     * @param rutCliente RUT del cliente (ej. "12.345.678-9").
+     * @param dia Día de la visita en formato "DD/MM/AAAA".
+     * @param hora Hora de la visita en formato "HH:MM".
      * @param lugar Lugar de la visita.
      * @param comentarios Comentarios de la visita (máximo 100 caracteres).
      * @throws IllegalArgumentException si algún parámetro no cumple las validaciones.
      */
-    public VisitaEnTerreno(String rutClienteString, String diaString,
-                           String horaString, String lugar, String comentarios) {
+    public VisitaEnTerreno(String rutCliente, String dia,
+                           String hora, String lugar, String comentarios) {
         // El identificador siempre se genera automáticamente para asegurar la unicidad
         this.identificadorVisitaEnTerreno = "VT" + UUID.randomUUID().toString();
 
-        // Aplicamos las validaciones llamando a los setters. Esto asegura que toda la lógica de validación se reutilice.
         try {
-            setRutCliente(rutClienteString);
-            setDia(diaString);
-            setHora(horaString);
+        	setRutCliente(rutCliente);
+            setDia(dia);
+            setHora(hora);
             setLugar(lugar);
             setComentarios(comentarios);
-        } catch (IllegalArgumentException e) {
-            // Relanzamos la excepción con un mensaje más específico para fallos en el constructor
-            throw new IllegalArgumentException("Error al crear VisitaEnTerreno: " + e.getMessage(), e);
-        }
+		} catch (IllegalArgumentException e) {
+			throw new IllegalArgumentException("Error al crear VisitaEnTerreno: " + e.getMessage(), e);
+		}
+            
+       
     }
 
     // Métodos
@@ -73,13 +98,13 @@ public class VisitaEnTerreno {
 
     /**
      * Asigna el RUT del cliente, aplicando la validación de RUT.
-     * @param rutClienteString Nuevo RUT en formato "99.999.999-9".
+     * @param rutCliente Nuevo RUT en formato "99.999.999-9".
      * @throws IllegalArgumentException si el RUT no es válido.
      */
-    public void setRutCliente(String rutClienteString) {
+    public void setRutCliente(String rutCliente) {
         try {
             // Validacion.validarRut lanzará IllegalArgumentException si es inválido
-            this.rutCliente = Validacion.validarRut(rutClienteString);
+            this.rutCliente = Validacion.validarRut(rutCliente);
         } catch (IllegalArgumentException e) {
             throw new IllegalArgumentException("RUT de cliente: " + e.getMessage(), e);
         }
@@ -95,13 +120,13 @@ public class VisitaEnTerreno {
 
     /**
      * Asigna el día de la visita, validando el formato "DD/MM/AAAA".
-     * @param diaString Nuevo día en formato String.
+     * @param dia Nuevo día en formato String.
      * @throws IllegalArgumentException si el formato del día es inválido.
      */
-    public void setDia(String diaString) {
+    public void setDia(String dia) {
         try {
             // Validacion.validarFecha analizará y validará la fecha, y si es exitoso, la asignará a 'dia'.
-            this.dia = Validacion.validarFecha(diaString);
+            this.dia = Validacion.validarFecha(dia);
         } catch (IllegalArgumentException e) {
             throw new IllegalArgumentException("Día de la visita: " + e.getMessage(), e);
         }
@@ -117,13 +142,13 @@ public class VisitaEnTerreno {
 
     /**
      * Asigna la hora de la visita, validando el formato "HH:MM".
-     * @param horaString Nueva hora en formato String.
+     * @param hora Nueva hora en formato String.
      * @throws IllegalArgumentException si el formato de la hora es inválido.
      */
-    public void setHora(String horaString) {
+    public void setHora(String hora) {
         try {
             // Validacion.validarHora analizará y validará la hora, y si es exitoso, la asignará a 'hora'.
-            this.hora = Validacion.validarHora(horaString);
+            this.hora = Validacion.validarHora(hora);
         } catch (IllegalArgumentException e) {
             throw new IllegalArgumentException("Hora de la visita: " + e.getMessage(), e);
         }
@@ -148,7 +173,8 @@ public class VisitaEnTerreno {
         if (lugar == null || lugar.trim().isEmpty()) {
             throw new IllegalArgumentException("El lugar de la visita es obligatorio y no puede estar vacío.");
         }
-        this.lugar = lugar;
+        
+        this.lugar = Validacion.validarLargoString(lugar, 10, 50);
     }
 
     /**

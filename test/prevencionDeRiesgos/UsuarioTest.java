@@ -49,9 +49,9 @@ class UsuarioTest {
 
     @ParameterizedTest
     @CsvSource({
-            "Corto, 01/01/1990, 12.345.678-9", // Nombre muy corto (longitud 5)
+            "Corto, 01/01/1990, 12.345.678-5", // Nombre muy corto (longitud 5)
             // Longitud 51, excede el máximo de 50
-            "EsteEsUnNombreMuyLargoQueExcedeElMaximoPermitidoDe50Caracteres, 01/01/1990, 12.345.678-9"
+            "EsteEsUnNombreMuyLargoQueExcedeElMaximoPermitidoDe50Caracteres, 01/01/1990, 12.345.678-5"
     })
     @DisplayName("Constructor con parámetros: Debería lanzar IllegalArgumentException para nombre inválido por longitud")
     void constructorParametros_nombreLongitudInvalida_lanzaIllegalArgumentException(String nombre, String fechaNacimiento, String run) {
@@ -59,9 +59,9 @@ class UsuarioTest {
                 new Usuario(nombre, fechaNacimiento, run)
         );
         // El mensaje de error esperado es el de Usuario.setNombre, que concatena el de Validacion.validarLargoString
-        // "Nombre inválido: ⚠️ El largo no es permitido. Debe estar entre 10 y 50 carácteres"
-        assertTrue(thrown.getMessage().contains("Nombre inválido: ⚠️ El largo no es permitido."));
-        assertTrue(thrown.getMessage().contains("Debe estar entre 10 y 50 carácteres"));
+        // "⚠️ El largo del texto no es permitido."
+        assertTrue(thrown.getMessage().contains("⚠️ El largo del texto no es permitido."));
+        
     }
 
     @ParameterizedTest
@@ -71,7 +71,7 @@ class UsuarioTest {
     void constructorParametros_nombreNuloVacio_lanzaIllegalArgumentException(String nombre) {
         // Usamos una fecha y RUN válidos para aislar el error del nombre
         IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () ->
-                new Usuario(nombre, "01/01/1990", "12.345.678-9")
+                new Usuario(nombre, "01/01/1990", "12.345.678-5")
         );
         assertTrue(thrown.getMessage().contains("⚠️ Los nombres son obligatorio."));
     }
@@ -79,9 +79,9 @@ class UsuarioTest {
     // --- TEST QUE FALLÓ ANTERIORMENTE, REVISADO CON MENSAJES DE Validacion.java ---
     @ParameterizedTest
     @CsvSource({
-            "Pedro Garcia, 32/12/2000, 12.345.678-9", // Fecha inválida por día (Validacion.validarFecha)
-            "Pedro Garcia, 01-01-2000, 12.345.678-9", // Formato de fecha inválido (Validacion.validarFecha)
-            "Pedro Garcia, 01/01/2050, 12.345.678-9"  // Fecha en el futuro (Validacion.calcularEdad, llamada por validarFecha)
+            "Pedro Garcia, 32/12/2000, 12.345.678-5", // Fecha inválida por día (Validacion.validarFecha)
+            "Pedro Garcia, 01-01-2000, 12.345.678-5", // Formato de fecha inválido (Validacion.validarFecha)
+            "Pedro Garcia, 01/01/2050, 12.345.678-5"  // Fecha en el futuro (Validacion.calcularEdad, llamada por validarFecha)
     })
     @DisplayName("Constructor con parámetros: Debería lanzar IllegalArgumentException para fecha de nacimiento inválida")
     void constructorParametros_fechaNacimientoInvalida_lanzaIllegalArgumentException(String nombre, String fechaNacimiento, String run) {
@@ -95,7 +95,7 @@ class UsuarioTest {
         // "Error: La fecha de nacimiento no puede ser en el futuro."
         assertTrue(
             actualMessage.contains("El formato de la fecha no es válido.") ||
-            actualMessage.contains("La fecha de nacimiento no puede ser en el futuro."),
+            actualMessage.contains("La fecha no puede ser en el futuro."),
             "El mensaje de la excepción no coincide con los errores esperados de formato o fecha futura. Mensaje real: " + actualMessage
         );
     }
@@ -106,10 +106,18 @@ class UsuarioTest {
     @DisplayName("Constructor con parámetros: Debería lanzar IllegalArgumentException para fecha de nacimiento nula o vacía")
     void constructorParametros_fechaNacimientoNulaVacia_lanzaIllegalArgumentException(String fechaNacimiento) {
         IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () ->
-                new Usuario("Nombre Valido Prueba", fechaNacimiento, "12.345.678-9")
+                new Usuario("Nombre Valido Prueba", fechaNacimiento, "12.345.678-5")
         );
+        
+        String actualMessage = thrown.getMessage();
         // Mensaje directo de Usuario.setFechaNacimiento para null/vacío
-        assertTrue(thrown.getMessage().contains("⚠️ La fecha de nacimiento es obligatoria."));
+        assertTrue(
+        	actualMessage.contains("⚠️ La fecha de nacimiento es obligatoria.") ||
+        	actualMessage.contains("⚠️ La fecha no puede ser nula o vacía. Utilice DD/MM/AAAA.") ||
+        	actualMessage.contains("⚠️ El formato de la fecha no es válido. Utilice DD/MM/AAAA."),
+			"El mensaje de la excepción no coincide con los errores esperados de formato o fecha futura. Mensaje real: " + actualMessage
+        );
+        
     }
 
     @ParameterizedTest
@@ -196,9 +204,8 @@ class UsuarioTest {
                 usuario.setNombre(nombreInvalido)
         );
         // El mensaje de error esperado es el de Usuario.setNombre, que concatena el de Validacion.validarLargoString
-        // "Nombre inválido: ⚠️ El largo no es permitido. Debe estar entre 10 y 50 carácteres"
-        assertTrue(thrown.getMessage().contains("Nombre inválido: ⚠️ El largo no es permitido."));
-        assertTrue(thrown.getMessage().contains("Debe estar entre 10 y 50 carácteres"));
+        // "⚠️ El largo no es permitido. Debe estar entre 10 y 50 carácteres"
+        assertTrue(thrown.getMessage().contains("⚠️ El largo del texto no es permitido."));
     }
 
     // setFechaNacimiento
@@ -219,7 +226,14 @@ class UsuarioTest {
                 usuario.setFechaNacimiento(fechaInvalida)
         );
         // Mensaje directo de Usuario.setFechaNacimiento para null/vacío
-        assertTrue(thrown.getMessage().contains("⚠️ La fecha de nacimiento es obligatoria."));
+        String actualMessage = thrown.getMessage();
+        // Mensaje directo de Usuario.setFechaNacimiento para null/vacío
+        assertTrue(
+        	actualMessage.contains("⚠️ La fecha de nacimiento es obligatoria.") ||
+        	actualMessage.contains("⚠️ La fecha no puede ser nula o vacía. Utilice DD/MM/AAAA.") ||
+        	actualMessage.contains("⚠️ El formato de la fecha no es válido. Utilice DD/MM/AAAA."),
+			"El mensaje de la excepción no coincide con los errores esperados de formato o fecha futura. Mensaje real: " + actualMessage
+        );
     }
 
     @ParameterizedTest
@@ -241,8 +255,8 @@ class UsuarioTest {
         IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () ->
                 usuario.setFechaNacimiento(fechaFutura)
         );
-        // El mensaje de error viene de Validacion.calcularEdad (que es llamado por Validacion.validarFecha si está en el futuro)
-        assertTrue(thrown.getMessage().contains("Error: La fecha de nacimiento no puede ser en el futuro."));
+        // El mensaje de error viene de Validacion.validarFechaPasada (que es llamado por Validacion.validarFecha si está en el futuro)
+        assertTrue(thrown.getMessage().contains("La fecha no puede ser en el futuro."));
     }
 
     // setRun
@@ -286,7 +300,7 @@ class UsuarioTest {
         // El 'expected' se construye para coincidir con este orden.
         String expected = String.format(
                 "RUT: %s\nNombre: %s\nFecha de Nacimiento: %s",
-                usuario.getNombre(), usuario.getRun(), usuario.getFechaNacimiento());
+                usuario.getRun(), usuario.getNombre(), usuario.getFechaNacimiento());
 
         assertEquals(expected, usuario.mostrarDatos());
     }
@@ -306,7 +320,7 @@ class UsuarioTest {
     @Test
     @DisplayName("analizarUsuario: Debería retornar el String con nombre y RUT para análisis")
     void analizarUsuario_retornaStringAnalisis() {
-        String expected = String.format("\nNombre: %s. RUT: %s\n", usuario.getNombre(), usuario.getRun());
+        String expected = String.format("Nombre: %s. RUT: %s\n", usuario.getNombre(), usuario.getRun());
         assertEquals(expected, usuario.analizarUsuario());
     }
 

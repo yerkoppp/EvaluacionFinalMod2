@@ -94,6 +94,19 @@ public final class Validacion {
 		}
 		return fecha.format(FORMATTER);
 	}
+	
+	/**
+     * Valida que la fecha de un evento no sea anterior a la fecha actual.
+     * @param fecha La fecha a validar.
+     * @return La misma fecha si la validación es exitosa.
+     * @throws IllegalArgumentException si la fecha es anterior a la fecha actual.
+     */
+    public static LocalDate validarFechaPasada(LocalDate fecha) {
+        if (fecha.isAfter(LocalDate.now())) {
+            throw new IllegalArgumentException("La fecha no puede ser en el futuro.");
+        }
+        return fecha;
+    }
 
 
 	/**
@@ -147,18 +160,12 @@ public final class Validacion {
 	 * a un día de la semana válido en español.
 	 */
 	public static String validarDia(String diaEvaluado) {
-	    // Primero, verifica si la entrada es nula o vacía (o solo espacios en blanco).
-	    // Esto previene un NullPointerException al intentar llamar a toUpperCase()
-	    // en una cadena nula, y también trata las cadenas vacías o con solo espacios
-	    // como inválidas.
-	    if (diaEvaluado == null || diaEvaluado.trim().isEmpty()) {
+	     if (diaEvaluado == null || diaEvaluado.trim().isEmpty()) {
 	        throw new IllegalArgumentException(
 	                "⚠️ El día no es válido. Inténtelo de nuevo");
 	    }
 
-	    // Luego, verifica si el día (convertido a mayúsculas para ser insensible a mayúsculas/minúsculas)
-	    // está contenido en la lista predefinida de días válidos.
-	    if (!dias.contains(diaEvaluado.toUpperCase())) {
+	     if (!dias.contains(diaEvaluado.toUpperCase())) {
 	        throw new IllegalArgumentException(
 	                "⚠️ El día no es válido. Inténtelo de nuevo");
 	    }
@@ -188,8 +195,7 @@ public final class Validacion {
 		if (stringEvaluado.length() < minimo
 				|| stringEvaluado.length() > maximo) {
 			throw new IllegalArgumentException(
-					"⚠️ El largo del texto no es permitido. Debe estar entre " + minimo
-							+ " y " + maximo + " carácteres");
+					String.format("⚠️ El largo del texto no es permitido. Debe estar entre %d y %d carácteres", minimo, maximo));
 		}
 
 		return stringEvaluado;
@@ -212,8 +218,7 @@ public final class Validacion {
 		
 		if (stringEvaluado.length() > maximo) {
 			throw new IllegalArgumentException(
-					"⚠️ El largo del texto no debe superar los "
-							+ maximo + " carácteres");
+					String.format("⚠️ El largo del texto no es permitido. Debe ser menor o igual a %d carácteres", maximo));
 		}
 
 		return stringEvaluado;
@@ -240,21 +245,18 @@ public final class Validacion {
 
 	/**
 	 * Calcula la edad en años a partir de una fecha de nacimiento en formato
-	 * String (dd/MM/yyyy).
+	 * LocalDate (dd/MM/yyyy).
 	 *
-	 * @param fechaNacimientoStr La fecha de nacimiento en formato String (ej.
+	 * @param fechaNacimiento La fecha de nacimiento en formato LocalDate (ej.
 	 *                           "25/12/1990").
 	 * @return La edad en años.
 	 * @throws IllegalArgumentException si el formato de fecha es inválido,
 	 * la fecha es nula, o si la fecha de nacimiento es en el futuro.
 	 */
-	public static int calcularEdad(String fechaNacimientoStr) {
-		LocalDate fechaNacimiento = validarFecha(fechaNacimientoStr);
-
+	public static int calcularEdad(LocalDate fechaNacimiento) {
 		if (fechaNacimiento == null) {
 			throw new IllegalArgumentException(
 					"Error: Formato de fecha de nacimiento inválido o fecha no válida.");
-
 		}
 
 		LocalDate fechaActual = LocalDate.now();
@@ -360,5 +362,15 @@ public final class Validacion {
 		} else {
 			return rutIngresado;
 		}
+	}
+
+	/**
+	 * Valida que el estado de la revisión sea un valor permitido.
+	 *
+	 * @param estado El número entero que representa el estado de la revisión.
+	 * @return true si el estado es 1, 2 o 3; de lo contrario, false.
+	 */
+	public static boolean validarEstadoRevision(int estado) {
+	    return estado == 1 || estado == 2 || estado == 3;
 	}
 }

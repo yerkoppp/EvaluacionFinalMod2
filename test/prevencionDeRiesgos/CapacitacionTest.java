@@ -17,7 +17,7 @@ class CapacitacionTest {
     @BeforeEach
     void setUp() {
         // Inicializamos una capacitación con datos válidos por defecto para los tests
-        capacitacion = new Capacitacion("12.345.678-9", "Lunes", "10:00",
+        capacitacion = new Capacitacion("12.345.678-5", "Lunes", "10:00",
                 "Calle Falsa 123", "60 minutos", 25);
     }
 
@@ -29,8 +29,8 @@ class CapacitacionTest {
         Capacitacion capacitacionDefault = new Capacitacion();
         assertNotNull(capacitacionDefault, 
         		"El objeto Capacitacion creado no debería ser nulo.");
-        assertTrue(capacitacionDefault.getIdentificador().startsWith("CP-"),
-        		"El identificador debería comenzar con 'CP-'.");
+        assertTrue(capacitacionDefault.getIdentificador().startsWith("CP"),
+        		"El identificador debería comenzar con 'CP'.");
     }
 
     // --- Tests para el Constructor con Parámetros ---
@@ -98,7 +98,7 @@ class CapacitacionTest {
     		+ "IllegalArgumentException para lugar con longitud inválida")
     void constructorParametros_lugarLongitudInvalida_lanzaIllegalArgumentException(String lugar) {
         IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () ->
-                new Capacitacion("12.345.678-9", "Lunes", "10:00", lugar, "60 minutos", 50)
+                new Capacitacion("12.345.678-5", "Lunes", "10:00", lugar, "60 minutos", 50)
         );
         assertTrue(thrown.getMessage().contains("El largo del texto no es permitido."));
     }
@@ -109,7 +109,7 @@ class CapacitacionTest {
     		+ "IllegalArgumentException para cantidad de asistentes mayor o igual a 1000")
     void constructorParametros_asistentesMayoresOIgual1000_lanzaIllegalArgumentException(int asistentes) {
         assertThrows(IllegalArgumentException.class, () ->
-                new Capacitacion("12.345.678-9", "Lunes", "10:00",
+                new Capacitacion("12.345.678-5", "Lunes", "10:00",
                 		"Lugar Valido", "60 minutos", asistentes)
         );
     }
@@ -119,13 +119,13 @@ class CapacitacionTest {
     @DisplayName("getIdentificador: Debería retornar un ID válido")
     void getIdentificador_retornaIdCorrecto() {
         assertNotNull(capacitacion.getIdentificador());
-        assertTrue(capacitacion.getIdentificador().startsWith("CP-"));
+        assertTrue(capacitacion.getIdentificador().startsWith("CP"));
     }
 
     @Test
     @DisplayName("getRutCliente: Debería retornar el RUT correcto")
     void getRutCliente_retornaRutCorrecto() {
-        assertEquals("12.345.678-9", capacitacion.getRutCliente());
+        assertEquals("12.345.678-5", capacitacion.getRutCliente());
     }
 
     // --- Tests para Setters ---

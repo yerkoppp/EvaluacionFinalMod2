@@ -466,7 +466,7 @@ class PrincipalTest {
     
     @Test
     void testListarCapacitacionesConDatos() {
-        Capacitacion cap = new Capacitacion(1, "12.345.679-3", "Lunes", "10:00", "Sala A, Edificio 83", "2 horas", 20);
+        Capacitacion cap = new Capacitacion("12.345.679-3", "Lunes", "10:00", "Sala A, Edificio 83", "2 horas", 20);
         Principal.contenedor.almacenarCapacitacion(cap);
 
         Principal.listarCapacitaciones();

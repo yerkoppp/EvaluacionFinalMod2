@@ -25,7 +25,7 @@ public class Main {
 		System.out.println(accidente.toString());
 		
 		
-		int identificador = momentoActual.hashCode();
+		;
 		String diaCapacitacion = "Martes";
 		String horaCapacitacion = "08:35" ;
 		String lugarCapacitacion = "Calle Capacitación";
@@ -33,7 +33,7 @@ public class Main {
 		int cantidadAsistentes = 20;
 		
 		
-		Capacitacion capacitacion = new Capacitacion(identificador, rutCliente, diaCapacitacion, 
+		Capacitacion capacitacion = new Capacitacion(rutCliente, diaCapacitacion, 
 				horaCapacitacion,lugarCapacitacion,duracion,cantidadAsistentes);
 		
 		

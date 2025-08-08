@@ -29,7 +29,7 @@ public class zBORRAR_JQA {
 	
 	public static void listarCapacitacion() {
         // Capacitacion de prueba
-       Capacitacion capacitacion = new Capacitacion(1001, // identificador
+       Capacitacion capacitacion = new Capacitacion(
                 "18.234.567-9", // rutCliente
                 "Lunes", // día
                 "10:00", // hora

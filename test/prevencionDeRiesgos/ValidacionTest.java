@@ -247,7 +247,7 @@ class ValidacionTest {
         IllegalArgumentException excepcionLanzada = assertThrows(IllegalArgumentException.class, () ->
                 Validacion.validarLargoString(texto, min, max)
         );
-        assertTrue(excepcionLanzada.getMessage().contains("El largo no es permitido."));
+        assertTrue(excepcionLanzada.getMessage().contains("El largo del texto no es permitido."));
     }
 
     // --- Pruebas para validarLargoString (max) ---
@@ -272,7 +272,7 @@ class ValidacionTest {
         IllegalArgumentException excepcionLanzada = assertThrows(IllegalArgumentException.class, () ->
                 Validacion.validarLargoString(texto, 5)
         );
-        assertTrue(excepcionLanzada.getMessage().contains("El largo de la frase supera el máximo permitido."));
+        assertTrue(excepcionLanzada.getMessage().contains("El largo del texto no es permitido."));
     }
 
     // --- Pruebas para validarNumeroMaximo ---
@@ -288,7 +288,7 @@ class ValidacionTest {
         IllegalArgumentException excepcionLanzada = assertThrows(IllegalArgumentException.class, () ->
                 Validacion.validarNumeroMaximo(10, 10)
         );
-        assertTrue(excepcionLanzada.getMessage().contains("El largo de la frase supera el máximo permitido."));
+        assertTrue(excepcionLanzada.getMessage().contains("El número ingresado supera el máximo permitido."));
     }
 
     @Test
@@ -297,9 +297,10 @@ class ValidacionTest {
         IllegalArgumentException excepcionLanzada = assertThrows(IllegalArgumentException.class, () ->
                 Validacion.validarNumeroMaximo(15, 10)
         );
-        assertTrue(excepcionLanzada.getMessage().contains("El largo de la frase supera el máximo permitido."));
+        assertTrue(excepcionLanzada.getMessage().contains("El número ingresado supera el máximo permitido."));
     }
 
+    /* Cambio en pruebas para Calcular Edad por cambio en tipo de parámetro, pasa de tipo String a LocalDate
     // --- Pruebas para calcularEdad ---
     @Test
     @DisplayName("calcularEdad: Debería devolver la edad correcta para una fecha de nacimiento pasada")
@@ -344,6 +345,39 @@ class ValidacionTest {
         String futureDobString = LocalDate.now().plusDays(1).format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy"));
         IllegalArgumentException excepcionLanzada = assertThrows(IllegalArgumentException.class, () ->
                 Validacion.calcularEdad(futureDobString)
+        );
+        assertTrue(excepcionLanzada.getMessage().contains("La fecha de nacimiento no puede ser en el futuro."));
+    }
+    */
+    
+ // --- Pruebas para calcularEdad ---
+    @Test
+    @DisplayName("calcularEdad: Debería devolver la edad correcta para una fecha de nacimiento pasada")
+    void calcularEdad_fechaPasada_retornaEdadCorrecta() {
+        LocalDate fechaNacimiento = LocalDate.now().minusYears(30);
+        assertEquals(30, Validacion.calcularEdad(fechaNacimiento));
+    }
+
+    @Test
+    @DisplayName("calcularEdad: Debería devolver la edad correcta para una fecha de nacimiento pasada (caso borde - cumpleaños exacto)")
+    void calcularEdad_cumpleaniosExacto_retornaEdadCorrecta() {
+        LocalDate fechaNacimiento = LocalDate.now().minusYears(25);
+        assertEquals(25, Validacion.calcularEdad(fechaNacimiento));
+    }
+
+    @Test
+    @DisplayName("calcularEdad: Debería devolver la edad correcta para una fecha de nacimiento pasada (caso borde - casi cumpleaños)")
+    void calcularEdad_casiCumpleanios_retornaEdadCorrecta() {
+        LocalDate fechaNacimiento = LocalDate.now().minusYears(30).plusDays(1);
+        assertEquals(29, Validacion.calcularEdad(fechaNacimiento));
+    }
+
+    @Test
+    @DisplayName("calcularEdad: Debería lanzar IllegalArgumentException si la fecha de nacimiento es en el futuro")
+    void calcularEdad_fechaFutura_lanzaIllegalArgumentException() {
+        LocalDate fechaFutura = LocalDate.now().plusDays(1);
+        IllegalArgumentException excepcionLanzada = assertThrows(IllegalArgumentException.class, () ->
+                Validacion.calcularEdad(fechaFutura)
         );
         assertTrue(excepcionLanzada.getMessage().contains("La fecha de nacimiento no puede ser en el futuro."));
     }

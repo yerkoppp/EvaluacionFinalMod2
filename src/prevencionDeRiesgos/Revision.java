@@ -4,27 +4,44 @@
 
 package prevencionDeRiesgos;
 
-import java.util.UUID; // Necesario para generar IDs únicos
+import java.util.UUID;
 
 /**
+ * La clase Revision representa una revisión de seguridad asociada a una visita en terreno.
+ * Contiene información sobre el identificador de la visita, un nombre descriptivo,
+ * detalles a revisar y el estado de la revisión.
  * 
  */
 public class Revision {
     // Atributos
+	
 	/**
-	 * 
+	 * Identificador único de la revisión.
 	 */
     private String identificadorRevision;
+    
     /**
-     * 
+     * ID de la visita en terreno a la que se asocia esta revisión.
      */
     private int identificadorVisitaEnTerreno;
+    
+    /**
+     * Nombre alusivo a la revisión. Mínimo 10, máximo 50 caracteres.
+     */
     private String nombreAlusivoRevision;
+    
+    /**
+     * Detalles de lo que se debe revisar. Máximo 100 caracteres.
+     */
     private String detalleParaRevisar;
+    
+    /**
+     * Estado de la revisión: 1 (sin problemas), 2 (con observaciones), 3 (no aprueba).
+     */
     private int estado;
 
     /**
-     * Constructor vacío. Genera un ID de revisión único.
+     * Constructor vacío que genera un identificador único para la revisión.
      */
     public Revision() {
         this.identificadorRevision = "RV" + UUID.randomUUID().toString();
@@ -42,17 +59,14 @@ public class Revision {
      */
     public Revision(int identificadorVisitaEnTerreno, String nombreAlusivoRevision,
                     String detalleParaRevisar, int estado) {
-        // El identificador de revisión siempre se genera automáticamente para unicidad
         this.identificadorRevision = "RV" + UUID.randomUUID().toString();
 
-        // Aplicamos las validaciones llamando a los setters. Esto asegura que la lógica de validación se reutilice.
         try {
-            this.setIdentificadorVisitaEnTerreno(identificadorVisitaEnTerreno);
+            this.identificadorVisitaEnTerreno = identificadorVisitaEnTerreno;
             this.setNombreAlusivoRevision(nombreAlusivoRevision);
             this.setDetalleParaRevisar(detalleParaRevisar);
             this.setEstado(estado);
         } catch (IllegalArgumentException e) {
-            // Relanzamos la excepción con un mensaje más específico para fallos en el constructor
             throw new IllegalArgumentException("Error al crear Revisión: " + e.getMessage(), e);
         }
     }
@@ -74,6 +88,14 @@ public class Revision {
     public int getIdentificadorVisitaEnTerreno() {
         return identificadorVisitaEnTerreno;
     }
+    
+    /**
+     * Asigna el ID de la visita en terreno.
+     * @param identificadorVisitaEnTerreno El ID de la visita en terreno a asignar.
+     */
+    public void setIdentificadorVisitaEnTerreno(int identificadorVisitaEnTerreno) {
+        this.identificadorVisitaEnTerreno = identificadorVisitaEnTerreno;
+    }
 
     /**
      * Obtiene el nombre alusivo de la revisión.
@@ -90,10 +112,8 @@ public class Revision {
      */
     public void setNombreAlusivoRevision(String nombre) {
         try {
-            // Validacion.validarLargoString(String, int, int) validará la longitud y la obligatoriedad.
             this.nombreAlusivoRevision = Validacion.validarLargoString(nombre, 10, 50);
         } catch (IllegalArgumentException e) {
-            // Se propaga la excepción con un mensaje más específico para este campo
             throw new IllegalArgumentException("Nombre alusivo a la revisión: " + e.getMessage(), e);
         }
     }
@@ -115,15 +135,12 @@ public class Revision {
      * @throws IllegalArgumentException si el detalle excede los 100 caracteres.
      */
     public void setDetalleParaRevisar(String detalle) {
-        // Si el detalle es nulo o vacío, lo manejamos como un valor aceptable (no es obligatorio).
         if (detalle == null || detalle.trim().isEmpty()) {
-            this.detalleParaRevisar = ""; // O podrías dejarlo como null si prefieres.
+            this.detalleParaRevisar = "";
         } else {
             try {
-                // Validacion.validarLargoString(String, int) verificará que no exceda los 100 caracteres.
                 this.detalleParaRevisar = Validacion.validarLargoString(detalle, 100);
             } catch (IllegalArgumentException e) {
-                // Se propaga la excepción con un mensaje más específico para este campo
                 throw new IllegalArgumentException("Detalle para revisar: " + e.getMessage(), e);
             }
         }
@@ -140,13 +157,11 @@ public class Revision {
     /**
      * Asigna el estado de la revisión.
      * Válido: 1 (sin problemas), 2 (con observaciones), 3 (no aprueba).
-     * @param estado Nuevo estado.
+     * @param estado Nuevo estado a asignar.
      * @throws IllegalArgumentException si el estado no es 1, 2 o 3.
      */
     public void setEstado(int estado) {
-        // Reutilizamos el método validarEstadoRevision de tu clase Validacion.
         if (!Validacion.validarEstadoRevision(estado)) {
-            // Se propaga la excepción con un mensaje específico
             throw new IllegalArgumentException("Estado inválido. Debe ser 1 (sin problemas), 2 (con observaciones), o 3 (no aprueba).");
         }
         this.estado = estado;
@@ -154,7 +169,7 @@ public class Revision {
 
     /**
      * Retorna una representación en String del objeto Revisión.
-     * @return Descripción de la revisión.
+     * @return Una cadena de texto con los detalles de la revisión.
      */
     @Override
     public String toString() {

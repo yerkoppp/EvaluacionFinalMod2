@@ -24,7 +24,7 @@ public class Accidente {
 	private String rutCliente;
 	
 	/**
-	 * Fecha del accidente en formato DD/MM/AAAA.
+	 * Día del accidente en formato DD/MM/AAAA.
 	 */
 	private LocalDate dia;
 	
@@ -71,12 +71,12 @@ public class Accidente {
 		super();
 
 		this.identificadorAccidente = "AC" + UUID.randomUUID().toString();
-		this.rutCliente = Validacion.validarRut(rutCliente);
-		this.dia = Validacion.validarFecha(dia);
-		this.hora = Validacion.validarHora(hora);
-		this.lugar = Validacion.validarLargoString(lugar, 10, 50);
-		this.origen = Validacion.validarLargoString(origen, 100);
-		this.consecuencias = Validacion.validarLargoString(consecuencias, 100);
+		setRutCliente(rutCliente);
+		setDia(dia);
+		setHora(hora);
+		setLugar(lugar);
+		setOrigen(origen);
+		setConsecuencias(consecuencias);
 	}
 	
 	
@@ -119,7 +119,8 @@ public class Accidente {
 	 * @param dia La fecha del accidente en formato String "DD/MM/AAAA".
 	 */
 	public void setDia(String dia) {
-		this.dia = Validacion.validarFecha(dia);
+			
+		this.dia = Validacion.validarFechaPasada(Validacion.validarFecha(dia));
 	}
 
 
@@ -201,7 +202,7 @@ public class Accidente {
 				
 		return String.format("Accidente [ ID: %s, RUT Cliente: %s, Día: %s, Hora: %s, "
 				+ "Lugar: %s, Origen: %s, Consecuencias: %s ]",
-				identificadorAccidente, rutCliente, dia, hora, lugar, origen, consecuencias);
+				identificadorAccidente, rutCliente, getDia(), getHora(), lugar, origen, consecuencias);
 	} 
 
 }
