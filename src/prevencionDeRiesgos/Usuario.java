@@ -169,6 +169,7 @@ public class Usuario implements Asesoria {
 				Validacion.calcularEdad(fechaNacimiento));
 	}
 
+	
 	@Override
 	public String analizarUsuario() {
 		return String.format("Nombre: %s. RUT: %s", nombre, run);
