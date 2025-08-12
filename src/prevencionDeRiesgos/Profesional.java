@@ -99,16 +99,24 @@ public class Profesional extends Usuario {
 	 * 
 	 * @param fechaIngreso la fecha de ingreso a establecer (formato DD/MM/AAAA)
 	 */
+	
 	public void setFechaIngreso(String fechaIngreso) {
-		if (fechaIngreso == null || fechaIngreso.trim().isEmpty()) {
-			this.fechaIngreso = null;
-		}
-		if (Validacion.validarFecha(fechaIngreso) != null) {
-			this.fechaIngreso = fechaIngreso;
-		} else {
-			throw new IllegalArgumentException(
-					"⚠️ Fecha o formato incorrecto.");
-		}
+	    // Si la fecha es nula o vacía, la asigna a null y TERMINA el método.
+	    if (fechaIngreso == null || fechaIngreso.trim().isEmpty()) {
+	        this.fechaIngreso = null;
+	        return; // <-- ¡Este es el cambio clave!
+	    }
+	    
+	    // Si el código llega aquí, la fecha no es nula ni vacía.
+	    // Procede a validar que el formato sea correcto.
+	    try {
+	        Validacion.validarFecha(fechaIngreso);
+	        this.fechaIngreso = fechaIngreso;
+	    } catch (IllegalArgumentException e) {
+	        // Captura la excepción de Validacion y la relanza con un mensaje específico.
+	        throw new IllegalArgumentException(
+	                "⚠️ Fecha de ingreso inválida. Utilice DD/MM/AAAA.");
+	    }
 	}
 
 	// ======================= MÉTODOS ESPECIALES =======================
@@ -123,17 +131,20 @@ public class Profesional extends Usuario {
 	 */
 	@Override
 	public String mostrarDatos() {
-		return String.format(
-				"RUT: %s\n" + "Nombre: %s\n" + "Fecha de Nacimiento: %s\n"
-						+ "Titulo: %s\n" + "Fecha de ingreso: %s",
-				super.getNombre(), super.getRun(), super.getFechaNacimiento(),
-				titulo, fechaIngreso != null ? fechaIngreso : "No informado");
+	    return String.format(
+	            "RUT: %s\n" + "Nombre: %s\n" + "Fecha de Nacimiento: %s\n"
+	                    + "Titulo: %s\n" + "Fecha de ingreso: %s",
+	            super.getRun(),
+	            super.getNombre(), 
+	            super.getFechaNacimiento(),
+	            titulo,
+	            fechaIngreso != null ? fechaIngreso : "No informado");
 	}
+
 
 	@Override
 	public String analizarUsuario() {
-		return "Tipo Usuario: Profesional, " + super.analizarUsuario() + ", "
-				+ toString();
+	    return "Tipo Usuario: Profesional, " + super.analizarUsuario() + ", " + toString();
 	}
 
 	@Override

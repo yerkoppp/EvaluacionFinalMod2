@@ -125,7 +125,7 @@ public class Administrativo extends Usuario{
 				+ "Fecha de Nacimiento: %s\n"
 				+ "Area: %s\n"
 				+ "Experiencia previa: %s", 
-		        super.getNombre(), super.getRun(), super.getFechaNacimiento()
+		        super.getRun(), super.getNombre(), super.getFechaNacimiento()
 		        , area, experienciaPrevia != null ? experienciaPrevia : "No informado");
 	}
 	
