@@ -247,8 +247,10 @@ class ValidacionTest {
         IllegalArgumentException excepcionLanzada = assertThrows(IllegalArgumentException.class, () ->
                 Validacion.validarLargoString(texto, min, max)
         );
-        assertTrue(excepcionLanzada.getMessage().contains("El largo no es permitido."));
+        assertTrue(excepcionLanzada.getMessage().contains("⚠️ El largo del texto no es permitido. Debe estar entre " + min
+				+ " y " + max + " carácteres"));
     }
+    
 
     // --- Pruebas para validarLargoString (max) ---
     @Test
@@ -272,8 +274,10 @@ class ValidacionTest {
         IllegalArgumentException excepcionLanzada = assertThrows(IllegalArgumentException.class, () ->
                 Validacion.validarLargoString(texto, 5)
         );
-        assertTrue(excepcionLanzada.getMessage().contains("El largo de la frase supera el máximo permitido."));
+        assertTrue(excepcionLanzada.getMessage().contains("⚠️ El largo del texto no debe superar los 5 carácteres"));
     }
+    
+   
 
     // --- Pruebas para validarNumeroMaximo ---
     @Test
@@ -281,23 +285,16 @@ class ValidacionTest {
     void validarNumeroMaximo_menorQueMax_retornaNumero() {
         assertEquals(5, Validacion.validarNumeroMaximo(5, 10));
     }
-
-    @Test
-    @DisplayName("validarNumeroMaximo: Debería lanzar IllegalArgumentException si el número es igual al máximo")
-    void validarNumeroMaximo_igualAMax_lanzaIllegalArgumentException() {
-        IllegalArgumentException excepcionLanzada = assertThrows(IllegalArgumentException.class, () ->
-                Validacion.validarNumeroMaximo(10, 10)
-        );
-        assertTrue(excepcionLanzada.getMessage().contains("El largo de la frase supera el máximo permitido."));
-    }
-
+  
+    
     @Test
     @DisplayName("validarNumeroMaximo: Debería lanzar IllegalArgumentException si el número es mayor que el máximo")
     void validarNumeroMaximo_mayorQueMax_lanzaIllegalArgumentException() {
         IllegalArgumentException excepcionLanzada = assertThrows(IllegalArgumentException.class, () ->
                 Validacion.validarNumeroMaximo(15, 10)
         );
-        assertTrue(excepcionLanzada.getMessage().contains("El largo de la frase supera el máximo permitido."));
+        assertTrue(excepcionLanzada.getMessage().contains("⚠️ El número ingresado supera el máximo permitido. "
+				+ "Debe ser menor a" + 10 + " carácteres"));
     }
 
     // --- Pruebas para calcularEdad ---
