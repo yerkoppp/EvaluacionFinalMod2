@@ -24,7 +24,7 @@ public class Capacitacion {
 	private String rutCliente;
 	
 	/**
-	 * Día de la semana de la capacitación (ej. "LUNES").
+	 * Día de la semana de la capacitación (Lunes a Domingo).
 	 */
 	private String dia;
 	
@@ -34,12 +34,12 @@ public class Capacitacion {
 	private LocalTime hora;
 	
 	/**
-	 * Lugar donde se realizará la capacitación.
+	 * Lugar donde se realizará la capacitación, con un largo entre 10 y 50 caracteres.
 	 */
 	private String lugar;
 	
 	/**
-	 * Duración de la capacitación como texto (ej. "60 minutos").
+	 * Duración de la capacitación como texto (ej. "60 minutos"), con un máximo de 70 caracteres..
 	 */
 	private String duracion;
 	
@@ -49,8 +49,8 @@ public class Capacitacion {
 	private int cantidadAsistentes;
 	
 	/**
-	 * Constructor vacío que genera un identificador único.
-	 */
+     * Constructor vacío que genera un identificador único para la capacitación.
+     */
 	public Capacitacion() {
 		// TODO Auto-generated constructor stub
 		this.identificador = "CP" + UUID.randomUUID().toString();
@@ -70,18 +70,17 @@ public class Capacitacion {
 	public Capacitacion(String rutCliente, String dia,
 			String hora, String lugar, String duracion,
 			int cantidadAsistentes) {
-		super();
 		
 		this.identificador = "CP" + UUID.randomUUID().toString();
-		this.rutCliente = Validacion.validarRut(rutCliente);
-		this.dia = Validacion.validarDia(dia);
-		this.hora = Validacion.validarHora(hora);
-		this.lugar = Validacion.validarLargoString(lugar, 10, 50);
-		this.duracion = Validacion.validarLargoString(duracion, 70);
-		this.cantidadAsistentes = Validacion.validarNumeroMaximo(cantidadAsistentes, 1000);
+		this.setRutCliente(rutCliente);
+	    this.setDia(dia);
+	    this.setHora(hora);
+	    this.setLugar(lugar);
+	    this.setDuracion(duracion);
+	    this.setCantidadAsistentes(cantidadAsistentes);
 	}
 
-	//Métodos
+	// --- Métodos Getters y Setters ---
 
 	/**
 	 * Retorna el identificador único de la capacitación.
