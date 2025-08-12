@@ -15,7 +15,7 @@ public class BaseDatos {
 
 	public static void ingresarCapacitaciones(Contenedor contenedor) {
 		// Crear capacitaciones
-		Capacitacion capacitacion1 = new Capacitacion(1001, // identificador
+		Capacitacion capacitacion1 = new Capacitacion( 
 				"18.234.567-9", // rutCliente
 				"Lunes", // día
 				"10:00", // hora
@@ -24,7 +24,7 @@ public class BaseDatos {
 				25 // cantidad de asistentes
 		);
 
-		Capacitacion capacitacion2 = new Capacitacion(1002, // identificador
+		Capacitacion capacitacion2 = new Capacitacion( 
 				"16.715.932-K", // rutCliente
 				"Miércoles", // día
 				"14:30", // hora
