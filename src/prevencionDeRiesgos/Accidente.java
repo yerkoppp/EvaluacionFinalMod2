@@ -201,7 +201,7 @@ public class Accidente {
 				
 		return String.format("Accidente [ ID: %s, RUT Cliente: %s, Día: %s, Hora: %s, "
 				+ "Lugar: %s, Origen: %s, Consecuencias: %s ]",
-				identificadorAccidente, rutCliente, dia, hora, lugar, origen, consecuencias);
+				identificadorAccidente, rutCliente, getDia(), getHora(), lugar, origen, consecuencias);
 	} 
 
 }
