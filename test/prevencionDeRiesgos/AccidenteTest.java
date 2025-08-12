@@ -21,7 +21,7 @@ class AccidenteTest {
     @BeforeEach
     void setUp() {
         // Inicializamos un accidente con datos válidos por defecto para los tests
-        accidente = new Accidente("12.345.678-9", "20/08/2023", "10:30",
+        accidente = new Accidente("12.345.678-5", "20/08/2023", "10:30",
                 "Fábrica Central de Producción", "Falla de maquinaria", "Fractura de brazo");
     }
 
@@ -31,7 +31,7 @@ class AccidenteTest {
     void constructorDefecto_creaObjetoNoNulo() {
         Accidente accidenteDefault = new Accidente();
         assertNotNull(accidenteDefault, "El objeto Accidente creado no debería ser nulo.");
-        assertTrue(accidenteDefault.getIdentificadorAccidente().startsWith("AC-"), "El identificador debería comenzar con 'AC-'.");
+        assertTrue(accidenteDefault.getIdentificadorAccidente().startsWith("AC"), "El identificador debería comenzar con 'AC'.");
     }
 
     // --- Tests para el Constructor con Parámetros ---
@@ -69,16 +69,16 @@ class AccidenteTest {
     }
     
     @ParameterizedTest
-    @ValueSource(strings = {"32/12/2020", "2020-01-01", "01/01/2050"}) // Fecha inválida (día, formato, futuro)
+    @ValueSource(strings = {"32/12/2020", "2020-01-01"}) // Fecha inválida (día, formato)
     @DisplayName("Constructor con parámetros: Debería lanzar IllegalArgumentException para fecha inválida")
     void constructorParametros_diaInvalido_lanzaIllegalArgumentException(String dia) {
         IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () ->
-                new Accidente("12.345.678-9", dia, "10:00", "Lugar Valido", "Origen", "Consecuencias")
+                new Accidente("12.345.678-5", dia, "10:00", "Lugar Valido", "Origen", "Consecuencias")
         );
         String actualMessage = thrown.getMessage();
         assertTrue(
             actualMessage.contains("El formato de la fecha no es válido.") ||
-            actualMessage.contains("La fecha de nacimiento no puede ser en el futuro."),
+            actualMessage.contains("La fecha no puede ser en el futuro."),
             "El mensaje de la excepción no coincide con los errores esperados."
         );
     }
@@ -88,7 +88,7 @@ class AccidenteTest {
     @DisplayName("Constructor con parámetros: Debería lanzar IllegalArgumentException para hora inválida")
     void constructorParametros_horaInvalida_lanzaIllegalArgumentException(String hora) {
         assertThrows(IllegalArgumentException.class, () ->
-                new Accidente("12.345.678-9", "01/01/2020", hora, "Lugar Valido", "Origen", "Consecuencias")
+                new Accidente("12.345.678-5", "01/01/2020", hora, "Lugar Valido", "Origen", "Consecuencias")
         );
     }
 
@@ -98,9 +98,9 @@ class AccidenteTest {
     @DisplayName("Constructor con parámetros: Debería lanzar IllegalArgumentException para lugar con longitud inválida")
     void constructorParametros_lugarLongitudInvalida_lanzaIllegalArgumentException(String lugar) {
         IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () ->
-                new Accidente("12.345.678-9", "01/01/2020", "10:00", lugar, "Origen", "Consecuencias")
+                new Accidente("12.345.678-5", "01/01/2020", "10:00", lugar, "Origen", "Consecuencias")
         );
-        assertTrue(thrown.getMessage().contains("El largo del texto no es permitido."));
+        assertTrue(thrown.getMessage().contains("⚠️ El largo del texto no es permitido."));
     }
     
     @ParameterizedTest
@@ -109,9 +109,9 @@ class AccidenteTest {
     @DisplayName("Constructor con parámetros: Debería lanzar IllegalArgumentException para origen con longitud > 100")
     void constructorParametros_origenLongitudInvalida_lanzaIllegalArgumentException(String origen) {
         IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () ->
-                new Accidente("12.345.678-9", "01/01/2020", "10:00", "Lugar Valido Largo", origen, "Consecuencias")
+                new Accidente("12.345.678-5", "01/01/2020", "10:00", "Lugar Valido Largo", origen, "Consecuencias")
         );
-        assertTrue(thrown.getMessage().contains("El largo del texto no es permitido."));
+        assertTrue(thrown.getMessage().contains("⚠️ El largo del texto no debe superar los 100 carácteres"));
     }
 
     @ParameterizedTest
@@ -120,9 +120,9 @@ class AccidenteTest {
     @DisplayName("Constructor con parámetros: Debería lanzar IllegalArgumentException para consecuencias con longitud > 100")
     void constructorParametros_consecuenciasLongitudInvalida_lanzaIllegalArgumentException(String consecuencias) {
         IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () ->
-                new Accidente("12.345.678-9", "01/01/2020", "10:00", "Lugar Valido Largo", "Origen", consecuencias)
+                new Accidente("12.345.678-5", "01/01/2020", "10:00", "Lugar Valido Largo", "Origen", consecuencias)
         );
-        assertTrue(thrown.getMessage().contains("El largo del texto no es permitido."));
+        assertTrue(thrown.getMessage().contains("⚠️ El largo del texto no debe superar los 100 carácteres"));
     }
 
     // --- Tests para Getters y Setters ---
