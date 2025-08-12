@@ -60,8 +60,8 @@ class UsuarioTest {
         );
         // El mensaje de error esperado es el de Usuario.setNombre, que concatena el de Validacion.validarLargoString
         // "Nombre inválido: ⚠️ El largo no es permitido. Debe estar entre 10 y 50 carácteres"
-        assertTrue(thrown.getMessage().contains("Nombre inválido: ⚠️ El largo no es permitido."));
-        assertTrue(thrown.getMessage().contains("Debe estar entre 10 y 50 carácteres"));
+        assertTrue(thrown.getMessage().contains("Nombre inválido: ⚠️ El largo del texto no es permitido. Debe estar entre 10 y 50 carácteres"));
+        assertTrue(thrown.getMessage().contains("Nombre inválido: ⚠️ El largo del texto no es permitido. Debe estar entre 10 y 50 carácteres"));
     }
 
     @ParameterizedTest
@@ -197,8 +197,8 @@ class UsuarioTest {
         );
         // El mensaje de error esperado es el de Usuario.setNombre, que concatena el de Validacion.validarLargoString
         // "Nombre inválido: ⚠️ El largo no es permitido. Debe estar entre 10 y 50 carácteres"
-        assertTrue(thrown.getMessage().contains("Nombre inválido: ⚠️ El largo no es permitido."));
-        assertTrue(thrown.getMessage().contains("Debe estar entre 10 y 50 carácteres"));
+        assertTrue(thrown.getMessage().contains("Nombre inválido: ⚠️ El largo del texto no es permitido. Debe estar entre 10 y 50 carácteres"));
+        assertTrue(thrown.getMessage().contains("Nombre inválido: ⚠️ El largo del texto no es permitido. Debe estar entre 10 y 50 carácteres"));
     }
 
     // setFechaNacimiento
@@ -306,7 +306,7 @@ class UsuarioTest {
     @Test
     @DisplayName("analizarUsuario: Debería retornar el String con nombre y RUT para análisis")
     void analizarUsuario_retornaStringAnalisis() {
-        String expected = String.format("\nNombre: %s. RUT: %s\n", usuario.getNombre(), usuario.getRun());
+        String expected = String.format("Nombre: %s. RUT: %s", usuario.getNombre(), usuario.getRun());
         assertEquals(expected, usuario.analizarUsuario());
     }
 
