@@ -46,7 +46,8 @@ class ContenedorTest {
         );
 
         // Capacitacion de prueba
-        capacitacion = new Capacitacion(1001, // identificador
+        capacitacion = new Capacitacion(
+        		//capacitacion = new Capacitacion(1001, // identificador
                 "18.234.567-9", // rutCliente
                 "Lunes", // día
                 "10:00", // hora
