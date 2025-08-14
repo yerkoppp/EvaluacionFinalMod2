@@ -1,8 +1,46 @@
+/**
+ * @author Jhoseph Quiroga
+ * @version 1.0
+ * @since 1.0
+ */
+
 package prevencionDeRiesgos;
 
-
+/**
+ * Clase utilitaria que proporciona métodos para cargar datos de prueba 
+ * en el sistema de gestión de prevención de riesgos.
+ *
+ * Esta clase no se instancia. Contiene únicamente métodos estáticos que 
+ * permiten poblar el sistema con datos predefinidos de capacitaciones, 
+ * clientes, profesionales y administrativos. Es útil para pruebas, 
+ * demostraciones o inicialización rápida del sistema sin requerir 
+ * entrada manual del usuario.
+ *
+ * Todos los datos son creados directamente en código y almacenados 
+ * en un objeto {@link Contenedor} proporcionado como parámetro.
+ *
+ * 
+ * @see Contenedor
+ * @see Capacitacion
+ * @see Cliente
+ * @see Profesional
+ * @see Administrativo
+ */
 public class BaseDatos {
-
+	
+    /**
+     * Carga conjuntos completos de datos de prueba en el contenedor especificado.
+     * 
+     * Este método llama a los métodos individuales para ingresar:
+     * - Capacitaciones
+     * - Administrativos
+     * - Clientes
+     * - Profesionales
+     * 
+     * Una vez completada la carga, imprime un mensaje de confirmación.
+     *
+     * @param contenedor el contenedor donde se almacenarán los datos de prueba
+     */
 	public static void ingresarDatos(Contenedor contenedor) {
 
 		ingresarCapacitaciones(contenedor);
@@ -13,6 +51,14 @@ public class BaseDatos {
 
 	}
 
+    /**
+     * Crea y almacena capacitaciones de ejemplo en el contenedor.
+     *
+     * Se generan dos capacitaciones con datos realistas, asociadas a clientes 
+     * existentes (por RUT), con día, hora, lugar, duración y cantidad de asistentes.
+     *
+     * @param contenedor el contenedor donde se agregarán las capacitaciones
+     */
 	public static void ingresarCapacitaciones(Contenedor contenedor) {
 		// Crear capacitaciones
 		Capacitacion capacitacion1 = new Capacitacion( 
@@ -40,6 +86,17 @@ public class BaseDatos {
 		
 	}
 
+    /**
+     * Crea y almacena administrativos de ejemplo en el contenedor.
+     *
+     * Se generan dos administrativos con nombre, fecha de nacimiento, RUT, 
+     * área de trabajo y experiencia previa. Los datos se validan a través 
+     * del constructor. Si ocurre un error de validación, se captura la excepción 
+     * y se muestra el mensaje, pero no se detiene el flujo principal.
+     *
+     * @param contenedor el contenedor donde se agregarán los administrativos
+     * @throws NullPointerException si el contenedor es null
+     */
 	public static void ingresarAdministrativos(Contenedor contenedor) {
 		// Creacion de administrativos
 
@@ -67,6 +124,17 @@ public class BaseDatos {
 		
 	}
 
+    /**
+     * Crea y almacena clientes de ejemplo en el contenedor.
+     *
+     * Se generan dos clientes con todos sus datos: RUT, nombres, apellidos, 
+     * fecha de nacimiento, teléfono, AFP, sistema de salud, dirección, comuna y edad.
+     * Los datos se validan en el constructor. Si hay errores, se captura la excepción 
+     * y se muestra el mensaje sin detener el programa.
+     *
+     * @param contenedor el contenedor donde se agregarán los clientes
+     * @throws NullPointerException si el contenedor es null
+     */
 	public static void ingresarClientes(Contenedor contenedor) {
 		// Creacion de clientes
 		try {
@@ -107,6 +175,16 @@ public class BaseDatos {
 
 	}
 
+	/**
+     * Crea y almacena profesionales de ejemplo en el contenedor.
+     *
+     * Se generan dos profesionales con nombre, fecha de nacimiento, RUT, 
+     * título y fecha de ingreso. Si ocurre un error en la validación de datos 
+     * durante la creación, se captura la excepción y se muestra un mensaje de error.
+     *
+     * @param contenedor el contenedor donde se agregarán los profesionales
+     * @throws NullPointerException si el contenedor es null
+     */
 	public static void ingresarProfesionales(Contenedor contenedor) {
 
 		// Creacion de profesionales

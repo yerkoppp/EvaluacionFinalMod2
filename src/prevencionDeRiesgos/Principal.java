@@ -1,6 +1,8 @@
-/**
- * 
- * @author Yerko Osorio
+/** 
+* @author Yerko Osorio
+ * @author Jhoseph Quiroga
+ * @version 1.0
+ * @since 1.0
  * @author Luis Guevara
  * @author Jhoseph Quiroga
  * @author Norma Armijo
@@ -11,6 +13,31 @@ package prevencionDeRiesgos;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+
+/**
+ * Clase principal que actúa como punto de entrada y controlador del sistema 
+ * de gestión de prevención de riesgos.
+ *
+ * Esta clase gestiona la interacción con el usuario mediante un menú interactivo 
+ * en consola, permitiendo realizar operaciones como registrar clientes, 
+ * profesionales y administrativos; almacenar y listar capacitaciones; eliminar 
+ * usuarios; y listar usuarios por tipo.
+ *
+ * Utiliza un objeto Contenedor para almacenar y gestionar los datos de forma 
+ * centralizada. El flujo del programa se controla mediante un bucle en el método 
+ * main, que se mantiene activo hasta que el usuario selecciona la opción de salir.
+ *
+ * Todos los métodos son estáticos para facilitar su acceso directo desde el 
+ * método principal, sin necesidad de instanciar la clase.
+ *
+ *
+ * @see Contenedor
+ * @see Usuario
+ * @see Cliente
+ * @see Profesional
+ * @see Administrativo
+ * @see Capacitacion
+ */
 public class Principal {
 
 	static Scanner sc = new Scanner(System.in);
