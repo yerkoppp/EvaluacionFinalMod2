@@ -171,8 +171,8 @@ public final class Validacion {
 	 * Valida que la longitud de un texto esté dentro del rango especificado.
 	 * 
 	 * @param stringEvaluado Texto a validar (no puede ser null)
-	 * @param min            Longitud mínima permitida (inclusive)
-	 * @param max            Longitud máxima permitida (inclusive)
+	 * @param minimo Longitud mínima permitida (inclusive)
+	 * @param maximo Longitud máxima permitida (inclusive)
 	 * @return stringEvaluado, corresponde a el texto validado
 	 * @throws IllegalArgumentException si el texto es null o su longitud no
 	 *                                  está en el rango.

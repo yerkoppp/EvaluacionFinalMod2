@@ -1,5 +1,7 @@
 /**
  * @author Luis Guevara
+ * @version 1.0
+ * @since 1.0
  */
 
 package prevencionDeRiesgos;
@@ -8,17 +10,64 @@ import java.time.LocalDate; // Necesario para almacenar fechas validadas
 import java.time.LocalTime; // Necesario para almacenar horas validadas
 import java.util.UUID;
 
+/**
+ * Representa una visita realizada en terreno a un cliente dentro del sistema 
+ * de prevención de riesgos.
+ *
+ * Esta clase encapsula la información relevante de una visita, como el cliente 
+ * asociado (por RUT), fecha, hora, lugar y comentarios. Cada visita se identifica 
+ * de forma única mediante un identificador generado automáticamente usando UUID.
+ *
+ * Los datos ingresados son validados mediante la clase Validacion, asegurando 
+ * que cumplan con formatos esperados (RUT válido, fecha en formato DD/MM/AAAA, 
+ * hora en HH:MM, longitud máxima de comentarios, etc.).
+ *
+ *
+ * @see Validacion
+ */
 public class VisitaEnTerreno {
-    // Atributos
-    private String identificadorVisitaEnTerreno;
-    private String rutCliente; // Ahora un String para coincidir con Validacion.validarRut()
-    private LocalDate dia; // Cambiado a LocalDate para almacenar el objeto de fecha parseado
-    private LocalTime hora; // Cambiado a LocalTime para almacenar el objeto de hora parseado
-    private String lugar;
-    private String comentarios;
+	// Atributos
 
     /**
-     * Constructor vacío. Genera un UUID para el identificador.
+     * Identificador único de la visita, generado automáticamente con un prefijo "VT" 
+     * seguido de un UUID. No puede ser modificado una vez creado.
+     */
+    private String identificadorVisitaEnTerreno;
+
+    /**
+     * RUT del cliente asociado a la visita, validado en formato estándar chileno 
+     * (ej: 12.345.678-9). Se almacena como String tras pasar la validación.
+     */
+    private String rutCliente;
+
+    /**
+     * Fecha de la visita, almacenada como objeto LocalDate tras validación del formato 
+     * DD/MM/AAAA. Permite manipulación segura de fechas.
+     */
+    private LocalDate dia;
+
+    /**
+     * Hora de la visita, almacenada como objeto LocalTime tras validación del formato 
+     * HH:MM. Permite manipulación precisa de horas.
+     */
+    private LocalTime hora;
+
+    /**
+     * Lugar donde se realiza la visita. Campo obligatorio, no puede ser nulo ni vacío.
+     */
+    private String lugar;
+
+    /**
+     * Comentarios adicionales sobre la visita. Opcional, pero si se proporciona, 
+     * no debe exceder los 100 caracteres.
+     */
+    private String comentarios;
+
+
+    /**
+     * Constructor por defecto.
+     * Genera un identificador único para la visita utilizando UUID, con el prefijo "VT".
+     * Los demás campos deben ser establecidos posteriormente mediante setters.
      */
     public VisitaEnTerreno() {
         this.identificadorVisitaEnTerreno = "VT" + UUID.randomUUID().toString();
