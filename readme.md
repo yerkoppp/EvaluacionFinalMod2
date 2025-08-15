@@ -22,7 +22,7 @@ A continuación se muestra el diagrama UML del sistema:
 
 ![Diagrama de Clases](img/diagrama-clases.jpg)
 
-> El diagrama muestra las relaciones de herencia, implementación y asociación entre las clases principales del sistema.
+> El diagrama muestra las relaciones de herencia, implementación y asociación entre las principales clases del sistema.
 
 ### 📦 Estructura de Clases
 
